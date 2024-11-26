@@ -71,6 +71,11 @@ Nếu không có gì thay đổi thì chắc mình sẽ có 2 layout:
 1. Layout cho users
 2. Layout cho admin
 
+#### Run
+```
+npm run dev
+```
+
 Mục đích của layout là để tránh lặp đi lặp lại thui và giúp anh em tập trung vô phần content hơn.
 
 ### Back end
