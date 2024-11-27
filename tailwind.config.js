@@ -13,6 +13,16 @@ export default {
       blue: {
         700: '#1D4ED8',  // Example color definition for blue-700
       },
+      green: {
+        100: '#ECFADC',
+        700: '#9FD4A3',
+      },
+      white: {
+        100: '#FFFFFF',
+      },
+      black: {
+        900: '#000000',
+      },
     },
     extend: {},
   },

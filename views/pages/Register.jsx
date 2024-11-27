@@ -38,7 +38,7 @@ export default function Register() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                        className="w-full py-2 bg-green-100 text-black-900 rounded-lg hover:bg-green-700"
                     >
                         Đăng Ký
                     </button>

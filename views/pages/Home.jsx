@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     return (
         <div className="p-4 bg-gray-100 flex items-center justify-center">
-            <div className="max-w-7xl mx-auto text-center p-4 bg-white rounded-lg shadow-lg">
+            <div className="max-w-7xl mx-auto text-center p-4 bg-white-100 rounded-lg shadow-lg">
                 
                 <div className="mb-8">
                     <img
@@ -13,20 +13,20 @@ const Home = () => {
                     />
                 </div>
 
-                <h1 className="text-4xl font-bold text-gray-800 mb-4">Chào Mừng Đến Với 2Hand!</h1>
-                <p className="text-lg text-gray-600 mb-6">Cung cấp sản phẩm chất lượng, giá tốt cho bạn</p>
+                <h1 className="text-4xl font-bold mb-4">Chào Mừng Đến Với <span className="text-green-700">2Hand</span>!</h1>
+                <p className="text-lg mb-6">Cung cấp sản phẩm chất lượng, giá tốt cho bạn</p>
 
                
                 <div className="flex justify-center gap-4">
                     <Link
                         to="/login"
-                        className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 transition duration-300"
+                        className="bg-green-100 py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300"
                     >
                         Đăng Nhập
                     </Link>
                     <Link
                         to="/register"
-                        className="bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-600 transition duration-300"
+                        className="bg-green-100 py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300"
                     >
                         Đăng Ký
                     </Link>
