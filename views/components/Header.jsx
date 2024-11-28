@@ -10,7 +10,7 @@ const Header = () => {
                         className="w-10 h-10 rounded-full mr-3" 
                     />
                     <div className="logo text-2xl font-bold">
-                        <a href="/">2Hand</a>
+                        <a href="/">ThriftMate</a>
                     </div>
                 </div>
                 </div>

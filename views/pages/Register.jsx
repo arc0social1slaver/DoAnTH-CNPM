@@ -10,9 +10,11 @@ export default function Register() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold mb-6">Đăng Ký</h2>
+        <div className="min-h-screen flex items-center justify-center">
+            <div className="max-w-md w-full bg-white-100 p-8 rounded-lg shadow-lg">
+                <div className="flex items-center justify-center">
+                    <h2 className="text-2xl font-semibold mb-6">Đăng ký</h2>
+                </div>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-gray-700">Email</label>
@@ -30,7 +32,7 @@ export default function Register() {
                         <input
                             type="password"
                             id="password"
-                            className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg"
+                            className="w-full px-4 py-2 mt-2 border border-gray-700 rounded-lg"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
@@ -40,7 +42,7 @@ export default function Register() {
                         type="submit"
                         className="w-full py-2 bg-green-100 text-black-900 rounded-lg hover:bg-green-700"
                     >
-                        Đăng Ký
+                        Đăng ký
                     </button>
                 </form>
             </div>
