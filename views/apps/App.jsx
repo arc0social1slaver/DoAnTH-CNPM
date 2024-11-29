@@ -5,6 +5,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import DefaultLayout from "../layouts/DefaultLayout";
 import AdminLayout from "../layouts/AdminLayout";
+import UserLayout from "../layouts/UserLayout";
 
 const App = () => {
   return (
@@ -21,6 +22,13 @@ const App = () => {
       {/* For Admin */}
       <Routes>
         <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Home />} />
+        </Route>
+      </Routes>
+     
+      {/* For User */}
+      <Routes>
+        <Route path="/user" element={<UserLayout />}>
           <Route index element={<Home />} />
         </Route>
       </Routes>

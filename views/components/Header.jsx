@@ -1,20 +1,35 @@
 const Header = () => {
   return (
-    <header className="bg-green-700 text-white-100 p-2">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
-                <div className="logo text-2xl font-bold">
-                    <div className="flex items-center">
-                    <img
-                        src="https://i.pinimg.com/736x/d2/c7/12/d2c7122f6f018eaf2835a321135f2cde.jpg" 
-                        alt="Logo"
-                        className="w-10 h-10 rounded-full mr-3" 
-                    />
-                    <div className="logo text-2xl font-bold">
-                        <a href="/">ThriftMate</a>
-                    </div>
-                </div>
-                </div>
-        </div>
+    <header className="flex items-center justify-between py-2 px-8 shadow-lg">
+        <a 
+            href="/"
+            className="text-green-700 text-2xl font-bold"
+        >
+            ThriftMate
+        </a>
+        <div className="ml-auto flex items-center space-x-4">
+            <select
+                className="text-colors-gray-500 border border-colors-gray-400 rounded-lg py-2 px-4"
+                defaultValue="vi"
+                onChange={(e) => console.log('Ngôn ngữ chọn:', e.target.value)}
+            >
+                <option value="vi">Tiếng Việt</option>
+                <option value="en">English</option>
+            </select>
+                <a
+                    href="/register"
+                    className="text-colors-gray-500 hover:text-green-700 transition"
+                >
+                    Đăng ký
+                </a>
+                <span className="text-colors-gray-500">|</span>
+                <a
+                    href="/login"
+                    className="text-colors-gray-500 hover:text-green-700 transition"
+                >
+                    Đăng nhập
+                </a>
+            </div>
     </header>
   );
 }

@@ -5,13 +5,13 @@ const Home = () => {
         <div className="min-h-screen flex items-center">
             <div className="flex-1 h-full relative">
                 <img
-                    src="https://i.pinimg.com/736x/45/22/02/452202d6c6e666c9ad91961ba4c641fd.jpg"
-                    alt="Background"
-                    className="m-1 object-cover"
+                    src="../../public/logo.png"
+                    alt="Logo"
+                    className="m-8 object-cover"
                 />
             </div>
-            <div className="flex-1 flex items-center justify-center">
-                <div className="text-center p-8 space-x-4">
+            <div className="flex-1 flex items-center justify-center mr-6">
+                <div className="text-center p-2 space-x-1">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">
                         Chào Mừng Đến Với <span className="text-green-700">ThriftMate</span>!
                     </h1>
@@ -29,7 +29,7 @@ const Home = () => {
                     </a>
                     <a 
                         href="/login-or-register"
-                        className="inline-block bg-green-100 py-2 px-6 rounded-lg hover:bg-green- transition duration-300"
+                        className="inline-block bg-green-100 py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300"
                     >
                         📤 Đăng bán ngay!
                     </a>
