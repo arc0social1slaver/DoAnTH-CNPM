@@ -1,13 +1,21 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUserName] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Registering with:', { email, password });
+        console.log('Registering with:', { email, password, username });
+        setShowPopup(true);
+        setTimeout(() => {
+            setShowPopup(false);
+            navigate('/login');
+        }, 3000);
     };
 
     return (
@@ -40,8 +48,8 @@ export default function Register() {
                     <div className="mb-10">
                         <label htmlFor="password" className="block text-gray-700">Tên người dùng</label>
                         <input
-                            type="password"
-                            id="password"
+                            type="text"
+                            id="text"
                             className="w-full px-4 py-2 mt-1 border border-colors-gray-400 rounded-lg"
                             value={username}
                             onChange={(e) => setUserName(e.target.value)}
@@ -61,6 +69,11 @@ export default function Register() {
                         Đăng ký
                     </button>
                 </form>
+                {showPopup && (
+                    <div className="fixed top-10 right-10 bg-green-700 px-6 py-4 rounded-lg shadow-lg">
+                        <p>Đăng ký thành công!</p>
+                    </div>
+                )}
             </div>
         </div>
     );

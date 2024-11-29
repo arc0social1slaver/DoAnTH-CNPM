@@ -11,7 +11,7 @@ const Home = () => {
                 />
             </div>
             <div className="flex-1 flex items-center justify-center mr-6">
-                <div className="text-center p-2 space-x-1">
+                <div className="text-center p-2 space-x-4">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">
                         Chào Mừng Đến Với <span className="text-green-700">ThriftMate</span>!
                     </h1>
