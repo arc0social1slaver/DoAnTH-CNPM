@@ -1,16 +1,17 @@
-### Project Đồ án CNPM
+# Project Đồ án CNPM
 
 ## Intro
 
 ```bash
 git clone https://github.com/arc0social1slaver/DoAnTH-CNPM.git
 cd DoAnTH-CNPM
+# Both front and end
 npm install
 ```
 
 ## Anh em muốn commit thì nên commit trên một nhánh khác, chỉ nên commit trên main khi đã xong
 
-# Trường hợp chưa tạo nhánh
+### Trường hợp chưa tạo nhánh
 
 Syntanx tạo branch
 
@@ -27,7 +28,7 @@ Tạo xong nhớ push
 git push --set-upstream origin feature/abc
 ```
 
-# Trường hợp đã có branch rùi
+### Trường hợp đã có branch rùi
 
 Chỉ cần
 
@@ -37,7 +38,7 @@ git switch feature/abc
 git checkout feature/abc
 ```
 
-# Push lên repo
+## Push lên repo
 
 ```bash
 git add .
@@ -53,7 +54,7 @@ Trước khi làm gì nên pull về máy trước để tránh conflict nha
 git pull
 ```
 
-### Start project
+## Start project
 
 Anh em nào chưa tải mongodb thì comment những gì liên quan đến nó rồi mới chạy cái ở dưới
 
@@ -71,7 +72,8 @@ Nếu không có gì thay đổi thì chắc mình sẽ có 2 layout:
 1. Layout cho users
 2. Layout cho admin
 
-#### Run
+#### Run Front End
+
 ```
 npm run dev
 ```
@@ -86,3 +88,9 @@ Anh em bên backend nên tải mongo trước nha. Chắc back end sẽ làm ch�
 2. Chat giữa buyer và user (nếu rảnh thì làm)
 
 Có gì thay đổi thì ấy sau. Giờ nhiu đó thui.
+
+#### Run Back End
+
+```
+npm start
+```
