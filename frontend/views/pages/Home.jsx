@@ -1,8 +1,7 @@
-//import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
-        <div className="min-h-screen flex items-center">
+        <div className="min-h-screen flex items-center bg-colors-white">
             <div className="flex-1 h-full relative">
                 <img
                     src="../../public/logo.png"
