@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
   "name": "doan",
   "version": "1.0.0",
   "description": "",
@@ -44,5 +45,27 @@
     "prettier-plugin-tailwindcss": "^0.6.9",
     "tailwindcss": "^3.4.15",
     "vite": "^5.4.11"
+=======
+  "name": "doanth-cnpm",
+  "version": "1.0.0",
+  "description": "```bash\r git clone https://github.com/arc0social1slaver/DoAnTH-CNPM.git\r cd DoAnTH-CNPM\r # Both front and end\r npm install\r ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.0.2"
+  },
+  "dependencies": {
+    "esbuild": "^0.24.0",
+    "nanoid": "^3.3.8",
+    "picocolors": "^1.1.1",
+    "postcss": "^8.4.49",
+    "rollup": "^4.28.0",
+    "source-map-js": "^1.2.1"
+>>>>>>> Stashed changes
   }
 }

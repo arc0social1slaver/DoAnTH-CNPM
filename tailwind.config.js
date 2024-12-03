@@ -22,12 +22,6 @@ export default {
         100: '#ECFADC',
         700: '#9FD4A3',
       },
-      white: {
-        100: '#FFFFFF',
-      },
-      black: {
-        900: '#000000',
-      },
     },
     extend: {},
   },
