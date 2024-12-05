@@ -1,24 +1,18 @@
-import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/user/Navbar';
 import { Outlet } from "react-router-dom";
 
-export default function RootLayout({ children }) {
+const UserLayout = () => {
     return (
-        <html lang="en">
+        <div>
             <Navbar />
-            <body className="min-h-screen flex flex-col">
-                <main className="flex-grow">{children}</main>
-                
+            <div>
                 <Outlet />
-                
-            </body>
+            </div>
             <Footer />
-        </html>
+        </div>
     );
 }
 
-RootLayout.propTypes = {
-    children: PropTypes.node.isRequired,
-};
+export default UserLayout;
 

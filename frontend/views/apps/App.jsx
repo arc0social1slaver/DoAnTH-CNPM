@@ -8,6 +8,11 @@ import AdminLayout from "../layouts/AdminLayout";
 import UserLayout from "../layouts/UserLayout";
 //import Dashboard from "../admin/Dashboard";
 import UserDashboard from "../user/Dashboard";
+import Fashion from "../user/Fashion";
+import Beauty from "../user/Beauty";
+import Documents from "../user/Documents";
+import Electronics from "../user/Electronics";
+import ProductDetail from "../user/ProductDetail";
 
 const App = () => {
   return (
@@ -31,8 +36,12 @@ const App = () => {
       {/* For User */}
       <Routes>
         <Route path="/user" element={<UserLayout />}>
-          
-          <Route path="/user" element={<UserDashboard />} />
+          <Route index element={<UserDashboard />} />
+          <Route path="fashion" element={<Fashion/>} /> 
+          <Route path="beauty" element={<Beauty/>} /> 
+          <Route path="documents" element={<Documents/>} /> 
+          <Route path="electronics" element={<Electronics/>} /> 
+          <Route path="product/:id" element={<ProductDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>
