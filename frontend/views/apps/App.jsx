@@ -6,13 +6,19 @@ import Register from '../pages/Register';
 import DefaultLayout from "../layouts/DefaultLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import UserLayout from "../layouts/UserLayout";
-//import Dashboard from "../admin/Dashboard";
+
 import UserDashboard from "../user/Dashboard";
 import Fashion from "../user/Fashion";
 import Beauty from "../user/Beauty";
 import Documents from "../user/Documents";
 import Electronics from "../user/Electronics";
 import ProductDetail from "../user/ProductDetail";
+
+import AdminDashboard from "../admin/Dashboard";
+import AdminOrders from "../admin/Orders";
+import AdminProducts from "../admin/Products";
+import AdminSetting from "../admin/Setting";
+import AdminUsers from "../admin/Users";
 
 const App = () => {
   return (
@@ -29,7 +35,12 @@ const App = () => {
       {/* For Admin */}
       <Routes>
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Home />} />
+          <Route index element={<AdminDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/orders" element={<AdminOrders />} />
+          <Route path="/admin/products" element={<AdminProducts />} />
+          <Route path="/admin/setting" element={<AdminSetting />} />
         </Route>
       </Routes>
      

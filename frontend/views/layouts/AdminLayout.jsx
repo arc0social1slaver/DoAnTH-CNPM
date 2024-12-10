@@ -2,18 +2,23 @@
  * @description Layout
  * Layout lấy các file từ component và ghép lại với nhau để tạo thành layout hoàn chỉnh chung cho các trang khác nhau
  */
-import Navbar from "../components/admin/Navbar";
-import Sidebar from "../components/admin/Sidebar";
+import Topbar from "../components/admin/Topbar";
+import SideBar from "../components/admin/Sidebar";
+
 
 import { Outlet } from "react-router-dom";
 
 const AdminLayout = () => {
   return (
     <div>
-      <Navbar />
-      <div>
-        <Sidebar />
-        <Outlet />
+      <div className="flex">
+        <div className="w-1/6 h-screen">
+          <SideBar />
+        </div>
+        <div className="w-5/6 flex flex-col h-screen">
+          <Topbar />
+          <Outlet />
+        </div>
       </div>
     </div>
   );

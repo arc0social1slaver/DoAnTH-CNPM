@@ -21,6 +21,7 @@ export default {
       green: {
         100: '#ECFADC',
         700: '#9FD4A3',
+        900: '#69bc6f',
       },
       white: {
         100: '#FFFFFF',

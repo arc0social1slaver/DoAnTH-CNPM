@@ -1,4 +1,4 @@
-import Logo from './Logo';
+import Logo from '../Logo';
 import DashboardButton from './DashboardButton';
 import ProductCategory from './ProductCategory';
 import Search from './Search';

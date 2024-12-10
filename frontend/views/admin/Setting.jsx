@@ -1,9 +1,9 @@
-const Dashboard = () => {
+const AdminSetting = () => {
     return (
         <div className="bg-colors-sky-300 h-screen">
-            This is Dashboard
+            This is Setting
         </div>
     );
 }
 
-export default Dashboard;
+export default AdminSetting;
