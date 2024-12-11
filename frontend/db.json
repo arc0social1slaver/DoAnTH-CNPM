@@ -3,38 +3,58 @@
     {
       "id": 1,
       "name": "Áo Thun Nâu Local Brand",
-      "price": "100,000 VND",
-      "image": "https://i.pinimg.com/736x/95/d2/71/95d271edf1d4d46380991c18a444860f.jpg"
+      "price": 100000,
+      "stock":1,
+      "image": "https://i.pinimg.com/736x/95/d2/71/95d271edf1d4d46380991c18a444860f.jpg",
+      "images": [
+        "https://i.pinimg.com/736x/87/50/55/875055869e25f0fb1e71ec4752342a76.jpg",
+        "https://i.pinimg.com/474x/aa/5a/ed/aa5aed2c71cde0f9036ddc0390028f99.jpg",
+        "https://i.pinimg.com/736x/67/12/95/671295e651e221b93ea71d736d1df0b2.jpg",
+        "https://i.pinimg.com/474x/0d/fd/10/0dfd10d490fd3ff6c7b4d20ce989a7bb.jpg",
+        "https://i.pinimg.com/474x/c1/d0/53/c1d05382785ea77a8fa0e4511665ed26.jpg",
+        "https://i.pinimg.com/474x/d1/9b/a5/d19ba5664082430cf2bda4a1d963d84b.jpg"
+      ],
+      "user": { "name": "Nguyen Van A", "avatar": "https://i.pinimg.com/736x/6d/05/43/6d05435bcf6d6ddd98a2e9186009dc81.jpg" }
     },
     {
       "id": 2,
       "name": "Giáo Trình Triết Học Mác-Lênin",
-      "price": "20,000 VND",
-      "image": "https://i.pinimg.com/736x/88/8f/d2/888fd2ca8ecf53336b2797daf03d62f3.jpg"
+      "price": 20000,
+      "stock":2,
+      "image": "https://i.pinimg.com/736x/88/8f/d2/888fd2ca8ecf53336b2797daf03d62f3.jpg",
+      "user": { "name": "Nguyen Van A", "avatar": "https://i.pinimg.com/736x/6d/05/43/6d05435bcf6d6ddd98a2e9186009dc81.jpg" }
     },
     {
       "id": 3,
       "name": "MacBook Air",
-      "price": "8,000,000 VND",
-      "image": "https://i.pinimg.com/736x/38/65/94/386594135756b1c8572b20991e9dd963.jpg"
+      "price": 8000000,
+      "stock":1,
+      "image": "https://i.pinimg.com/736x/38/65/94/386594135756b1c8572b20991e9dd963.jpg",
+      "user": { "name": "Nguyen Van A", "avatar": "https://i.pinimg.com/736x/6d/05/43/6d05435bcf6d6ddd98a2e9186009dc81.jpg" }
     },
     {
       "id": 4,
       "name": "Đầm Cúp Ngực Hồng Nơ Trắng New 99% Còn Nguyên Tag",
-      "price": "200,000 VND",
-      "image": "https://i.pinimg.com/736x/cc/b7/3a/ccb73a8a9197ce873993afd8b9d88b71.jpg"
+      "price": 200000,
+      "stock":1,
+      "image": "https://i.pinimg.com/736x/cc/b7/3a/ccb73a8a9197ce873993afd8b9d88b71.jpg",
+      "user": { "name": "Nguyen Van A", "avatar": "https://i.pinimg.com/736x/6d/05/43/6d05435bcf6d6ddd98a2e9186009dc81.jpg" }
     },
     {
       "id": 5,
       "name": "Giáo trình Chủ nghĩa Xã hội Khoa học",
-      "price": "30,000 VND",
-      "image": "https://i.pinimg.com/736x/a4/fe/07/a4fe0711c6e2799c4231144085d31a16.jpg"
+      "price": 30000,
+      "stock":4,
+      "image": "https://i.pinimg.com/736x/a4/fe/07/a4fe0711c6e2799c4231144085d31a16.jpg",
+      "user": { "name": "Nguyen Van A", "avatar": "https://i.pinimg.com/736x/6d/05/43/6d05435bcf6d6ddd98a2e9186009dc81.jpg" }
     },
     {
       "id": 6,
       "name": "Son Rom&nd Juicy Lasting Tint màu 25 BARE GRAPE",
-      "price": "99,000 VND",
-      "image": "https://i.pinimg.com/736x/61/df/25/61df254c5ce7f0eac2956a1a8dce2867.jpg"
+      "price": 99000,
+      "stock":1,
+      "image": "https://i.pinimg.com/736x/61/df/25/61df254c5ce7f0eac2956a1a8dce2867.jpg",
+      "user": { "name": "Nguyen Van A", "avatar": "https://i.pinimg.com/736x/6d/05/43/6d05435bcf6d6ddd98a2e9186009dc81.jpg" }
     }
   ]
 }

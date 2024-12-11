@@ -1,21 +1,26 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function Login() {
+const Login = ({ isOpen, closeModal }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
+    if (!isOpen) return null;
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Logging in with:', { email, password });
+        // Call API to login
+        
         navigate('/user');
+        closeModal();
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <div className="max-w-md w-full p-8 rounded-lg shadow-lg">
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+            <div className="bg-colors-white p-6 rounded-lg w-96">
                 <h2 className="text-green-700 text-4xl font-semibold text-center mb-4">ThriftMate</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
@@ -26,6 +31,7 @@ export default function Login() {
                             className="w-full px-4 py-2 mt-2 border border-colors-gray-400 rounded-lg"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Email/ Tên người dùng"
                             required
                         />
                     </div>
@@ -37,6 +43,7 @@ export default function Login() {
                             className="w-full px-4 py-2 mt-2 border border-colors-gray-400 rounded-lg"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Mật khẩu"
                             required
                         />
                     </div>
@@ -45,6 +52,13 @@ export default function Login() {
                         className="w-full py-2 bg-green-100  rounded-lg hover:bg-green-700"
                     >
                         Đăng Nhập
+                    </button>
+                    <button
+                        type="button"
+                        onClick={closeModal}
+                        className="text-gray-500 hover:text-gray-700"
+                    >
+                        Đóng
                     </button>
                 </form>
                 <div className="mt-4 text-center">
@@ -56,3 +70,10 @@ export default function Login() {
         </div>
     );
 }
+
+Login.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    closeModal: PropTypes.func.isRequired,
+};
+
+export default Login;

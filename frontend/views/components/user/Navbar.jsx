@@ -8,7 +8,7 @@ import Menu from './Menu';
 
 const Navbar = () => {
   return (
-    <header className="sticky top-0 z-10 bg-colors-white shadow-md">
+    <header className="sticky top-0 z-10 bg-colors-white shadow-md shadow-green-700">
       <div className="max-w-screen-xl mx-auto px-4 py-1 flex justify-between items-center">
         {/* Logo */}
         <Logo />

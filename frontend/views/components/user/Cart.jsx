@@ -20,7 +20,7 @@ const Cart = () => {
               />
             </svg>
             {cartItems > 0 && (
-              <div className="absolute top-0 right-0 bg-colors-white text-colors-black border-[1.5px] text-xs font-semibold rounded-full w-4 h-4 text-[10px] flex items-center justify-center transform translate-x-1/2 -translate-y-1/2 group-hover:text-colors-white group-hover:bg-green-700">
+              <div className="absolute top-0 right-0 bg-colors-white text-colors-black border-[1.5px] border-colors-black text-xs font-medium rounded-full w-4 h-4 text-[10px] flex items-center justify-center transform translate-x-1/2 -translate-y-1/2 group-hover:text-colors-white group-hover:bg-green-700 group-hover:border-colors-white">
                 {cartItems}
               </div>
             )}
