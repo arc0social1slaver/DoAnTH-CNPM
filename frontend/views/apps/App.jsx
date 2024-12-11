@@ -13,6 +13,7 @@ import Beauty from "../user/Beauty";
 import Documents from "../user/Documents";
 import Electronics from "../user/Electronics";
 import ProductDetail from "../user/ProductDetail";
+import ShowCart from "../user/ShowCart";
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
       <Routes>
         <Route path="/user" element={<UserLayout />}>
           <Route index element={<UserDashboard />} />
+          <Route path="cart" element={<ShowCart/>} />
           <Route path="fashion" element={<Fashion/>} /> 
           <Route path="beauty" element={<Beauty/>} /> 
           <Route path="documents" element={<Documents/>} /> 

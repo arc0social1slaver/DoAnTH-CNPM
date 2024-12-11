@@ -1,15 +1,23 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
 const ProductDetail = () => {
     const { id } = useParams();
+    
+    console.log(id);
+    
     const [product, setProduct] = useState(null);
     const navigate = useNavigate();
-
+    
     useEffect(() => {
-        fetch(`http://localhost:5000/products/${id}`)
+        fetch(`http://localhost:3000/api/products/${id}`)
         .then((response) => response.json())
-        .then((data) => setProduct(data))
+        .then((data) => {
+            console.log(data);
+            
+            setProduct(data.product)
+    })
         .catch((error) => {
             console.error("Error fetching product:", error);
             navigate('/user');
@@ -22,16 +30,16 @@ const ProductDetail = () => {
 
     return (
         <div className="container mx-auto p-4">
-            <p className="text-lg mt-4">Sản phẩm ID: {id}</p>
+            {/* <p className="text-lg mt-4">Sản phẩm ID: {id}</p> */}
             {/* Product Images */}
             <div className="flex">
                 <div className="w-2/3 pr-4">
                     <img
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-auto"
+                        className="w-auto h-auto"
                     />
-                    <div className="mt-2 flex space-x-2">
+                    {/* <div className="mt-2 flex space-x-2">
                         {product.images.map((img, index) => (
                             <img
                                 key={index}
@@ -40,7 +48,7 @@ const ProductDetail = () => {
                                 className="w-16 h-16 object-cover cursor-pointer"
                             />
                         ))}
-                    </div>
+                    </div> */}
                 
                     <button
                         onClick={() => navigator.clipboard.writeText(window.location.href)}
@@ -56,15 +64,15 @@ const ProductDetail = () => {
                     <p className="text-lg text-green-700 mt-2">{product.price}</p>
 
                     {/* shipping */}
-                    <div className="mt-4">
+                    {/* <div className="mt-4">
                         <p className="text-md">Vận chuyển:</p>
                         <p className="text-md inline-block">Từ: {product.shipping?.from}</p>
                         <p className="text-md inline-block ml-4">Đến: {product.shipping?.to}</p>
                         <p className="text-md mt-2">Phí vận chuyển: {product.shipping?.cost}</p>
-                    </div>
+                    </div> */}
 
                     {/* stock */}
-                    <div className="mt-4">
+                    {/* <div className="mt-4">
                         <label htmlFor="quantity" className="text-md">Số lượng:</label>
                         <input
                             id="quantity"
@@ -72,12 +80,12 @@ const ProductDetail = () => {
                             defaultValue="1"
                             className="w-16 p-2 border border-gray-400 rounded-md mt-2"
                         />
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
             {/* Seller */}
-            <div className="mt-8 flex items-center">
+            {/* <div className="mt-8 flex items-center">
                 <img
                     src={product.user.avatar}
                     alt="Seller Avatar"
@@ -87,17 +95,17 @@ const ProductDetail = () => {
                     <p className="text-lg font-bold">{product.user?.name}</p>
                     <p className="text-md text-gray-500">Online {product.user?.lastOnline}</p>
                     <p className="text-md">Đánh giá: {product.user?.rating}</p>
-                </div>
+                </div> */}
 
                 {/* Seller Button */}
-                <div className="ml-auto flex space-x-2">
+                {/* <div className="ml-auto flex space-x-2">
                     <button className="px-4 py-2 bg-green-500 text-white rounded-md">Chat ngay</button>
                     <button className="px-4 py-2 border border-gray-400 text-gray-700 rounded-md">Xem cửa hàng</button>
-                </div>
-            </div>
+                </div> */}
+            {/* </div> */}
 
             {/* Product detail */}
-            <div className="mt-8">
+            {/* <div className="mt-8">
                 <h2 className="text-lg font-semibold">Chi tiết sản phẩm</h2>
                 <ul className="mt-2 space-y-2">
                     <li><strong>Danh mục:</strong> {product.category}</li>
@@ -105,17 +113,17 @@ const ProductDetail = () => {
                     <li><strong>Nhãn hàng:</strong> {product.brand}</li>
                     <li><strong>Tình trạng:</strong> {product.condition}</li>
                 </ul>
-            </div>
+            </div> */}
 
             {/* Description */}
-            <div className="mt-8">
+            {/* <div className="mt-8">
                 <h2 className="text-lg font-semibold">Mô tả sản phẩm</h2>
                 <textarea
                     value={product.description}
                     readOnly
                     className="w-full mt-2 p-4 border border-gray-400 rounded-md"
                 ></textarea>
-            </div>
+            </div> */}
         </div>
     );
 };
