@@ -12,10 +12,10 @@ const AdminLayout = () => {
   return (
     <div>
       <div className="flex">
-        <div className="w-1/6 h-screen">
+        <div className="w-20 md:w-1/6 h-screen">
           <SideBar />
         </div>
-        <div className="w-5/6 flex flex-col h-screen">
+        <div className="md:w-5/6 flex flex-col h-screen" style={{ width: "calc(100% - 5rem)" }}>
           <Topbar />
           <Outlet />
         </div>

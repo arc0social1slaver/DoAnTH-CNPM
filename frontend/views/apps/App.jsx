@@ -16,6 +16,12 @@ import Documents from "../user/Documents";
 import Electronics from "../user/Electronics";
 import ProductDetail from "../user/ProductDetail";
 
+import AdminDashboard from "../admin/dashboard/Dashboard";
+import AdminOrders from "../admin/Orders";
+import AdminUsers from "../admin/Users";
+import AdminProducts from "../admin/Products";
+import AdminSetting from "../admin/Setting";
+
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
 
@@ -25,19 +31,24 @@ const App = () => {
     }, []);
 
     return (
-        <BrowserRouter>  
-            <Routes>
-                <Route path="/" element={isLoading ? <Loading /> : <DefaultLayout />}>
-                    <Route index element={<Home />} />
-                    <Route path="/login-or-register" element={<LogOrReg/>} />
-                    <Route path="/register" element={<Register/>} />
-                </Route>
-            </Routes>
+      <BrowserRouter>  
+        <Routes>
+          <Route path="/" element={isLoading ? <Loading /> : <DefaultLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/login-or-register" element={<LogOrReg/>} />
+            <Route path="/register" element={<Register/>} />
+          </Route>
+        </Routes>
 
       {/* For Admin */}
       <Routes>
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<Home />} />
+          <Route index element={<AdminDashboard />} />
+          <Route path="dashboard" element={<AdminDashboard />} /> 
+          <Route path="users" element={<AdminUsers />} /> 
+          <Route path="orders" element={<AdminOrders />} /> 
+          <Route path="products" element={<AdminProducts />} /> 
+          <Route path="setting" element={<AdminSetting />} /> 
         </Route>
       </Routes>
      
