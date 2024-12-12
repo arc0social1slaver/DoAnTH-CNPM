@@ -8,14 +8,13 @@ import Register from '../pages/Register';
 import DefaultLayout from "../layouts/DefaultLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import UserLayout from "../layouts/UserLayout";
-//import Dashboard from "../admin/Dashboard";
+
 import UserDashboard from "../user/Dashboard";
 import Fashion from "../user/Fashion";
 import Beauty from "../user/Beauty";
 import Documents from "../user/Documents";
 import Electronics from "../user/Electronics";
 import ProductDetail from "../user/ProductDetail";
-import Checkout from "../user/Checkout";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -35,27 +34,26 @@ const App = () => {
                 </Route>
             </Routes>
 
-            {/* For Admin */}
-            <Routes>
-                <Route path="/admin" element={<AdminLayout />}>
-                    <Route index element={<Home />} />
-                </Route>
-            </Routes>
-          
-            {/* For User */}
-            <Routes>
-                <Route path="/user" element={<UserLayout />}>
-                    <Route index element={<UserDashboard />} />
-                    <Route path="fashion" element={<Fashion/>} /> 
-                    <Route path="beauty" element={<Beauty/>} /> 
-                    <Route path="documents" element={<Documents/>} /> 
-                    <Route path="electronics" element={<Electronics/>} /> 
-                    <Route path="product/:id" element={<ProductDetail />} />
-                    <Route path="checkout" element={<Checkout />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
+      {/* For Admin */}
+      <Routes>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Home />} />
+        </Route>
+      </Routes>
+     
+      {/* For User */}
+      <Routes>
+        <Route path="/user" element={<UserLayout />}>
+          <Route index element={<UserDashboard />} />
+          <Route path="fashion" element={<Fashion/>} /> 
+          <Route path="beauty" element={<Beauty/>} /> 
+          <Route path="documents" element={<Documents/>} /> 
+          <Route path="electronics" element={<Electronics/>} /> 
+          <Route path="product/:id" element={<ProductDetail />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default App;
