@@ -10,27 +10,26 @@ import TableRow from '@mui/material/TableRow';
 
 const columns = [
   { id: 'Id', label: 'Mã đơn hàng', minWidth: 100 },
-  { id: 'studentId', label: 'MSSV', minWidth: 170 },
-  { id: 'customerName', label: 'Tên khách hàng', minWidth: 170 },
+  { id: 'studentId', label: 'MSSV', minWidth: 100 },
+  { id: 'customerName', label: 'Tên khách hàng', minWidth: 240 },
   { id: 'orderDate', label: 'Ngày đặt hàng', minWidth: 170 },
   { id: 'orderStatus', label: 'Trạng thái đơn hàng', minWidth: 170 },
   { id: 'totalAmount', label: 'Tổng số tiền', minWidth: 170 },
-  { id: 'paymentMethod', label: 'Phương thức thanh toán', minWidth: 170 },
   { id: 'items', label: 'Mã sản phẩm', minWidth: 170 },
   { id: 'phoneNumber', label: 'Số điện thoại', minWidth: 170 },
 ];
 
-function createData(Id, studentId, customerName, orderDate, orderStatus, totalAmount, paymentMethod, items, phoneNumber) {
-  return { Id, studentId, customerName, orderDate, orderStatus, totalAmount, paymentMethod, items, phoneNumber };
+function createData(Id, studentId, customerName, orderDate, orderStatus, totalAmount, items, phoneNumber) {
+  return { Id, studentId, customerName, orderDate, orderStatus, totalAmount, items, phoneNumber };
 }
 
 const rows = [
-  createData('001', '2252222', 'John Doe', '12/12/2024', 'Shipped', '$150.00', 'Credit Card', 3, '012345789'),
-  createData('002', '2252222', 'Jane Smith', '12/12/2024', 'Pending', '$50.00', 'PayPal', 2, '012345789'),
-  createData('003', '2252222', 'Mike Johnson', '12/12/2024', 'Delivered', '$75.00', 'Cash on Delivery', 1, '012345789'),
-  createData('004', '2252222', 'Emily Brown', '12/12/2024', 'Shipped', '$120.00', 'Credit Card', 2, '012345789'),
-  createData('005', '2252222', 'David Lee', '12/12/2024', 'Cancelled', '$200.00', 'PayPal', 5, '012345789'),
-  createData('006', '2252222', 'Sarah White', '12/12/2024', 'Shipped', '$90.00', 'Credit Card', 1, '012345789'),
+  createData('001', '2252222', 'John Doe', '12/12/2024', 'Shipped', '$150.00', 3, '012345789'),
+  createData('002', '2252222', 'Jane Smith', '12/12/2024', 'Pending', '$50.00', 2, '012345789'),
+  createData('003', '2252222', 'Mike Johnson', '12/12/2024', 'Delivered', '$75.00', 1, '012345789'),
+  createData('004', '2252222', 'Emily Brown', '12/12/2024', 'Shipped', '$120.00', 2, '012345789'),
+  createData('005', '2252222', 'David Lee', '12/12/2024', 'Cancelled', '$200.00', 5, '012345789'),
+  createData('006', '2252222', 'Sarah White', '12/12/2024', 'Shipped', '$90.00', 1, '012345789'),
 ];
 
 export default function DataTable() {
