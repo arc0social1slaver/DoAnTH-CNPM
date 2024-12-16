@@ -1,20 +1,39 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
+import {useAuth} from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = ({ isOpen, closeModal }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const {logInUser} = useAuth();
 
     if (!isOpen) return null;
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Logging in with:', { email, password });
-        // Call API to login
-        
-        navigate('/user');
+        try {
+            const userTemp = logInUser(email, password);
+            if(userTemp) {
+            Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "User login successfully",
+                        showConfirmButton: true,
+                        timer: 1500
+            });
+        }
+        } catch (error) {
+            Swal.fire({
+                        position: "top-end",
+                        icon: "warning",
+                        title: "Invalid data",
+                        showConfirmButton: true,
+                        timer: 1500
+            });
+        }
         closeModal();
     };
 

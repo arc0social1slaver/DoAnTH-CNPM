@@ -16,6 +16,7 @@ app.use(cors({
 
 
 app.use("/api/products", require("./src/products/products.route"))
+app.use("/api/users", require("./src/users/users.route"))
 
 async function main() {
     await mongoose.connect(process.env.DB_URI);

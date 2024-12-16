@@ -24,12 +24,12 @@ const Header = () => {
                     <option value="vi">Tiếng Việt</option>
                     <option value="en">English</option>
                 </select>
-                    <button
+                    <a
                         href="/register"
                         className="hover:text-colors-white transition"
                     >
                         Đăng ký
-                    </button>
+                    </a>
                     <span>|</span>
                     <button
                         className="hover:text-colors-white transition"

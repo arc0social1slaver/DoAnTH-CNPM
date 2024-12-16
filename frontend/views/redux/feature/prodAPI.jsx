@@ -5,13 +5,13 @@ import getBEURL from "../../utils/backendURL";
 const baseQuery = fetchBaseQuery({
     baseUrl: `${getBEURL()}/api/products`,
     credentials: "include",
-    prepareHeaders: (headers) => {
-        const token = localStorage.getItem('token')
-        if(token) {
-            headers.set('Authorization', `Bearer ${token}`)
-        }
-        return headers
-    }
+    // prepareHeaders: (headers) => {
+    //     const token = localStorage.getItem('token')
+    //     if(token) {
+    //         headers.set('Authorization', `Bearer ${token}`)
+    //     }
+    //     return headers
+    // }
 })
 const prodAPI = createApi({
     reducerPath: 'prodAPI',
@@ -26,6 +26,32 @@ const prodAPI = createApi({
             query: (id) => `/${id}`,
             providesTags: (result, err, id) => [{type: "products", id}]
         }),
+        addProd: builder.mutation({
+            query: (newProd) => ({
+                url: '/create-product',
+                method: "POST",
+                body: newProd
+            }),
+            invalidatesTags: ["products"]
+        }),
+        updateProd: builder.mutation({
+            query: ({id, ...newProd}) => ({
+                url: `/edit/${id}`,
+                method: "PUT",
+                body: newProd,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }),
+            invalidatesTags: ["products"]
+        }),
+        deleteProd: builder.mutation({
+            query: (id) => ({
+                url:  `/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["products"]
+        })
     })
 })
 export const {useFetchAllProdsQuery} = prodAPI;

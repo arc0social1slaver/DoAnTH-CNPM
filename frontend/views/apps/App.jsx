@@ -22,6 +22,9 @@ import AdminOrders from "../admin/Orders";
 import AdminUsers from "../admin/Users";
 import AdminProducts from "../admin/Products";
 import AdminSetting from "../admin/Setting";
+import UserRoute from "./UserRoute";
+import { useAuth } from "../context/AuthContext";
+import AdminRoute from "./AdminRoute";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +47,7 @@ const App = () => {
       {/* For Admin */}
       <Routes>
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
+          <Route index element={<AdminRoute><AdminDashboard /></AdminRoute>} />
           <Route path="dashboard" element={<AdminDashboard />} /> 
           <Route path="users" element={<AdminUsers />} /> 
           <Route path="orders" element={<AdminOrders />} /> 
@@ -56,7 +59,7 @@ const App = () => {
       {/* For User */}
       <Routes>
         <Route path="/user" element={<UserLayout />}>
-          <Route index element={<UserDashboard />} />
+          <Route index element={<UserRoute><UserDashboard /></UserRoute>} />
           <Route path="cart" element={<ShowCart/>} />
           <Route path="fashion" element={<Fashion/>} /> 
           <Route path="beauty" element={<Beauty/>} /> 

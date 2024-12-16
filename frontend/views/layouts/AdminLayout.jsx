@@ -10,12 +10,9 @@ import SideBar from "../components/admin/Sidebar";
 
 
 import { Outlet } from "react-router-dom";
+import { AuthProvide } from "../context/AuthContext";
 
 const AdminLayout = () => {
-  const [isSBActive, setSBActive] = useState(false);
-  const changeSB = () => {
-    setSBActive(state => !state)
-  }
   return (
     // <div className={`${isSBActive ? 'pl-0' : 'pl-[30rem]'}`}>
     //   <Navbar changeSB={changeSB}/>
@@ -23,7 +20,7 @@ const AdminLayout = () => {
 
     //   <div>
     //     <Outlet />
-    <div>
+    <AuthProvide>
       <div className="flex">
         <div className="w-20 md:w-1/6 h-screen">
           <SideBar />
@@ -33,7 +30,7 @@ const AdminLayout = () => {
           <Outlet />
         </div>
       </div>
-    </div>
+    </AuthProvide>
   );
 };
 

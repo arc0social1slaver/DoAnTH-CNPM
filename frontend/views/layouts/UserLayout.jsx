@@ -2,17 +2,18 @@ import Footer from '../components/Footer';
 import ChatApp from '../components/user/Chat';
 import Navbar from '../components/user/Navbar';
 import { Outlet } from "react-router-dom";
+import { AuthProvide } from '../context/AuthContext';
 
 const UserLayout = () => {
     return (
-        <div>
+        <AuthProvide>
             <Navbar />
             <div>
                 <Outlet />
                 <ChatApp />
             </div>
             <Footer />
-        </div>
+        </AuthProvide>
     );
 }
 

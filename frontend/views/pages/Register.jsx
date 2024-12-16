@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import {useAuth} from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 export default function Register() {
     const [email, setEmail] = useState('');
@@ -9,6 +11,7 @@ export default function Register() {
     const [error, setError] = useState('');
     const [username, setUserName] = useState('');
     const [showPopup, setShowPopup] = useState(false);
+    const {regUser} = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -19,12 +22,31 @@ export default function Register() {
         } else {
             setError('');
         }
-        console.log('Registering with:', { email, password, username });
-        setShowPopup(true);
-        setTimeout(() => {
-            setShowPopup(false);
-            navigate('/login');
-        }, 2000);
+        try {
+            regUser(username, email, password);
+            navigate("/");
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User register successfully",
+                showConfirmButton: true,
+                timer: 1500
+              });
+        } catch (error) {
+            Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Invalid data",
+                showConfirmButton: true,
+                timer: 1500
+              });
+        }
+        // console.log('Registering with:', { email, password, username });
+        // setShowPopup(true);
+        // setTimeout(() => {
+        //     setShowPopup(false);
+        //     navigate('/login');
+        // }, 2000);
     };
     const handleConfirmPasswordChange = (e) => {
         const value = e.target.value;

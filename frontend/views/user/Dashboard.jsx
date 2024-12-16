@@ -68,7 +68,7 @@ const UserDashboard = () => {
         </Link>
           </div> */}
               <h2 className="text-base my-2 mx-2 line-clamp-2">{product.name}</h2>
-              <p className="text-base text-green-700 font-semibold mx-2 my-2"><Currency amount={product.price} /></p>
+              {/* <p className="text-base text-green-700 font-semibold mx-2 my-2"><Currency amount={product.price} /></p> */}
           </div>
         ))}
       </div>

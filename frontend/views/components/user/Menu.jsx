@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import {useAuth} from "../../context/AuthContext";
+import Swal from "sweetalert2";
 const Menu = () => {
     const [user] = useState({
         avatar: 'https://i.pinimg.com/736x/5b/ad/66/5bad666e821e7f7ecbbb0a8479f022ca.jpg',
@@ -9,11 +10,29 @@ const Menu = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
+    const {logOutUser} = useAuth();
     
     //logout
     const handleLogout = () => {
-        console.log('Đăng xuất');
-        navigate('/'); // homepage
+      try {
+        logOutUser();
+      navigate('/'); 
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User logout successfully",
+          showConfirmButton: true,
+          timer: 1500
+        });
+      } catch (error) {
+        Swal.fire({
+          position: "top-end",
+          icon: "warning",
+          title: "User logout unsuccessfully",
+          showConfirmButton: true,
+          timer: 1500
+        });
+      }
     };
 
     // Toggle dropdown
