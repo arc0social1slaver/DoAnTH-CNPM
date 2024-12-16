@@ -7,27 +7,27 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 export const SideBarData = [
     {
         icon: DashboardOutlinedIcon,
-        title: 'Dashboard',
+        title: 'Bảng điều khiển',
         url: '/admin/dashboard'
     },
     {
         icon: GroupOutlinedIcon,
-        title: 'Users',
+        title: 'Người dùng',
         url: '/admin/users'
     },
     {
         icon: InventoryOutlinedIcon,
-        title: 'Orders',
+        title: 'Đơn hàng',
         url: '/admin/orders'
     },
     {
         icon: Inventory2OutlinedIcon,
-        title: 'Products',
+        title: 'Sản phẩm',
         url: '/admin/products'
     },
     {
         icon: SettingsOutlinedIcon,
-        title: 'Setting',
+        title: 'Cài đặt',
         url: '/admin/setting'
     },
 
