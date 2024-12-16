@@ -22,9 +22,9 @@ const ProductCategory = () => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <button className="font-bold hover:text-green-700">Danh mục sản phẩm</button>
+            <button className="font-bold text-green-700 hover:text-opacity-75">Danh mục sản phẩm</button>
             {isHovered && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-colors-white border border-colors-gray-400 rounded-md shadow-lg">
+                <div className="absolute top-full left-0 mt-2 w-48 bg-colors-white border border-green-700 rounded-md shadow-lg">
                     <ul>
                         <li className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
                             <Link to="/fashion">Thời trang</Link>

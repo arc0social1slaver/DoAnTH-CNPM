@@ -1,12 +1,14 @@
+import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import Loading from "../pages/Loading";
 import Home from "../pages/Home";
 import LogOrReg from "../pages/LogOrReg";
-import Login from '../pages/Login';
 import Register from '../pages/Register';
 import DefaultLayout from "../layouts/DefaultLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import UserLayout from "../layouts/UserLayout";
-//import Dashboard from "../admin/Dashboard";
+
 import UserDashboard from "../user/Dashboard";
 import Fashion from "../user/Fashion";
 import Beauty from "../user/Beauty";
@@ -16,16 +18,22 @@ import ProductDetail from "../user/ProductDetail";
 import ShowCart from "../user/ShowCart";
 
 const App = () => {
-  return (
-    <BrowserRouter>  
-      <Routes>
-        <Route path="/" element={<DefaultLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/login-or-register" element={<LogOrReg/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-        </Route>
-      </Routes>
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    return (
+        <BrowserRouter>  
+            <Routes>
+                <Route path="/" element={isLoading ? <Loading /> : <DefaultLayout />}>
+                    <Route index element={<Home />} />
+                    <Route path="/login-or-register" element={<LogOrReg/>} />
+                    <Route path="/register" element={<Register/>} />
+                </Route>
+            </Routes>
 
       {/* For Admin */}
       <Routes>
