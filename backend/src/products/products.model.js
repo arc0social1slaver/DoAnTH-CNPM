@@ -5,12 +5,21 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    cat_id: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'categories',
+        required: true,
+    },
     price: {
-        type: String,
+        type: Number,
         required: true,
     },
     image: {
         type: String,
+        required: true,
+    },
+    stock: {
+        type: Number,
         required: true,
     },
     createdAt: {

@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useFetchAllCatsQuery } from '../../redux/feature/catAPI';
 
 const ProductCategory = () => {
     const [isHovered, setIsHovered] = useState(false);
+    const {data : {cats = []} = {}} = useFetchAllCatsQuery();    
     const timeoutRef = useRef(null);
     const handleMouseEnter = () => {
         if (timeoutRef.current) {
@@ -26,7 +28,7 @@ const ProductCategory = () => {
             {isHovered && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-colors-white border border-green-700 rounded-md shadow-lg">
                     <ul>
-                        <li className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
+                        {/* <li className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
                             <Link to="/fashion">Thời trang</Link>
                         </li>
                         <li className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
@@ -37,7 +39,14 @@ const ProductCategory = () => {
                         </li>
                         <li className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
                             <Link to="/electronics">Thiết bị điện tử</Link>
-                        </li>
+                        </li> */}
+                        {
+                            cats.map((cat, index) => (
+                                <li key={cat._id} className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
+                                <Link to={`/${cat.name}`}>{cat.name}</Link>
+                            </li>
+                            ))
+                        }
                     </ul>
                 </div>
             )}

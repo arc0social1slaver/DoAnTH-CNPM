@@ -46,13 +46,38 @@
   
 import { useState } from "react";
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { SideBarData } from './Links';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import {useAuth} from "../../context/AuthContext";
+import Swal from "sweetalert2";
 
 const SideBar = () => {
   const [selected, setSelected] = useState(0);
+  const navigate = useNavigate();
+  const {logOutUser} = useAuth();
+  const handleLogout = () => {
+        try {
+          logOutUser();
+        navigate('/'); 
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "User logout successfully",
+            showConfirmButton: true,
+            timer: 1500
+          });
+        } catch (error) {
+          Swal.fire({
+            position: "top-end",
+            icon: "warning",
+            title: "User logout unsuccessfully",
+            showConfirmButton: true,
+            timer: 1500
+          });
+        }
+      };
 
   return (
     <div className="bg-green-100 h-screen w-20 md:w-full">
@@ -88,9 +113,9 @@ const SideBar = () => {
 
         <div className="h-1/6 w-full flex items-center justify-center gap-3 text-xl cursor-pointer hover:text-green-900">
           <span className="transition-all ease-in-out delay-75 hidden md:block">Log out</span>
-          <Link className="py-5 transition-all ease-in-out delay-75 bottom-5">
+          <button onClick={handleLogout} className="py-5 transition-all ease-in-out delay-75 bottom-5">
             <ExitToAppOutlinedIcon className="transition-all ease-in-out delay-75 text-4xl" />
-          </Link>
+          </button>
         </div>
       </div>
     </div>

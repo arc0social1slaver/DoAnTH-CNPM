@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const JSON_SEC = process.env.JSON_SECRET;
 
 const verifyAdmin = (req, res, next) => {
-    const token = req.header['authorization']?.split(' ')[1];
+    const token = req.headers['authorization']?.split(' ')[1];
     if(!token) {
         return res.status(401).send({
             message: 'Access denied',

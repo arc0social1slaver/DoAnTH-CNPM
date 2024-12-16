@@ -11,7 +11,7 @@ const addProducts = async (req, res) => {
 }
 const getAllProds = async (req, res) => {
     try {
-        const allProduct = await product.find().sort({createdAt: -1})
+        const allProduct = await product.find().populate('cat_id',['name', 'createdAt']).sort({createdAt: -1})
         res.status(200).send({'message': 'Fetch product successfully', products: allProduct})
     } catch (error) {
         console.error(error);

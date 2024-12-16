@@ -25,6 +25,7 @@ import AdminSetting from "../admin/Setting";
 import UserRoute from "./UserRoute";
 import { useAuth } from "../context/AuthContext";
 import AdminRoute from "./AdminRoute";
+import AdminCategories from "../admin/Categories";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="users" element={<AdminUsers />} /> 
           <Route path="orders" element={<AdminOrders />} /> 
           <Route path="products" element={<AdminProducts />} /> 
+          <Route path="categories" element={<AdminCategories/>} /> 
           <Route path="setting" element={<AdminSetting />} /> 
         </Route>
       </Routes>
