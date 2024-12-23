@@ -17,9 +17,9 @@ import Electronics from "../user/Electronics";
 import ProductDetail from "../user/ProductDetail";
 
 import AdminDashboard from "../admin/dashboard/Dashboard";
-import AdminOrders from "../admin/Orders";
-import AdminUsers from "../admin/Users";
-import AdminProducts from "../admin/Products";
+import AdminOrders from "../admin/orders/Orders";
+import AdminUsers from "../admin/users/Users";
+import AdminProducts from "../admin/products/Products";
 import AdminSetting from "../admin/Setting";
 
 const App = () => {

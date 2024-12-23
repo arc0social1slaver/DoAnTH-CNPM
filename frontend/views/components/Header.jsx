@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"; 
 import Login from "../pages/Login";
 
 const Header = () => {
@@ -24,12 +25,12 @@ const Header = () => {
                     <option value="vi">Tiếng Việt</option>
                     <option value="en">English</option>
                 </select>
-                    <button
-                        href="/register"
+                    <Link
+                        to="/register"
                         className="hover:text-colors-white transition"
                     >
                         Đăng ký
-                    </button>
+                    </Link>
                     <span>|</span>
                     <button
                         className="hover:text-colors-white transition"
