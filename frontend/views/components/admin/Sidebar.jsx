@@ -41,9 +41,9 @@ const SideBar = () => {
         </div>
 
         <div className="h-1/6 w-full flex items-center justify-center gap-3 text-xl cursor-pointer hover:text-green-900">
-          <span className="transition-all ease-in-out delay-75 hidden md:block">Log out</span>
-          <Link className="py-5 transition-all ease-in-out delay-75 bottom-5">
-            <ExitToAppOutlinedIcon className="transition-all ease-in-out delay-75 text-4xl" />
+          <Link to="../../" className="py-5 transition-all ease-in-out delay-75 bottom-5 flex gap-3 items-center">
+            <span className="hidden md:block">Log out</span>
+            <ExitToAppOutlinedIcon className="text-4xl" />
           </Link>
         </div>
       </div>
