@@ -45,7 +45,6 @@
 // export default Sidebar;
   
 import { useState } from "react";
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import { Link, useNavigate } from "react-router-dom";
 
 import { SideBarData } from './Links';
@@ -93,10 +92,11 @@ const SideBar = () => {
         </div>
         <div className="w-full flex flex-col justify-center h-4/6">
           {SideBarData.map((item, index) => {
+            const isActive = location.pathname === item.url; // Check if the current URL matches the item's URL
             return (
               <Link
                 className={`${
-                  selected === index ? "bg-green-900 text-white-100" : ""
+                  isActive ? "bg-green-900 text-white-100" : ""
                 } w-full py-7 hover:bg-green-700 transition ease-in-out delay-75 cursor-pointer flex items-center justify-center gap-2`}
                 key={index}
                 onClick={() => setSelected(index)} 
@@ -112,9 +112,9 @@ const SideBar = () => {
         </div>
 
         <div className="h-1/6 w-full flex items-center justify-center gap-3 text-xl cursor-pointer hover:text-green-900">
-          <span className="transition-all ease-in-out delay-75 hidden md:block">Log out</span>
-          <button onClick={handleLogout} className="py-5 transition-all ease-in-out delay-75 bottom-5">
-            <ExitToAppOutlinedIcon className="transition-all ease-in-out delay-75 text-4xl" />
+          <button onClick={handleLogout} className="py-5 transition-all ease-in-out delay-75 bottom-5 flex gap-3 items-center">
+            <span className="hidden md:block">Log out</span>
+            <ExitToAppOutlinedIcon className="text-4xl" />
           </button>
         </div>
       </div>
