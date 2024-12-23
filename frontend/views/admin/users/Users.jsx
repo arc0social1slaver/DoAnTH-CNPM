@@ -124,7 +124,17 @@ const AdminUsers = () => {
                     >
                         <NavigateBeforeIcon />
                     </button>
-                    <span className="px-4 py-2">{`${currentPage} / ${totalPages}`}</span>
+                    <select
+                        value={currentPage}
+                        onChange={(e) => setCurrentPage(Number(e.target.value))}
+                        className="px-2 py-1 border rounded-md focus:outline-none bg-colors-inherit border-none"
+                    >
+                        {Array.from({ length: totalPages }, (_, index) => (
+                        <option key={index + 1} value={index + 1}>
+                            Page {index + 1}
+                        </option>
+                        ))}
+                    </select>
                     <button
                         onClick={() => setCurrentPage(currentPage < totalPages ? currentPage + 1 : totalPages)}
                         disabled={currentPage === totalPages}
