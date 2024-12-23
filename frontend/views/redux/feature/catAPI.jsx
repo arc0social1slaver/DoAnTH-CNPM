@@ -7,9 +7,11 @@ const baseQuery = fetchBaseQuery({
     credentials: "include",
     prepareHeaders: (headers) => {
         const token = localStorage.getItem('token')
+        // console.log(token);
         if(token) {
             headers.set('Authorization', `Bearer ${token}`)
         }
+        // console.log(headers.has('Authorization'));
         return headers
     }
 })
@@ -28,7 +30,7 @@ const catAPI = createApi({
                 method: "POST",
                 body: newCat
             }),
-            invalidatesTags: ["products"]
+            invalidatesTags: ["cats"]
         }),
         updateCat: builder.mutation({
             query: ({id, ...newCat}) => ({

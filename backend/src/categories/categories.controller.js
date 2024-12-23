@@ -8,7 +8,7 @@ const addCat = async (req, res) => {
         }
         const newCategory = await category({...req.body})
         await newCategory.save();
-        res.status(200).send({'message': 'Add category successfully', cat: newCategory})
+        res.status(200).send({message: 'Add category successfully', cat: newCategory})
     } catch (error) {
         console.error(error);
         res.status(500).send({'message': 'Fail to add the category'})
