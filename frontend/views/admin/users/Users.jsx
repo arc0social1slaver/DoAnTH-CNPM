@@ -1,12 +1,14 @@
 import Card from "./Card";
-import DataTable from "./Table";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from "react";
+import { IconButton, InputBase } from '@mui/material';
 import Modal from "./Modal";
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 const AdminUsers = () => {
     const [selectedValue, setSelectedValue] = useState("option1");
@@ -67,18 +69,32 @@ const AdminUsers = () => {
             <h1 className="p-5 m-5 text-4xl font-bold text-colors-green-700">Người dùng</h1>
 
             <div className="p-5 m-5 bg-green-100 rounded-md">
-                <div className="m-3">
-                    <span className="mr-2">Trạng thái</span>
-                    <select
-                        id="dropdown"
-                        value={selectedValue}
-                        onChange={handleChange}
-                        className="rounded-lg border py-2 px-4"
-                    >
-                        <option value="option1">Tất cả</option>
-                        <option value="option2">Đang hoạt động</option>
-                        <option value="option3">Không hoạt động</option>
-                    </select>
+                <div className="m-3 flex items-center">
+                    <div className="w-1/3">
+                        <span className="mr-2">Trạng thái</span>
+                        <select
+                            id="dropdown"
+                            value={selectedValue}
+                            onChange={handleChange}
+                            className="rounded-lg border py-2 px-4"
+                        >
+                            <option value="option1">Tất cả</option>
+                            <option value="option2">Đang hoạt động</option>
+                            <option value="option3">Không hoạt động</option>
+                        </select>
+                    </div>
+                    <div className="flex items-center p-1 w-2/3 gap-4">
+                        {/* Search input */}
+                        <input
+                            type="search"
+                            placeholder="Search"
+                            className="bg-colors-white py-3 px-4 rounded-xl w-full my-1 h-3/4 shadow-md focus:outline-none focus:border-none focus:shadow-none"
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                        <button type='submit' className="text-xl">
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-colors-green-900 hover:text-colors-green-600 transition'/> {/* Use the icon here */}
+                        </button>
+                    </div>
                 </div>
 
                 {/* Render filtered cards */}
