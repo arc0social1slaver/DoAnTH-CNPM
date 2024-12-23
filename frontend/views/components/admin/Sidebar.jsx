@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; 
 
 import { SideBarData } from './Links';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
 const SideBar = () => {
   const [selected, setSelected] = useState(0);
+  const location = useLocation();
 
   return (
     <div className="bg-green-100 h-screen w-20 md:w-full">
@@ -22,10 +22,11 @@ const SideBar = () => {
         </div>
         <div className="w-full flex flex-col justify-center h-4/6">
           {SideBarData.map((item, index) => {
+            const isActive = location.pathname === item.url; // Check if the current URL matches the item's URL
             return (
               <Link
                 className={`${
-                  selected === index ? "bg-green-900 text-white-100" : ""
+                  isActive ? "bg-green-900 text-white-100" : ""
                 } w-full py-7 hover:bg-green-700 transition ease-in-out delay-75 cursor-pointer flex items-center justify-center gap-2`}
                 key={index}
                 onClick={() => setSelected(index)} 
