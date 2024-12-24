@@ -1,7 +1,6 @@
 import Card from "./Card";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from "react";
-import { IconButton, InputBase } from '@mui/material';
 import Modal from "./Modal";
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -20,20 +19,21 @@ const AdminUsers = () => {
         console.log("Selected Value:", event.target.value);
     };
 
-    // Lấy từ database
+    // Lấy từ database - Sample data
     const [users, setUsers] = useState([
-        { id: 1, name: "User 1", isActive: true, email: "user1@example.com" },
-        { id: 2, name: "User 2", isActive: false, email: "user2@example.com" },
-        { id: 3, name: "User 3", isActive: true, email: "user3@example.com" },
-        { id: 4, name: "User 4", isActive: false, email: "user4@example.com" },
-        { id: 5, name: "User 5", isActive: true, email: "user5@example.com" },
-        { id: 6, name: "User 6", isActive: false, email: "user6@example.com" },
-        { id: 7, name: "User 7", isActive: true, email: "user7@example.com" },
-        { id: 8, name: "User 8", isActive: false, email: "user8@example.com" },
-        { id: 9, name: "User 9", isActive: true, email: "user9@example.com" },
-        { id: 10, name: "User 10", isActive: false, email: "user10@example.com" },
+        { id: 1, avt: "https://via.placeholder.com/150", name: "User 1", isActive: true, email: "user1@example.com" },
+        { id: 2, avt: "https://via.placeholder.com/150", name: "User 2", isActive: false, email: "user2@example.com" },
+        { id: 3, avt: "https://via.placeholder.com/150", name: "User 3", isActive: true, email: "user3@example.com" },
+        { id: 4, avt: "https://via.placeholder.com/150", name: "User 4", isActive: false, email: "user4@example.com" },
+        { id: 5, avt: "https://via.placeholder.com/150", name: "User 5", isActive: true, email: "user5@example.com" },
+        { id: 6, avt: "https://via.placeholder.com/150", name: "User 6", isActive: false, email: "user6@example.com" },
+        { id: 7, avt: "https://via.placeholder.com/150", name: "User 7", isActive: true, email: "user7@example.com" },
+        { id: 8, avt: "https://via.placeholder.com/150", name: "User 8", isActive: false, email: "user8@example.com" },
+        { id: 9, avt: "https://via.placeholder.com/150", name: "User 9", isActive: true, email: "user9@example.com" },
+        { id: 10, avt: "https://via.placeholder.com/150", name: "User 10", isActive: false, email: "user10@example.com" },
       ]);
-
+    
+    // Filter options get from category name
     const filteredUsers =
     selectedValue === "option1"
         ? users // Show all users
@@ -102,6 +102,7 @@ const AdminUsers = () => {
                 <Card 
                     key={user.id}
                     isActive={user.isActive}
+                    avt={user.avt}
                     name={user.name}
                     email={user.email}
                     onDelete={() => handleDeleteClick(user)}

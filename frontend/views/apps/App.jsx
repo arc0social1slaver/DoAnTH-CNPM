@@ -42,13 +42,13 @@ const App = () => {
 
       {/* For Admin */}
       <Routes>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="dashboard" element={<AdminDashboard />} /> 
-          <Route path="users" element={<AdminUsers />} /> 
-          <Route path="orders" element={<AdminOrders />} /> 
-          <Route path="products" element={<AdminProducts />} /> 
-          <Route path="setting" element={<AdminSetting />} /> 
+        <Route path="/admin" element={isLoading ? <Loading /> : <AdminLayout />}>
+          <Route index element={isLoading ? <Loading /> : <AdminDashboard />} />
+          <Route path="dashboard" element={isLoading ? <Loading /> : <AdminDashboard />} /> 
+          <Route path="users" element={isLoading ? <Loading /> : <AdminUsers />} /> 
+          <Route path="orders" element={isLoading ? <Loading /> : <AdminOrders />} /> 
+          <Route path="products" element={isLoading ? <Loading /> : <AdminProducts />} /> 
+          <Route path="setting" element={isLoading ? <Loading /> : <AdminSetting />} /> 
         </Route>
       </Routes>
      

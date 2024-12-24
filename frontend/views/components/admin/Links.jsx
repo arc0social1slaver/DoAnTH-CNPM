@@ -8,7 +8,7 @@ export const SideBarData = [
     {
         icon: DashboardOutlinedIcon,
         title: 'Bảng điều khiển',
-        url: '/admin/dashboard'
+        url: ['/admin', '/admin/dashboard'], 
     },
     {
         icon: GroupOutlinedIcon,
