@@ -64,7 +64,23 @@ const logInUser = async (req, res) => {
         res.status(500).send({"message": "Fail to log in"})
     }
 }
+const getUsers = async (req, res) => {
+    const {userID} = req.params;
+    try {
+        const normUser = await user.find({
+            isAdmin: false,
+            _id: {
+                $ne: userID
+            },
+        })
+        res.status(200).send({message: "Get user successfully", users: normUser});
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Fail to get user");
+    }
+}
 module.exports = {
     addUser,
-    logInUser
+    logInUser,
+    getUsers,
 }

@@ -1,6 +1,42 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
+import Swal from "sweetalert2";
 
-const ChatWindow = ({ onClose, conversations, selectedUser, onSelectUser, messages = [] }) => (
+import axios from "axios";
+import getBEURL from "../../utils/backendURL";
+
+const ChatWindow = ({ messEnd, socket, roomID, onClose, conversations, selectedUser, onSelectUser, messages = [] }) => {
+    
+    const item = sessionStorage.getItem('user');
+    
+    const curUser = item ? JSON.parse(item): {};
+    const [newMess , setNewMess] = useState('');
+    const handleSendMess = async (e) => {
+        e.preventDefault();
+        if(newMess == '') {
+             Swal.fire({
+                                position: "top-end",
+                                icon: "warning",
+                                title: "Say something please",
+                                showConfirmButton: true,
+                                timer: 1500
+            });
+        }
+        else {
+            // await axios.post(`${getBEURL()}/api/messages`, {
+            //   "chatID": roomID,
+            //   "senderID": curUser._id,
+            //   "content": newMess  
+            // })
+            socket.emit("sendMessage", {
+                  "chatID": roomID,
+                  "senderID": curUser._id,
+                  "content": newMess  
+            })
+        }
+        setNewMess('')
+    }
+    return (
     <div className="fixed bottom-0 right-0 w-1/2 h-3/4 bg-green-700 rounded-lg flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-2 border-b">
@@ -36,44 +72,58 @@ const ChatWindow = ({ onClose, conversations, selectedUser, onSelectUser, messag
                 </div>
                 {conversations.map((user) => (
                 <div
-                    key={user.id}
+                    key={user._id}
                     className={`p-2 cursor-pointer hover:bg-gray-50 ${
-                        selectedUser?.id === user.id ? "bg-gray-100" : ""
+                        selectedUser?._id === user._id ? "bg-gray-100" : ""
                     }`}
                     onClick={() => onSelectUser(user)}
                 >
-                    <p className="text-sm">{user.name}</p>
+                    <p className="text-sm">{user.username}</p>
                 </div>
                 ))}
             </div>
 
             {/* Nội dung chat bên phải */}
             <div className="w-2/3 flex flex-col">
+                
                 {selectedUser ? (
                 <>
-                    <div className="flex-1 overflow-y-auto p-4">
+                    <div className="flex-1 overflow-y-auto p-4 max-h-[435px]">
                         {messages.map((msg, index) => (
                             <div
                                 key={index}
-                                className={`mb-2 ${msg.sentByMe ? "text-right" : "text-left"}`}
+                                className={`mb-2 ${msg.senderID != curUser._id ? "text-right" : "text-left"}`}
                             >
                                 <span
                                     className={`inline-block px-3 py-2 rounded-lg ${
-                                    msg.sentByMe ? "bg-green-100" : "bg-gray-200"
+                                    msg.senderID != curUser._id ? "bg-green-100" : "bg-gray-200"
                                     }`}
                                 >
-                                    {msg.text}
+                                    {msg.content}
                                 </span>
                             </div>
                         ))}
+                        <div style={{float: "left", clear: "both"}} ref={messEnd}/>
                     </div>
-                    <div className="p-2 border-t">
+                    <form className="p-2 border-t" onSubmit={handleSendMess}>
                         <input
                             type="text"
+                            value={newMess}
                             placeholder="Nhập tin nhắn..."
-                            className="w-full border p-2 rounded-lg"
+                            onChange={(e) => setNewMess(e.target.value)}
+                            className="w-[90%] border p-2 rounded-lg"
                         />
-                    </div>
+                        <button type="submit" className="ml-2 round-lg">
+                        <svg
+                            viewBox="0 0 512 512"
+                            fill="currentColor"
+                            height="1em"
+                            width="1em"
+                        >
+                            <path d="M476.59 227.05l-.16-.07L49.35 49.84A23.56 23.56 0 0027.14 52 24.65 24.65 0 0016 72.59v113.29a24 24 0 0019.52 23.57l232.93 43.07a4 4 0 010 7.86L35.53 303.45A24 24 0 0016 327v113.31A23.57 23.57 0 0026.59 460a23.94 23.94 0 0013.22 4 24.55 24.55 0 009.52-1.93L476.4 285.94l.19-.09a32 32 0 000-58.8z" />
+                        </svg>
+                        </button>
+                    </form>
                 </>
                 ) : (
                     <p className="flex items-center justify-center h-full text-gray-500">
@@ -83,7 +133,7 @@ const ChatWindow = ({ onClose, conversations, selectedUser, onSelectUser, messag
             </div>
         </div>
     </div>
-);
+)};
 ChatWindow.propTypes = {
     onClose: PropTypes.func.isRequired,
     conversations: PropTypes.array.isRequired,

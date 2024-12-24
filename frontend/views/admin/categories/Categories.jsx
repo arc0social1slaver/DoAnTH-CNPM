@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAddCatMutation, useDeleteCatMutation, useFetchAllCatsQuery, useUpdateCatMutation } from "../redux/feature/catAPI";
-import CustomForm from "../components/admin/CustomForm";
+import { useAddCatMutation, useDeleteCatMutation, useFetchAllCatsQuery, useUpdateCatMutation } from "../../redux/feature/catAPI";
+import CustomForm from "../../components/admin/CustomForm";
 import Swal from "sweetalert2";
 
 const AdminCategories = () => {

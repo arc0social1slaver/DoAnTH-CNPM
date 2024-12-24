@@ -88,7 +88,7 @@ export const AuthProvide = ({children}) => {
         const user = response.data;
         
         if(user.user) {
-            sessionStorage.setItem('user', user.user);
+            sessionStorage.setItem('user', JSON.stringify(user.user));
             if(user.token) {
                 localStorage.setItem('token', user.token);
                 setTimeout(() => {

@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const express = require("express")
 const mongoose = require("mongoose")
-const cors = require("cors")
+const cors = require("cors");
 
 const app = express()
 const PORT = process.env.PORT || 4000
@@ -18,6 +18,8 @@ app.use(cors({
 app.use("/api/products", require("./src/products/products.route"))
 app.use("/api/users", require("./src/users/users.route"))
 app.use("/api/categories", require("./src/categories/categories.route"))
+app.use("/api/chat-rooms", require("./src/chatroom/chat-room.route"))
+app.use("/api/messages", require("./src/messages/messages.route"));
 
 async function main() {
     await mongoose.connect(process.env.DB_URI);

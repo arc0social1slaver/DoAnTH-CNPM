@@ -4,7 +4,8 @@ import { clearCart, removeFromCart } from "../redux/feature/cartSlice";
 const ShowCart = () => {
   const dispatch = useDispatch()
     const cartItems = useSelector(state => state.cart.cartItems)
-    const calculateTotal = cartItems.reduce((acc, item) => acc + Number(item['price'].replace(/,/g, '').replace(' VND', '')), 0)
+    // const calculateTotal = cartItems.reduce((acc, item) => acc + Number(item['price'].replace(/,/g, '').replace(' VND', '')), 0)
+    const calculateTotal = cartItems.reduce((acc, item) => acc + Number(item['price']), 0)
     const handleRemoveFromCart = (product) => {
         dispatch(removeFromCart(product))
     }
