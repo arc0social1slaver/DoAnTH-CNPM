@@ -5,7 +5,7 @@ const Card = ({ isActive, avt, name, email, onDelete }) => {
   return (
     <div className="bg-white-100 w-full rounded-xl p-4 flex items-center gap-4 mb-2">
         <div>
-            <img src="https://via.placeholder.com/150" alt="avatar" width={60} height={60} className="rounded-full"/>
+            <img src={avt} alt="avatar" width={60} height={60} className="rounded-full"/>
         </div>
         <div className="flex w-full items-center">
             <p className="w-1/5 text-center pointer-events-none">{name}</p>
