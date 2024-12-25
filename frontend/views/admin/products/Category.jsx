@@ -3,7 +3,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
-import Form from "./Form";
+import CategoryForm from "./CategoryForm";
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -13,7 +13,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
-const Products = () => {
+const Category = () => {
     const [selectedValue, setSelectedValue] = useState("option1");
     const [currentPage, setCurrentPage] = useState(1); // Track current page
     const [cardsPerPage, setCardsPerPage] = useState(6); // Default to 6 cards per page
@@ -73,16 +73,16 @@ const Products = () => {
     const currentProducts = filteredProducts.slice(indexOfFirstCard, indexOfLastCard);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     const handleDeleteClick = (product) => {
-        setSelectedProduct(product);
+        setSelectedCategory(product);
         setIsModalOpen(true);
     };
 
     const handleDeleteConfirm = () => {
-        console.log("Product to delete:", selectedProduct);
-        setProducts(products.filter((product) => product.id !== selectedProduct.id));
+        console.log("Product to delete:", selectedCategory);
+        setProducts(products.filter((product) => product.id !== selectedCategory.id));
         setIsModalOpen(false);
     };
 
@@ -94,12 +94,12 @@ const Products = () => {
     const [isFormOpen, setIsFormOpen] = useState(false); 
 
     const handleModifyClick = (product) => {
-        setSelectedProduct(product); 
+        setSelectedCategory(product); 
         setIsFormOpen(true); 
     };
 
-    const handleAddProductClick = () => {
-        setSelectedProduct(null); 
+    const handleAddCategoryClick = () => {
+        setSelectedCategory(null); 
         setIsFormOpen(true); 
     };
 
@@ -108,11 +108,12 @@ const Products = () => {
     };
 
     const handleFormConfirm = () => {
-        if (selectedProduct) {
-        console.log(`Modifying product with ID: ${selectedProduct.id}`);
+        if (selectedCategory) {
+        console.log(`Modifying product with ID: ${selectedCategory.id}`);
         }
         setIsFormOpen(false); // Close the form after confirming
     };
+
 
     return (
         <>
@@ -148,9 +149,9 @@ const Products = () => {
                             <FontAwesomeIcon icon={faMagnifyingGlass} className='text-colors-green-900 hover:text-colors-green-600 transition'/> {/* Use the icon here */}
                         </button>
                     </div>
-                    <div className="w-full md:w-1/3 transition-all hover:text-green-900 cursor-pointer ml-4 flex items-center justify-center gap-2" onClick={handleAddProductClick}>
+                    <div className="w-full md:w-1/3 transition-all hover:text-green-900 cursor-pointer ml-4 flex items-center justify-center gap-2" onClick={handleAddCategoryClick}>
                         <AddCircleIcon />
-                        <span>Thêm sản phẩm</span>
+                        <span>Thêm danh mục</span>
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-4 justify-center">
@@ -214,22 +215,22 @@ const Products = () => {
                     </button>
                 </div>
             </div>
+
             <Modal
                 isOpen={isModalOpen}
                 onClose={handleModalClose}
                 onConfirm={handleDeleteConfirm}
-                ProductName={selectedProduct ? selectedProduct.name : ""}
+                categoryName={selectedCategory ? selectedCategory.name : ""}
             />
 
             {/* Form for modifying a product */}
-            <Form
+            <CategoryForm
                 isOpen={isFormOpen}
                 onClose={handleFormClose}
                 onConfirm={handleFormConfirm}
-                product={selectedProduct} 
             />
         </>
     );
 }
 
-export default Products;
+export default Category;
