@@ -1,7 +1,6 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const Card = ({ img, name, price, category, stock, onDelete, onModify }) => {
   return (

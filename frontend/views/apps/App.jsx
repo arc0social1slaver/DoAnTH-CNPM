@@ -20,7 +20,7 @@ import ShowCart from "../user/ShowCart";
 import AdminDashboard from "../admin/dashboard/Dashboard";
 import AdminOrders from "../admin/orders/Orders";
 import AdminUsers from "../admin/users/Users";
-import AdminProducts from "../admin/products/Products";
+import AdminProducts from "../admin/products/ProductsLayout";
 import AdminSetting from "../admin/Setting";
 import UserRoute from "./UserRoute";
 import { useAuth } from "../context/AuthContext";

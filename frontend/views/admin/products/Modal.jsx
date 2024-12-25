@@ -1,13 +1,14 @@
 import React from "react";
 
-const Modal = ({ isOpen, onClose, onConfirm, ProductName }) => {
+const Modal = ({ isOpen, onClose, onConfirm, ProductName, categoryName }) => {
   if (!isOpen) return null; // Don't render the modal if it's not open
+  const labelName = ProductName ? "sản phẩm" : "danh mục";
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
       <div className="bg-colors-white p-6 rounded-lg w-80">
-        <h2 className="text-xl font-bold text-center mb-4">Xác nhận xóa sản phẩm</h2>
-        <p className="text-center mb-4">Bạn có chắc chắn muốn xóa sản phẩm "{ProductName}" không?</p>
+        <h2 className="text-xl font-bold text-center mb-4">Xác nhận xóa {labelName} </h2>
+        <p className="text-center mb-4">Bạn có chắc chắn muốn xóa {labelName} "{ProductName ? ProductName : categoryName }" không?</p>
         <div className="flex justify-around">
           <button
             onClick={onClose}
