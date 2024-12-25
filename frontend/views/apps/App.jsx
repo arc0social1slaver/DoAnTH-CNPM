@@ -53,7 +53,6 @@ const App = () => {
           <Route path="users" element={isLoading ? <Loading /> : <AdminUsers />} /> 
           <Route path="orders" element={isLoading ? <Loading /> : <AdminOrders />} /> 
           <Route path="products" element={isLoading ? <Loading /> : <AdminProducts />} />
-          <Route path="categories" element={isLoading ? <Loading /> : <AdminCategories/>} /> 
           <Route path="setting" element={isLoading ? <Loading /> : <AdminSetting />} /> 
         </Route>
       </Routes>

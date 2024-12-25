@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 
-const CategoryForm = ({ isOpen, onClose, onConfirm, category }) => {
+const CategoryForm = ({ isOpen, onClose, onConfirm, onCategory, category }) => {
   if (!isOpen) return null; 
 
   const handleFileChange = (event) => {
@@ -27,9 +27,9 @@ const CategoryForm = ({ isOpen, onClose, onConfirm, category }) => {
                 </select>
             </div>
             <div className="mt-3">
-                <form action="post">
-                    <input type="text" placeholder="Nhập danh mục" className="border w-full px-2 py-1"/>
-                </form>
+                  <form method="post">
+                    <input type="text" onChange={(e) => onCategory(e.target.value)} value={category} placeholder="Nhập danh mục" className="border w-full px-2 py-1"/>
+                  </form>
             </div>
             <div className="flex justify-center gap-8 mt-4">
                 <button

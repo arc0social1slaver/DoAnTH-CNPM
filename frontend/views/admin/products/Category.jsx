@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import CategoryForm from "./CategoryForm";
+import Swal from "sweetalert2";
 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -12,36 +13,40 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import FilterListIcon from '@mui/icons-material/FilterList';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { useAddCatMutation, useDeleteCatMutation, useFetchAllCatsQuery, useUpdateCatMutation } from "../../redux/feature/catAPI";
 
 const Category = () => {
     const [selectedValue, setSelectedValue] = useState("option1");
     const [currentPage, setCurrentPage] = useState(1); // Track current page
     const cardsPerPage = 8;
-
+    const [addCat, {}] = useAddCatMutation();
+    const [updateCat, {}] = useUpdateCatMutation();
+    const [deleteCat, {}] = useDeleteCatMutation();
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
     };
 
 
     // Lấy từ database
-    const [categories, setCategories] = useState([
-        { id: 1, name: "Category 1", date: "" },
-        { id: 2, name: "Category 2", date: "" },
-        { id: 3, name: "Category 3", date: "" },
-        { id: 4, name: "Category 4", date: "" },
-        { id: 5, name: "Category 5", date: "" },
-        { id: 6, name: "Category 6", date: "" },
-        { id: 7, name: "Category 7", date: "" },
-        { id: 8, name: "Category 8", date: "" },
-        { id: 9, name: "Category 9", date: "" },
-        { id: 10, name: "Category 10", date: "" },
-      ]);
+    // const [categories, setCategories] = useState([
+    //     { id: 1, name: "Category 1", date: "" },
+    //     { id: 2, name: "Category 2", date: "" },
+    //     { id: 3, name: "Category 3", date: "" },
+    //     { id: 4, name: "Category 4", date: "" },
+    //     { id: 5, name: "Category 5", date: "" },
+    //     { id: 6, name: "Category 6", date: "" },
+    //     { id: 7, name: "Category 7", date: "" },
+    //     { id: 8, name: "Category 8", date: "" },
+    //     { id: 9, name: "Category 9", date: "" },
+    //     { id: 10, name: "Category 10", date: "" },
+    //   ]);
+    const {data : {cats = []} = {}} = useFetchAllCatsQuery();
 
     // Lấy từ database (category)
     const filteredCategories =
     selectedValue === "option1"
-        ? categories // Show all categories
-        : categories.filter((category) => (selectedValue === "option2" ? category.isActive : !category.isActive));
+        ? cats // Show all categories
+        : cats.filter((category) => (selectedValue === "option2" ? category.isActive : !category.isActive));
 
     // Logic for pagination
     const totalPages = Math.ceil(filteredCategories.length / cardsPerPage);
@@ -51,15 +56,36 @@ const Category = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [fieldCategory, setFieldCategory] = useState('');
 
     const handleDeleteClick = (category) => {
         setSelectedCategory(category);
         setIsModalOpen(true);
     };
 
-    const handleDeleteConfirm = () => {
-        console.log("category to delete:", selectedCategory);
-        setCategories(categories.filter((category) => category.id !== selectedCategory.id));
+    const handleDeleteConfirm = async () => {
+        // console.log("category to delete:", selectedCategory);
+        // setCategories(categories.filter((category) => category.id !== selectedCategory.id));
+        const id = selectedCategory._id;
+        try {
+            await deleteCat(id).unwrap();
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Xóa danh mục thành công",
+                    showConfirmButton: true,
+                    timer: 1500
+                });
+        } catch (err) {
+            // console.log(err);
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Lỗi xóa danh mục",
+                showConfirmButton: true,
+                timer: 1500
+            });
+        }
         setIsModalOpen(false);
     };
 
@@ -69,26 +95,107 @@ const Category = () => {
 
     // Form Logic
     const [isFormOpen, setIsFormOpen] = useState(false); 
-
     const handleModifyClick = (category) => {
-        setSelectedCategory(category); 
-        setIsFormOpen(true); 
+        setSelectedCategory(category);
+        setFieldCategory(category.name);
+        setIsFormOpen(true);
     };
 
     const handleAddCategoryClick = () => {
         setSelectedCategory(null); 
-        setIsFormOpen(true); 
+        setIsFormOpen(true);
     };
 
     const handleFormClose = () => {
         setIsFormOpen(false); // Close the form
     };
 
-    const handleFormConfirm = () => {
-        if (selectedCategory) {
-        console.log(`Modifying category with ID: ${selectedCategory.id}`);
+    const handleFormConfirm = async () => {
+        if(fieldCategory == '') {
+            Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Danh mục sản phẩm không được để trống",
+                showConfirmButton: true,
+                timer: 1500
+            });
+        }
+        else {
+            const newCat = {
+                name: fieldCategory
+            };
+            if (selectedCategory) {
+                // console.log(`Modifying category with ID: ${selectedCategory._id}`);
+                // Modify logic
+                const id = selectedCategory._id;
+                try {
+                    await updateCat({id, ...newCat}).unwrap();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Chỉnh sửa danh mục thành công",
+                        showConfirmButton: true,
+                        timer: 1500
+                    });
+                } catch (err) {
+                    // console.log(err);
+                    if(err.status == 404) {
+                        Swal.fire({
+                        position: "top-end",
+                        icon: "warning",
+                        title: "Danh mục không tồn tại",
+                        showConfirmButton: true,
+                        timer: 1500
+                    });
+                    }
+                    else {
+                        Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: "Lỗi chỉnh sửa danh mục",
+                        showConfirmButton: true,
+                        timer: 1500
+                        });
+                    }
+                }
+            }
+            else {
+                // Add logic
+                // console.log("Dang them danh muc", fieldCategory);
+                try {
+                    await addCat(newCat).unwrap();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Thêm danh mục thành công",
+                        showConfirmButton: true,
+                        timer: 1500
+                    });
+                } catch (err) {
+                    // console.log(err);
+                    if(err.status == 400) {
+                        Swal.fire({
+                        position: "top-end",
+                        icon: "warning",
+                        title: "Danh mục đã tồn tại",
+                        showConfirmButton: true,
+                        timer: 1500
+                    });
+                    }
+                    else {
+                        Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: "Lỗi thêm danh mục",
+                        showConfirmButton: true,
+                        timer: 1500
+                        });
+                    }
+                }
+            }
         }
         setIsFormOpen(false); // Close the form after confirming
+        setFieldCategory('');
     };
 
 
@@ -133,10 +240,10 @@ const Category = () => {
                 </div>
                 <div className="flex flex-col gap-1 justify-center mx-6">
                     {currentCategories.map((category) => (
-                        <div className="">
+                        <div key={category._id} className="">
                             <CategoryCard 
                                 name={category.name}
-                                date={category.date}
+                                date={new Date(category.createdAt).toUTCString()}
                                 onDelete={() => handleDeleteClick(category)}
                                 onModify={() => handleModifyClick(category)}
                                 className="w-full"
@@ -202,6 +309,8 @@ const Category = () => {
                 isOpen={isFormOpen}
                 onClose={handleFormClose}
                 onConfirm={handleFormConfirm}
+                category={fieldCategory}
+                onCategory={setFieldCategory}
             />
         </>
     );
