@@ -1,4 +1,4 @@
-import Card from "./Card";
+import CategoryCard from "./CategoryCards";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from "react";
@@ -16,73 +16,50 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 const Category = () => {
     const [selectedValue, setSelectedValue] = useState("option1");
     const [currentPage, setCurrentPage] = useState(1); // Track current page
-    const [cardsPerPage, setCardsPerPage] = useState(6); // Default to 6 cards per page
+    const cardsPerPage = 8;
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
     };
-    
 
-    // Dynamically adjust cards per page based on screen size
-    useEffect(() => {
-        const updateCardsPerPage = () => {
-            const width = window.innerWidth;
-            if (width >= 1536) {
-                setCardsPerPage(8); // Large screen
-            } else {
-                setCardsPerPage(6); // Medium and smaller screens
-            }
-        };
-
-        // Set initial value
-        updateCardsPerPage();
-
-        // Update on window resize
-        window.addEventListener("resize", updateCardsPerPage);
-
-        // Cleanup on component unmount
-        return () => {
-            window.removeEventListener("resize", updateCardsPerPage);
-        };
-    }, []);
 
     // Lấy từ database
-    const [products, setProducts] = useState([
-        { id: 1, img: "https://via.placeholder.com/150", name: "Product 1", category: "Electronic", price: 100.000, stock: 10 },
-        { id: 2, img: "https://via.placeholder.com/150", name: "Product 2", category: "Electronic", price: 100.000, stock: 10 },
-        { id: 3, img: "https://via.placeholder.com/150", name: "Product 3", category: "Electronic", price: 100.000, stock: 10 },
-        { id: 4, img: "https://via.placeholder.com/150", name: "Product 4", category: "Electronic", price: 100.000, stock: 10 },
-        { id: 5, img: "https://via.placeholder.com/150", name: "Product 5", category: "Electronic", price: 100.000, stock: 10 },
-        { id: 6, img: "https://via.placeholder.com/150", name: "Product 6", category: "Electronic", price: 100.000, stock: 10 },
-        { id: 7, img: "https://via.placeholder.com/150", name: "Product 7", category: "Electronic", price: 100.000, stock: 10 },
-        { id: 8, img: "https://via.placeholder.com/150", name: "Product 8", category: "Electronic", price: 100.000, stock: 10 },
-        { id: 9, img: "https://via.placeholder.com/150", name: "Product 9", category: "Electronic", price: 100.000, stock: 10 },
-        { id: 10, img: "https://via.placeholder.com/150", name: "Product 10", category: "Electronic", price: 100.000, stock: 10 },
+    const [categories, setCategories] = useState([
+        { id: 1, name: "Category 1", date: "" },
+        { id: 2, name: "Category 2", date: "" },
+        { id: 3, name: "Category 3", date: "" },
+        { id: 4, name: "Category 4", date: "" },
+        { id: 5, name: "Category 5", date: "" },
+        { id: 6, name: "Category 6", date: "" },
+        { id: 7, name: "Category 7", date: "" },
+        { id: 8, name: "Category 8", date: "" },
+        { id: 9, name: "Category 9", date: "" },
+        { id: 10, name: "Category 10", date: "" },
       ]);
 
     // Lấy từ database (category)
-    const filteredProducts =
+    const filteredCategories =
     selectedValue === "option1"
-        ? products // Show all products
-        : products.filter((product) => (selectedValue === "option2" ? product.isActive : !product.isActive));
+        ? categories // Show all categories
+        : categories.filter((category) => (selectedValue === "option2" ? category.isActive : !category.isActive));
 
     // Logic for pagination
-    const totalPages = Math.ceil(filteredProducts.length / cardsPerPage);
+    const totalPages = Math.ceil(filteredCategories.length / cardsPerPage);
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const currentProducts = filteredProducts.slice(indexOfFirstCard, indexOfLastCard);
+    const currentCategories = filteredCategories.slice(indexOfFirstCard, indexOfLastCard);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
-    const handleDeleteClick = (product) => {
-        setSelectedCategory(product);
+    const handleDeleteClick = (category) => {
+        setSelectedCategory(category);
         setIsModalOpen(true);
     };
 
     const handleDeleteConfirm = () => {
-        console.log("Product to delete:", selectedCategory);
-        setProducts(products.filter((product) => product.id !== selectedCategory.id));
+        console.log("category to delete:", selectedCategory);
+        setCategories(categories.filter((category) => category.id !== selectedCategory.id));
         setIsModalOpen(false);
     };
 
@@ -93,8 +70,8 @@ const Category = () => {
     // Form Logic
     const [isFormOpen, setIsFormOpen] = useState(false); 
 
-    const handleModifyClick = (product) => {
-        setSelectedCategory(product); 
+    const handleModifyClick = (category) => {
+        setSelectedCategory(category); 
         setIsFormOpen(true); 
     };
 
@@ -109,7 +86,7 @@ const Category = () => {
 
     const handleFormConfirm = () => {
         if (selectedCategory) {
-        console.log(`Modifying product with ID: ${selectedCategory.id}`);
+        console.log(`Modifying category with ID: ${selectedCategory.id}`);
         }
         setIsFormOpen(false); // Close the form after confirming
     };
@@ -154,17 +131,14 @@ const Category = () => {
                         <span>Thêm danh mục</span>
                     </div>
                 </div>
-                <div className="flex flex-wrap gap-4 justify-center">
-                    {currentProducts.map((product) => (
-                        <div className="2xl:w-1/5">
-                            <Card 
-                                img={product.img}
-                                name={product.name}
-                                price={product.price}
-                                category={product.category}
-                                stock={product.stock}
-                                onDelete={() => handleDeleteClick(product)}
-                                onModify={() => handleModifyClick(product)}
+                <div className="flex flex-col gap-1 justify-center mx-6">
+                    {currentCategories.map((category) => (
+                        <div className="">
+                            <CategoryCard 
+                                name={category.name}
+                                date={category.date}
+                                onDelete={() => handleDeleteClick(category)}
+                                onModify={() => handleModifyClick(category)}
                                 className="w-full"
                             />
                         </div>
@@ -223,7 +197,7 @@ const Category = () => {
                 categoryName={selectedCategory ? selectedCategory.name : ""}
             />
 
-            {/* Form for modifying a product */}
+            {/* Form for modifying a category */}
             <CategoryForm
                 isOpen={isFormOpen}
                 onClose={handleFormClose}
