@@ -19,7 +19,7 @@ const Card = ({ img, name, price, category, stock, onDelete, onModify }) => {
             </div>
             <div className='w-full px-3 pointer-events-none flex justify-between'>
                 <p className=''>Số lượng: <span>{stock}</span></p>
-                <p>Giá: <span>{price}</span></p>
+                <p>Giá: <span>{price.toLocaleString()}</span></p>
             </div>
             <div className='w-full flex justify-between mt-3'>
                 <div className='py-1 px-2 bg-green-900 hover:bg-colors-green-700 text-white-100 transition-all rounded-sm cursor-pointer flex gap-1 items-center justify-center' onClick={onModify}>

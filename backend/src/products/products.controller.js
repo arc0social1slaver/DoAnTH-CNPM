@@ -21,7 +21,7 @@ const getAllProds = async (req, res) => {
 const getProd = async (req, res) => {
     try {
         const {id} = req.params
-        const prod = await product.findById(id)
+        const prod = await product.findById(id).populate('cat_id', 'name')
         if(!prod) {
             res.status(404).send({'message': 'Product not found'})
         }
@@ -29,6 +29,23 @@ const getProd = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send({'message': 'Fail to fetch the product'})
+    }
+}
+const getAllProdByCat = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const prod = await product.find({
+            cat_id: id
+        }).populate('cat_id', 'name')
+        if(!prod) {
+            res.status(400).send({'message': 'Product not found'})
+        }
+        else {
+            res.status(200).send({product: prod})
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({'message': 'Fail to fetch the product'})   
     }
 }
 const updateProd = async (req, res) => {
@@ -60,7 +77,8 @@ const deleteProd = async (req, res) => {
 module.exports = {
     addProducts,
     getAllProds,
+    getAllProdByCat,
     getProd,
     updateProd,
-    deleteProd
+    deleteProd,
 }

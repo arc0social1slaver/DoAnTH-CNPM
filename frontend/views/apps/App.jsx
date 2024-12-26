@@ -25,7 +25,6 @@ import AdminSetting from "../admin/Setting";
 import UserRoute from "./UserRoute";
 import { useAuth } from "../context/AuthContext";
 import AdminRoute from "./AdminRoute";
-import AdminCategories from "../admin/categories/Categories";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
