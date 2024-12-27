@@ -15,7 +15,7 @@ const SideBar = () => {
             alt="Logo"
             height={80}
             width={80}
-            className="md:hidden xl:block"
+            className="md:hidden 2xl:block"
           />
           <p className="text-colors-green-700 text-2xl font-bold hidden md:block">ThriftMate</p>
         </div>

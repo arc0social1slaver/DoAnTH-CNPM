@@ -1,6 +1,4 @@
-import Card from "./Card";
 import axios from "axios";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect } from "react";
 import Products from "./Products";
 import Category from "./Category";

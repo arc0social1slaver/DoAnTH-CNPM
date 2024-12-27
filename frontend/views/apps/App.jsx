@@ -17,10 +17,8 @@ import Electronics from "../user/Electronics";
 import ProductDetail from "../user/ProductDetail";
 
 import AdminDashboard from "../admin/dashboard/Dashboard";
-import AdminOrders from "../admin/orders/Orders";
 import AdminUsers from "../admin/users/Users";
 import AdminProducts from "../admin/products/ProductsLayout";
-import AdminSetting from "../admin/Setting";
 
 const App = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -46,9 +44,7 @@ const App = () => {
           <Route index element={isLoading ? <Loading /> : <AdminDashboard />} />
           <Route path="dashboard" element={isLoading ? <Loading /> : <AdminDashboard />} /> 
           <Route path="users" element={isLoading ? <Loading /> : <AdminUsers />} /> 
-          <Route path="orders" element={isLoading ? <Loading /> : <AdminOrders />} /> 
           <Route path="products" element={isLoading ? <Loading /> : <AdminProducts />} /> 
-          <Route path="setting" element={isLoading ? <Loading /> : <AdminSetting />} /> 
         </Route>
       </Routes>
      
