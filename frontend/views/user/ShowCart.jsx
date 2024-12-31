@@ -1,5 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import { clearCart, removeFromCart } from "../redux/feature/cartSlice";
+import { Link } from "react-router-dom";
+import Currency from "../components/user/Currency";
 
 const ShowCart = () => {
   const dispatch = useDispatch()
@@ -48,7 +50,7 @@ const ShowCart = () => {
             {/* Product Name */}
             <h2 className="flex-1 text-base mx-4 text-gray-700">{item?.name}</h2>
              {/* Product Price */}
-             <p className="text-base text-gray-700 bg-colors-yellow-400 px-4 py-2">{item?.price}</p>
+             <p className="text-base text-gray-700 bg-colors-yellow-400 px-4 py-2"> <Currency amount={item?.price}/></p>
 
             {/* Remove Button */}
             <button
@@ -68,14 +70,15 @@ const ShowCart = () => {
   {cartItems.length > 0 && (
     <div className="mt-8 w-full md:max-w-5xl flex justify-between items-center">
       <p className="text-lg font-semibold text-gray-700">
-        Tổng cộng: {calculateTotal? calculateTotal.toLocaleString(): 0} VND
+        Tổng cộng: <Currency amount={calculateTotal? calculateTotal: 0} />
       </p>
-      <button
+      <Link
         // onClick={handleCheckout}
+        to={"/user/checkout"}
         className="px-6 py-2 bg-green-700 text-white font-semibold rounded-md hover:bg-green-800 transition-colors"
       >
         Thanh toán
-      </button>
+      </Link>
     </div>
   )}
 </div> 

@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const messSchema = new mongoose.Schema({
     chatID: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'chat-rooms',
         required: true,
     },
     senderID: {
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
         required: true
     },

@@ -19,7 +19,17 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    isActive: {
+        type: Boolean,
+        default: false,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
     }
+}, {
+    timestamps: true
 })
 userSchema.pre("save", async function (next) {
     if(!this.isModified("password")) {

@@ -1,26 +1,29 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Currency from "../components/user/Currency";
+import { useFetchProdByIDQuery } from "../redux/feature/prodAPI";
+
 
 
 const ProductDetail = () => {
     const { id } = useParams();
     
-    console.log(id);
+    // console.log(id);
     
-    const [product, setProduct] = useState(null);
-    const [loading, setLoading] = useState(true);
+    // const [product, setProduct] = useState(null);
+    // const [loading, setLoading] = useState(true);
     const [copied, setCopied] = useState(false);
     const navigate = useNavigate();
 
-    const addToCart = (product) => {
     
-        console.log('Đã thêm vào giỏ hàng:', product);
-    }
-    const buyNow = (product) => {
-        navigate('/checkout');
-        console.log('Mua ngay:', product);
-    }
+    // const addToCart = (product) => {
+    
+    //     console.log('Đã thêm vào giỏ hàng:', product);
+    // }
+    // const buyNow = (product) => {
+    //     navigate('/checkout');
+    //     console.log('Mua ngay:', product);
+    // }
     const handleCopy = () => {
         navigator.clipboard.writeText(window.location.href)
             .then(() => {
@@ -30,27 +33,30 @@ const ProductDetail = () => {
             .catch(err => console.error('Failed to copy: ', err));
     };
 
-    useEffect(() => {
-        fetch(`http://localhost:3000/products/${id}`)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Sản phẩm không tồn tại!");
-            }
-            return response.json()
-        })
-        .then((data) => {
-            console.log("Dữ liệu sản phẩm:", data);
-            setProduct(data);
-        })
-        .catch((error) => {
-            console.error("Error fetching product:", error);
-        })
-        .finally(() => {
-            setLoading(false);
-        });
-    }, [id, navigate]);
-    if (loading) {
-        return <p>Đang tải thông tin sản phẩm...</p>;
+    // useEffect(() => {
+    //     fetch(`http://localhost:3000/products/${id}`)
+    //     .then((response) => {
+    //         if (!response.ok) {
+    //             throw new Error("Sản phẩm không tồn tại!");
+    //         }
+    //         return response.json()
+    //     })
+    //     .then((data) => {
+    //         console.log("Dữ liệu sản phẩm:", data);
+    //         setProduct(data);
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error fetching product:", error);
+    //     })
+    //     .finally(() => {
+    //         setLoading(false);
+    //     });
+        
+    // }, [id, navigate]);
+    const {data : {product = []} = [], isLoading} = useFetchProdByIDQuery(id);
+        // setProduct(product);
+    if (isLoading) {
+            return <p>Đang tải thông tin sản phẩm...</p>;
     }
     if (!product) {
         return <p>Không tìm thấy sản phẩm.</p>;
@@ -123,9 +129,9 @@ const ProductDetail = () => {
                     </div>
 
                     {/*Button */}
-                    <div className="mt-8 flex space-x-4">
+                    {/* <div className="mt-8 flex space-x-4">
                         <button
-                            onClick={() => addToCart(product)}
+                            onClick={() => handleAddProd(product)}
                             className="flex items-center px-8 bg-green-100 text-green-700 border border-green-700 py-2 rounded-lg hover:bg-opacity-75 focus:outline-none"
                         >
                             Thêm vào giỏ hàng
@@ -136,21 +142,21 @@ const ProductDetail = () => {
                         >
                             Mua ngay
                         </button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
             {/* Seller */}
             <div className="flex items-center w-full mt-10 bg-colors-white border-y-8 border-gray-100 py-2 px-16">
                 <img
-                    src={product.user.avatar}
+                    src={product.user?.avatar}
                     alt="Seller Avatar"
                     className="w-16 h-16 rounded-full"
                 />
                 <div className="ml-4">
-                    <p className="text-md font-medium">{product.user?.name}</p>
+                    {/* <p className="text-md font-medium">{product.user?.name}</p>
                     <p className="text-sm text-gray-500">Online {product.user?.lastOnline}</p>
-                    <p className="text-md text-gray-500 mt-2">Đánh giá: {product.user?.rating}</p>
+                    <p className="text-md text-gray-500 mt-2">Đánh giá: {product.user?.rating}</p> */}
                 </div>
 
                 {/* Seller Button */}
@@ -168,21 +174,21 @@ const ProductDetail = () => {
             <div className="px-16 mt-8">
                 <h2 className="text-lg">CHI TIẾT SẢN PHẨM</h2>
                 <div className="grid grid-cols-[auto_1fr] mt-8 gap-y-4 gap-x-12 text-gray-400">
-                    <p>Danh mục</p><p className="text-colors-black">{product.category}</p>
+                    <p>Danh mục</p><p className="text-colors-black">{product.cat_id.name}</p>
                     <p>Kho</p><p className="text-colors-black">{product.stock}</p>
-                    <p>Nhãn hàng</p><p className="text-colors-black">{product.brand}</p>
-                    <p>Tình trạng</p><p className="text-colors-black">{product.condition}</p>
+                    {/* <p>Nhãn hàng</p><p className="text-colors-black">{product.brand}</p> */}
+                    {/* <p>Tình trạng</p><p className="text-colors-black">{product.condition}</p> */}
                 </div>
             </div>
 
             {/* Description */}
             <div className="px-16 mt-8 bg-colors-white border-t-8 border-gray-100">
                 <h2 className="text-lg mt-8">MÔ TẢ SẢN PHẨM</h2>
-                <textarea
+                {/* <textarea
                     value={product.description}
                     readOnly
                     className="w-full mt-8 p-4"
-                ></textarea>
+                ></textarea> */}
             </div>
         </div>
     );

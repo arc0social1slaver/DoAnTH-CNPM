@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; 
+import { useFetchAllProdsQuery } from "../redux/feature/prodAPI";
+import Currency from "../components/user/Currency";
 import {useDispatch} from "react-redux";
 import { addToCart } from "../redux/feature/cartSlice";
-import { useFetchAllProdsQuery } from "../redux/feature/prodAPI";
 
 const UserDashboard = () => {
   const navigate = useNavigate();
+  
   const dispatch = useDispatch();
   const handleAddProd = (product) => {
    dispatch(addToCart(product))
@@ -54,17 +56,19 @@ const UserDashboard = () => {
                 className="w-full h-48 object-cover"
               />
                <h2 className="text-base text-center line-clamp-2">{product.name}</h2>
-              <p className="text-base text-green-700 font-semibold text-center">{product.price}</p>
-              <button onClick={() => handleAddProd(product)}
+              <p className="text-base text-green-700 font-semibold text-center"><Currency amount={product.price}/></p>
+              <button
+              onClick={() => handleAddProd(product)}
+              // onClick={() => navigate(`/user/product/${product._id}`)}
               className="w-full py-2 bg-green-700 text-white font-semibold text-sm rounded-md mt-auto hover:bg-green-800 transition-colors"
                >
-             Add to Cart
+                Thêm vào giỏ hàng
             </button>
             <Link 
           to={`/user/product/${product._id}`} 
           className="text-green-700 font-semibold mt-2 hover:underline"
         >
-          View Details
+          Chi tiết sản phẩm
         </Link>
           {/* </div>  */}
               {/* <h2 className="text-base my-2 mx-2 line-clamp-2">{product.name}</h2> */}

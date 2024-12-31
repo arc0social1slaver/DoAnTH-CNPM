@@ -74,6 +74,18 @@ const deleteProd = async (req, res) => {
         res.status(500).send({'message': 'Fail to delete the product'})
     }
 }
+const searchProdByName = async (req, res) => {
+    const {name} = req.params;
+    try {
+            const allProductSort = await product.find({
+                name: new RegExp('.*' + name + '.*')
+            }).populate('cat_id',['name', 'createdAt']).sort({createdAt: -1})
+            res.status(200).send({'message': 'Fetch product successfully', products: allProductSort})
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({'message': 'Fail to get product'});
+    }
+}
 module.exports = {
     addProducts,
     getAllProds,
@@ -81,4 +93,5 @@ module.exports = {
     getProd,
     updateProd,
     deleteProd,
+    searchProdByName,
 }

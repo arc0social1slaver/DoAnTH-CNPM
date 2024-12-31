@@ -7,7 +7,7 @@ import 'react-circular-progressbar/dist/styles.css';
 
 const Card = ({ icon, title, proportion, number }) => {
   // Map icons to a dictionary for clarity and extensibility
-
+    
   const icons = {
     users: <PersonIcon size={32} />,
     transaction: <PaidIcon size={32} />,
@@ -34,7 +34,7 @@ const Card = ({ icon, title, proportion, number }) => {
                     {icons[icon] || null}
                     <span className="text-xl">{title || "Untitled"}</span>
                 </div>
-                <span className="text-3xl font-bold text-colors-green-700">{number || "N/A"}</span>
+                <span className="text-3xl font-bold text-colors-green-700">{number === 0 ? number : number || "N/A"}</span>
                 <span>Trong 24 giờ vừa qua</span>
 
             </div>

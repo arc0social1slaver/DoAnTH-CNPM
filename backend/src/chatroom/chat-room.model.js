@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const chatroomSchema = new mongoose.Schema({
     members: [{
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
     }],
 }, {

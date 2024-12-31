@@ -104,7 +104,6 @@ export const AuthProvide = ({children}) => {
         return user.user._id;
     }
     const logOutUser = async () => {
-        // setCurrUser(currUser => ({...currUser}));
         sessionStorage.removeItem('user');
         localStorage.removeItem('token');
     }

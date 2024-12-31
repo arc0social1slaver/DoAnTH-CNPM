@@ -16,14 +16,12 @@ import Documents from "../user/Documents";
 import Electronics from "../user/Electronics";
 import ProductDetail from "../user/ProductDetail";
 import ShowCart from "../user/ShowCart";
+import Checkout from "../user/Checkout";
 
 import AdminDashboard from "../admin/dashboard/Dashboard";
-import AdminOrders from "../admin/orders/Orders";
 import AdminUsers from "../admin/users/Users";
 import AdminProducts from "../admin/products/ProductsLayout";
-import AdminSetting from "../admin/Setting";
 import UserRoute from "./UserRoute";
-import { useAuth } from "../context/AuthContext";
 import AdminRoute from "./AdminRoute";
 
 const App = () => {
@@ -47,12 +45,10 @@ const App = () => {
       {/* For Admin */}
       <Routes>
         <Route path="/admin" element={isLoading ? <Loading /> : <AdminLayout />}>
-          <Route index element={isLoading ? <Loading /> : <AdminDashboard />} />
+          <Route index element={isLoading ? <Loading /> : <AdminRoute><AdminDashboard /></AdminRoute>} />
           <Route path="dashboard" element={isLoading ? <Loading /> : <AdminDashboard />} /> 
           <Route path="users" element={isLoading ? <Loading /> : <AdminUsers />} /> 
-          <Route path="orders" element={isLoading ? <Loading /> : <AdminOrders />} /> 
-          <Route path="products" element={isLoading ? <Loading /> : <AdminProducts />} />
-          <Route path="setting" element={isLoading ? <Loading /> : <AdminSetting />} /> 
+          <Route path="products" element={isLoading ? <Loading /> : <AdminProducts />} /> 
         </Route>
       </Routes>
      
@@ -66,6 +62,7 @@ const App = () => {
           <Route path="documents" element={<Documents/>} /> 
           <Route path="electronics" element={<Electronics/>} /> 
           <Route path="product/:id" element={<ProductDetail />} />
+          <Route path="checkout" element={<Checkout/>} />
         </Route>
       </Routes>
     </BrowserRouter>

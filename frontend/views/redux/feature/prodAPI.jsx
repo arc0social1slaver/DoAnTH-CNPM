@@ -30,6 +30,10 @@ const prodAPI = createApi({
             query: (id) => `/cat/${id}`,
             providesTags: ["products"],
         }),
+        fetchAllProdsByName: builder.query({
+            query: (name) => `/search/${name}`,
+            providesTags: ["products"],
+        }),
         addProd: builder.mutation({
             query: (newProd) => ({
                 url: '/create-product',
@@ -58,5 +62,5 @@ const prodAPI = createApi({
         })
     })
 })
-export const {useFetchAllProdsQuery, useFetchProdByIDQuery, useFetchAllProdsByCatQuery, useAddProdMutation, useUpdateProdMutation, useDeleteProdMutation} = prodAPI;
+export const {useFetchAllProdsQuery, useFetchProdByIDQuery, useFetchAllProdsByCatQuery, useAddProdMutation, useUpdateProdMutation, useDeleteProdMutation, useLazyFetchAllProdsByNameQuery, useLazyFetchAllProdsByCatQuery} = prodAPI;
 export default prodAPI;

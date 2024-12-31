@@ -103,9 +103,24 @@ const ChatApp = () => {
   //   { id: 3, name: "Charlie" },
   // ];
   useEffect(() => {
+    const activateTheUser = async (mySocket, user_id) => {
+      mySocket.emit("activateUser", user_id);
+    }
+    const deActiveTheUser = async (mySocket) => {
+      mySocket.disconnect();
+    }
+    if(sessionStorage.getItem('user')) {
    const newSocket = io(`${getSocketURL()}`);
+   const user_id = JSON.parse(sessionStorage.getItem('user'))._id
       setSocket(newSocket);
+      // newSocket.emit("activateUser", user_id)
+      activateTheUser(newSocket, user_id)
     getAllUser()
+    return () => {
+      // newSocket.disconnect()
+      deActiveTheUser(newSocket)
+    }
+    }
   }, [])
   useEffect(() => {
     if(roomID != '') {

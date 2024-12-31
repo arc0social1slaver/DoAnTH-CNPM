@@ -1,17 +1,34 @@
 require("dotenv").config();
 
 
+
 const { Server } = require("socket.io");
 const axios = require("axios");
 const PORT = process.env.PORT || 4000;
 const FE = process.env.FRONTEND;
 const BE = process.env.BACKEND;
 
+let onlineUsers = [];
 
 const io = new Server({cors: FE});
 
 io.on("connection", (socket) => {
   console.log("new connection", socket.id);
+  socket.on("activateUser", (user_id) => {
+    axios({
+      method: "put",
+      url: `${BE}/api/users/status/${user_id}`
+    })
+      .then((val) => {
+        console.log(val.data);
+        !onlineUsers.some((item) => item.user_id === user_id) && onlineUsers.push({
+          user_id,
+          socketId: socket.id
+        })
+        console.log(onlineUsers);
+      })
+      .catch((error) => console.log(error))
+  })
   socket.on("sendMessage", (message) => {
     // console.log(message);
     axios({
@@ -37,6 +54,19 @@ io.on("connection", (socket) => {
   // socket.("get-message", () => {
   //   axios
   // })
+  socket.on("disconnect", () => {
+    let user_id = onlineUsers.find(item => item.socketId === socket.id).user_id
+    axios({
+       method: "put",
+      url: `${BE}/api/users/status/${user_id}`
+    })
+    .then((val) => {
+      console.log(val.data);
+      onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id)
+      console.log(onlineUsers);
+    })
+    .catch((error) => console.log(error))
+  })
 });
 
 io.listen(PORT);

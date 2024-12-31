@@ -12,21 +12,28 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import FilterListIcon from '@mui/icons-material/FilterList';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { useFetchAllProdsQuery } from "../../redux/feature/prodAPI";
+import { useDeleteProdMutation, useFetchAllProdsQuery, useLazyFetchAllProdsByCatQuery, useLazyFetchAllProdsByNameQuery } from "../../redux/feature/prodAPI";
 import { useFetchAllCatsQuery } from "../../redux/feature/catAPI";
+import Swal from "sweetalert2";
 
 const Products = () => {
     const [selectedValue, setSelectedValue] = useState("option1");
     const {data : {products = []} = [],} = useFetchAllProdsQuery();
+    const [getProdByName, {}] = useLazyFetchAllProdsByNameQuery();
+    const [getProdByCat, {}] = useLazyFetchAllProdsByCatQuery();
     const {data: {cats = []} = []} = useFetchAllCatsQuery();
+    const [delProd, {}] = useDeleteProdMutation();
     const [currentPage, setCurrentPage] = useState(1); // Track current page
     const [cardsPerPage, setCardsPerPage] = useState(6); // Default to 6 cards per page
+    const [searchValue , setSearchVal] = useState('');
     const currentProducts_fetch = useRef([]);
     const totalPages_fetch = useRef(0);
     const fetchOrNot = useRef(false);
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
-        fetchTheProducts(event.target.value);
+        if(event.target.value === "option1") {
+            fetchTheProducts(event.target.value);
+        }
     };
     
     // Dynamically adjust cards per page based on screen size
@@ -80,6 +87,7 @@ const Products = () => {
         let indexOfFirstCard = indexOfLastCard - cardsPerPage;
         currentProducts_fetch.current = filteredProducts.slice(indexOfFirstCard, indexOfLastCard)
     }
+    
     const filteredProducts = products;
 
     // Logic for pagination
@@ -90,14 +98,80 @@ const Products = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
+    
+    useEffect(() => {
+        const fetchProdName = async () => {
+            const name = searchValue;
+            let filteredProducts = [];
+            fetchOrNot.current = true
+                try {
+                    const response = await getProdByName(name).unwrap();
+                    filteredProducts = response.products;
+                } catch (error) {
+                    console.log(error);
+                    filteredProducts = products
+                }
+                totalPages_fetch.current = Math.ceil(filteredProducts.length / cardsPerPage);
+                let indexOfLastCard = currentPage * cardsPerPage;
+                let indexOfFirstCard = indexOfLastCard - cardsPerPage;
+                currentProducts_fetch.current = filteredProducts.slice(indexOfFirstCard, indexOfLastCard)
+                console.log(currentProducts_fetch.current);
+            }
+        if(products.length !== 0) {
+            fetchProdName();
+        }
+    }, [searchValue]);
+
+    useEffect(() => {
+        
+        const fetchDataTemp = async () => {
+            const id = selectedValue;
+            let filteredProducts = [];
+            fetchOrNot.current = true
+            try {
+                const response = await getProdByCat(id).unwrap();
+                filteredProducts = response.product;
+            } catch (error) {
+                filteredProducts = products
+            }
+            totalPages_fetch.current = Math.ceil(filteredProducts.length / cardsPerPage);
+            let indexOfLastCard = currentPage * cardsPerPage;
+            let indexOfFirstCard = indexOfLastCard - cardsPerPage;
+            currentProducts_fetch.current = filteredProducts.slice(indexOfFirstCard, indexOfLastCard)
+            console.log(currentProducts_fetch.current);
+        }
+        if(selectedValue !== "option1") {
+            fetchDataTemp();
+        }
+    }, [selectedValue])
     const handleDeleteClick = (product) => {
         setSelectedProduct(product);
         setIsModalOpen(true);
     };
 
-    const handleDeleteConfirm = () => {
-        console.log("Product to delete:", selectedProduct);
-        setProducts(products.filter((product) => product.id !== selectedProduct.id));
+    const handleDeleteConfirm = async () => {
+        // console.log("Product to delete:", selectedProduct);
+        const id = selectedProduct._id;
+        try {
+            await delProd(id).unwrap();
+            Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Xóa sản phẩm thành công",
+                    showConfirmButton: true,
+                    timer: 1500
+            });
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Lỗi xóa người dùng",
+                showConfirmButton: true,
+                timer: 1500
+            });
+        }
+        // setProducts(products.filter((product) => product.id !== selectedProduct.id));
         setIsModalOpen(false);
     };
 
@@ -128,7 +202,6 @@ const Products = () => {
         }
         setIsFormOpen(false); // Close the form after confirming
     };
-
     return (
         <>
             <div className="p-5 mx-5 mb-5 bg-green-100 rounded-md">
@@ -142,7 +215,7 @@ const Products = () => {
                         {/* Lấy từ database tất cả các category*/}
                         <select
                             id="dropdown"
-                            // value={selectedValue}
+                            value={selectedValue}
                             onChange={handleChange}
                             className="rounded-lg border py-2 px-4"
                         >
@@ -160,6 +233,8 @@ const Products = () => {
                         {/* Search input */}
                         <input
                             type="search"
+                            value={searchValue}
+                            onChange={(e) => setSearchVal(e.target.value)}
                             placeholder="Search"
                             className="bg-colors-white py-3 px-4 rounded-xl w-full my-1 h-3/4 shadow-md focus:outline-none focus:border-none focus:shadow-none"
                             inputProps={{ 'aria-label': 'search' }}
@@ -168,10 +243,10 @@ const Products = () => {
                             <FontAwesomeIcon icon={faMagnifyingGlass} className='text-colors-green-900 hover:text-colors-green-600 transition'/> {/* Use the icon here */}
                         </button>
                     </div>
-                    <div className="w-full md:w-1/3 transition-all hover:text-green-900 cursor-pointer ml-4 flex items-center justify-center gap-2" onClick={handleAddProductClick}>
+                    {/* <div className="w-full md:w-1/3 transition-all hover:text-green-900 cursor-pointer ml-4 flex items-center justify-center gap-2" onClick={handleAddProductClick}>
                         <AddCircleIcon />
                         <span>Thêm sản phẩm</span>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="flex flex-wrap gap-8 justify-center">
                     {fetchOrNot.current == false ? currentProducts.map((product) => (
@@ -258,6 +333,7 @@ const Products = () => {
                 onClose={handleModalClose}
                 onConfirm={handleDeleteConfirm}
                 ProductName={selectedProduct ? selectedProduct.name : ""}
+                categoryName={selectedProduct ? selectedProduct.cat_id.name : ""}
             />
 
             {/* Form for modifying a product */}

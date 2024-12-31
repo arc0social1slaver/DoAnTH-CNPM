@@ -22,10 +22,10 @@ const Card = ({ img, name, price, category, stock, onDelete, onModify }) => {
                 <p>Giá: <span>{price.toLocaleString()}</span></p>
             </div>
             <div className='w-full flex justify-between mt-3'>
-                <div className='py-1 px-2 bg-green-900 hover:bg-colors-green-700 text-white-100 transition-all rounded-sm cursor-pointer flex gap-1 items-center justify-center' onClick={onModify}>
+                {/* <div className='py-1 px-2 bg-green-900 hover:bg-colors-green-700 text-white-100 transition-all rounded-sm cursor-pointer flex gap-1 items-center justify-center' onClick={onModify}>
                     <ModeEditIcon className='hover:text-green-900 transition cursor-pointer'/>
                     <span>Chỉnh sửa</span>
-                </div>
+                </div> */}
                 <div className='py-1 px-2 bg-colors-red-500 hover:bg-colors-red-800 text-white-100 transition-all cursor-pointer rounded-sm flex gap-1 items-center justify-center' onClick={onDelete}>
                     <DeleteIcon className='text-white-100 hover:text-white-100' />
                     <span>Xóa</span>

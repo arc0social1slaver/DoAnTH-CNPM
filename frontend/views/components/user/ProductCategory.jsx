@@ -43,7 +43,7 @@ const ProductCategory = () => {
                         {
                             cats.map((cat, index) => (
                                 <li key={cat._id} className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
-                                <Link to={`/${cat.name}`}>{cat.name}</Link>
+                                <Link to={`/${cat._id}`}>{cat.name}</Link>
                             </li>
                             ))
                         }

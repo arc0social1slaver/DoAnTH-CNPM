@@ -79,8 +79,49 @@ const getUsers = async (req, res) => {
         res.status(500).send("Fail to get user");
     }
 }
+const setStatusUser = async (req, res) => {
+    const {id} = req.params;
+    try {
+        const changeUser = await user.findById(id)
+        await user.updateOne({
+            _id: id
+        }, {
+            $set: {
+                isActive: !changeUser.isActive,
+            }
+        })
+        res.status(200).send({
+            "message": "Update status successfully",
+            "user": changeUser
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Fail to update user");
+    }
+}
+const removeNormUser = async (req, res) => {
+    const {id} = req.params;
+    try {
+        const inspUser = await user.findById(id)
+        if(inspUser.isAdmin === true) {
+            res.status(404).send({message: "Unable to delete this user", user: inspUser})
+        }
+        else {
+            const removeUser = await user.findByIdAndDelete(id);
+            res.status(200).send({
+                message: "Delete user successfully",
+                user: removeUser,
+            })
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Fail to delete user");
+    }
+}
 module.exports = {
     addUser,
     logInUser,
     getUsers,
+    setStatusUser,
+    removeNormUser,
 }
