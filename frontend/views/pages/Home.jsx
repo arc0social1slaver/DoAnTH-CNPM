@@ -1,5 +1,9 @@
+import { useState } from 'react';
+import AuthModal from './AuthModal';
 
 const Home = () => {
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
     return (
         <div className="min-h-screen flex items-center bg-colors-white">
             <div className="flex-1 h-full relative">
@@ -20,18 +24,22 @@ const Home = () => {
                     <p className=" text-lg md:text-xl mb-6">
                         Trao đổi đồ cũ nhưng mới.
                     </p>
-                    <a
-                        href="/login-or-register"
+                    <button
+                        onClick={() => setIsAuthModalOpen(true)}
                         className="inline-block bg-green-100 py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300"
                     >
                         🛒 Mua sắm ngay!
-                    </a>
-                    <a 
-                        href="/login-or-register"
+                    </button>
+                    <button 
+                        onClick={() => setIsAuthModalOpen(true)}
                         className="inline-block bg-green-100 py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300"
                     >
                         📤 Đăng bán ngay!
-                    </a>
+                    </button>
+                    <AuthModal
+                        isOpen={isAuthModalOpen}
+                        closeModal={() => setIsAuthModalOpen(false)}
+                    />
                 </div>
             </div>
         </div>

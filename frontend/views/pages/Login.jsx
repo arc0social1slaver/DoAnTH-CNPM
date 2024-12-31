@@ -20,11 +20,30 @@ const Login = ({ isOpen, closeModal }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-            <div className="bg-colors-white p-6 rounded-lg w-96">
-                <h2 className="text-green-700 text-4xl font-semibold text-center mb-4">ThriftMate</h2>
+            <div className="relative bg-colors-white py-6 px-8 rounded-lg text-center w-full max-w-md">
+                <button
+                    onClick={closeModal}
+                    className="absolute text-gray-500 hover:text-gray-700 right-0 mr-6"
+                >
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        strokeWidth={1.5} 
+                        stroke="currentColor" 
+                        className="size-6"
+                    >
+                        <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            d="M6 18 18 6M6 6l12 12" 
+                        />
+                    </svg>
+                </button>
+                <h2 className="text-green-700 text-4xl font-semibold text-center mb-8">ThriftMate</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label htmlFor="email" className="block">Email</label>
+                    <div className="mb-6">
+                        <label htmlFor="email" className="block text-left">Email</label>
                         <input
                             type="email"
                             id="email"
@@ -36,7 +55,7 @@ const Login = ({ isOpen, closeModal }) => {
                         />
                     </div>
                     <div className="mb-6">
-                        <label htmlFor="password" className="block">Password</label>
+                        <label htmlFor="password" className="block text-left">Password</label>
                         <input
                             type="password"
                             id="password"
@@ -52,13 +71,6 @@ const Login = ({ isOpen, closeModal }) => {
                         className="w-full py-2 bg-green-100  rounded-lg hover:bg-green-700"
                     >
                         Đăng Nhập
-                    </button>
-                    <button
-                        type="button"
-                        onClick={closeModal}
-                        className="text-gray-500 hover:text-gray-700"
-                    >
-                        Đóng
                     </button>
                 </form>
                 <div className="mt-4 text-center">

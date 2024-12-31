@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default function Register() {
+const Register = ({ isOpen, closeModal }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -10,6 +10,8 @@ export default function Register() {
     const [username, setUserName] = useState('');
     const [showPopup, setShowPopup] = useState(false);
     const navigate = useNavigate();
+
+    if (!isOpen) return null;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,6 +27,7 @@ export default function Register() {
             setShowPopup(false);
             navigate('/login');
         }, 2000);
+        closeModal();
     };
     const handleConfirmPasswordChange = (e) => {
         const value = e.target.value;
@@ -37,12 +40,31 @@ export default function Register() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <div className="max-w-md w-full bg-white-100 p-8 rounded-lg shadow-lg">
-                <h2 className="text-green-700 text-4xl font-semibold text-center mb-4">ThriftMate</h2>
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+            <div className="relative bg-colors-white py-6 px-8 rounded-lg top-6 w-full max-w-md max-h-[80%] overflow-auto">
+                <button
+                    onClick={closeModal}
+                    className="absolute text-gray-500 hover:text-gray-700 right-0 mr-6"
+                >
+                    <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        strokeWidth={1.5} 
+                        stroke="currentColor" 
+                        className="size-6"
+                    >
+                        <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            d="M6 18 18 6M6 6l12 12" 
+                        />
+                    </svg>
+                </button>
+                <h2 className="text-green-700 text-4xl font-semibold text-center mb-8">ThriftMate</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-6">
-                        <label htmlFor="email" className="block text-gray-700">Email</label>
+                        <label htmlFor="email" className="block text-gray-700 text-left">Email</label>
                         <input
                             type="email"
                             id="email"
@@ -53,7 +75,7 @@ export default function Register() {
                         />
                     </div>
                     <div className="mb-6">
-                        <label htmlFor="password" className="block text-gray-700">Mật khẩu</label>
+                        <label htmlFor="password" className="block text-gray-700 text-left">Mật khẩu</label>
                         <input
                             type="password"
                             id="password"
@@ -64,7 +86,7 @@ export default function Register() {
                         />
                     </div>
                     <div className="relative mb-6">
-                        <label htmlFor="confirm-password" className="block text-gray-700">Nhập lại mật khẩu</label>
+                        <label htmlFor="confirm-password" className="block text-gray-700 text-left">Nhập lại mật khẩu</label>
                         <input
                             type="password"
                             id="confirm-password"
@@ -92,7 +114,7 @@ export default function Register() {
                         </div>}
                     </div>
                     <div className="mb-10">
-                        <label htmlFor="password" className="block text-gray-700">Tên người dùng</label>
+                        <label htmlFor="password" className="block text-gray-700 text-left">Tên người dùng</label>
                         <input
                             type="text"
                             id="user-name"
@@ -102,7 +124,7 @@ export default function Register() {
                             required
                         />
                     </div>
-                    <h3 className='text-colors-gray-400 text-sm mb-4'>Bằng cách đăng ký, bạn đồng ý với{" "}
+                    <h3 className='text-colors-gray-400 text-sm text-left mb-4'>Bằng cách đăng ký, bạn đồng ý với{" "}
                         <Link 
                             to="/terms"
                             className='text-blue-700 hover:underline'
@@ -142,3 +164,10 @@ export default function Register() {
         </div>
     );
 }
+
+Register.propTypes = {
+    isOpen: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired,
+};
+
+export default Register;

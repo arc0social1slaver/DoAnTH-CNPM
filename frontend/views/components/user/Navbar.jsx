@@ -4,7 +4,7 @@ import ProductCategory from './ProductCategory';
 import Search from './Search';
 import Notification from './Notification';
 import Cart from './Cart';
-import Menu from './Menu';
+import UserMenu from './UserMenu';
 
 const Navbar = () => {
   return (
@@ -21,7 +21,7 @@ const Navbar = () => {
           <Search />
           <Notification />
           <Cart />
-          <Menu />
+          <UserMenu />
         </div>
       </div>
     </header>
