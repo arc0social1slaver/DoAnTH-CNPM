@@ -35,6 +35,12 @@ const Products = () => {
             fetchTheProducts(event.target.value);
         }
     };
+    const handleSearch = (event) => {
+        setSearchVal(event.target.value);
+        if(event.target.value === '') {
+            fetchTheProducts("option1")
+        }
+    }
     
     // Dynamically adjust cards per page based on screen size
     useEffect(() => {
@@ -118,7 +124,9 @@ const Products = () => {
                 console.log(currentProducts_fetch.current);
             }
         if(products.length !== 0) {
-            fetchProdName();
+            if(searchValue !== '') {
+                fetchProdName();
+            }
         }
     }, [searchValue]);
 
@@ -234,12 +242,12 @@ const Products = () => {
                         <input
                             type="search"
                             value={searchValue}
-                            onChange={(e) => setSearchVal(e.target.value)}
+                            onChange={handleSearch}
                             placeholder="Search"
                             className="bg-colors-white py-3 px-4 rounded-xl w-full my-1 h-3/4 shadow-md focus:outline-none focus:border-none focus:shadow-none"
                             inputProps={{ 'aria-label': 'search' }}
                         />
-                        <button type='submit' className="text-xl">
+                        <button type='button' className="text-xl">
                             <FontAwesomeIcon icon={faMagnifyingGlass} className='text-colors-green-900 hover:text-colors-green-600 transition'/> {/* Use the icon here */}
                         </button>
                     </div>

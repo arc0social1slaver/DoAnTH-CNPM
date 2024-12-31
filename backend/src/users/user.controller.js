@@ -118,10 +118,30 @@ const removeNormUser = async (req, res) => {
         res.status(500).send("Fail to delete user");
     }
 }
+const searchUserByName = async (req, res) => {
+    const {userID, name} = req.params
+    try {
+        const allNormUser = await user.find({
+            _id: {
+                $ne: userID
+            },
+            isAdmin: false,
+            username: new RegExp('.*' + name + '.*')
+        })
+        res.status(200).send({
+            message: "Get users successfully",
+            users: allNormUser,
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Fail to get users");
+    }
+}
 module.exports = {
     addUser,
     logInUser,
     getUsers,
     setStatusUser,
     removeNormUser,
+    searchUserByName,
 }

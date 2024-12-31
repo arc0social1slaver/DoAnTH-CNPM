@@ -55,7 +55,8 @@ io.on("connection", (socket) => {
   //   axios
   // })
   socket.on("disconnect", () => {
-    let user_id = onlineUsers.find(item => item.socketId === socket.id).user_id
+    let user_id = onlineUsers.find(item => item.socketId === socket.id)?.user_id
+    if(user_id) {
     axios({
        method: "put",
       url: `${BE}/api/users/status/${user_id}`
@@ -66,6 +67,7 @@ io.on("connection", (socket) => {
       console.log(onlineUsers);
     })
     .catch((error) => console.log(error))
+  }
   })
 });
 

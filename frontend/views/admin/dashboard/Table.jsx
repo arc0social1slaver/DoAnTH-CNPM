@@ -18,7 +18,7 @@ const columns = [
   { id: 'status', label: 'Trạng thái đơn hàng', minWidth: 170 },
   { id: 'price', label: 'Tổng số tiền', minWidth: 170 },
   { id: 'product_id', label: 'Mã sản phẩm', minWidth: 170 },
-  // { id: 'phoneNumber', label: 'Số điện thoại', minWidth: 170 },
+  { id: 'phone', label: 'Số điện thoại', minWidth: 170 },
 ];
 
 function createData(Id, studentId, customerName, orderDate, orderStatus, totalAmount, items, phoneNumber) {

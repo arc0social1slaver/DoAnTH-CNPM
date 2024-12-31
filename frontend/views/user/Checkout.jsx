@@ -12,13 +12,14 @@ const Checkout = () => {
     const [shippingAddress, setShippingAddress] = useState('');
     const [shippingDist, setShippingDist] = useState('');
     const [shippingCity, setShippingCity] = useState('');
+    const [phoneNumber, setPhoneNum] = useState('');
     const cartItems = useSelector(state => state.cart.cartItems);
     const [addOrder, {}] = useCreateOrderMutation();
     const calculateTotal = cartItems.reduce((acc, item) => acc + Number(item['price']), 0)
     
     const handleOrder = async (e) => {
         e.preventDefault()
-        if (shippingAddress === '' || shippingDist === '' || shippingCity === '') {
+        if (shippingAddress === '' || shippingDist === '' || shippingCity === '' || phoneNumber === '') {
             Swal.fire({
                                     position: "top-end",
                                     icon: "warning",
@@ -36,6 +37,7 @@ const Checkout = () => {
                 },
                 prodIDs: cartItems.map((item) => item._id),
                 userID: JSON.parse(sessionStorage.getItem('user'))._id,
+                phone: phoneNumber,
             }
             // console.log(newOrder);
             
@@ -125,6 +127,18 @@ const Checkout = () => {
                             value={shippingCity}
                             onChange={(e) => setShippingCity(e.target.value)}
                             placeholder="Nhập tỉnh tại đây"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label htmlFor="phone" className="block">Điện thoại</label>
+                        <input
+                            type="text"
+                            id="phone"
+                            className="w-full px-4 py-2 mt-2 border border-colors-gray-400 rounded-lg"
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNum(e.target.value)}
+                            placeholder="Nhập số điện thoại tại đây"
                             required
                         />
                     </div>

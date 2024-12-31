@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 
 const AdminUsers = () => {
     const [selectedValue, setSelectedValue] = useState("option1");
+    const [searchValue, setSearchVal] = useState("");
     const [currentPage, setCurrentPage] = useState(1); // Track current page
     const cardsPerPage = 6;
 
@@ -76,6 +77,12 @@ const AdminUsers = () => {
         setSelectedUser(user);
         setIsModalOpen(true);
     };
+    const handleSearch = async (event) => {
+        setSearchVal(event.target.value)
+        if(event.target.value === '') {
+            fetchData();
+        }
+    }
 
     const handleDeleteConfirm = async () => {
         // Filter out the user from the list
@@ -121,6 +128,28 @@ const AdminUsers = () => {
         // document.location.reload();
     };
 
+    useEffect(() => {
+        const fetchData_search = async () => {
+            const admin_id = JSON.parse(sessionStorage.getItem('user'))._id;
+            try {
+                const response = await axios.get(`${getBEURL()}/api/users/search/${admin_id}/${searchValue}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': "application/json",
+                    }
+                })
+                setUsers(response.data.users)
+            } catch (error) {
+                console.log(error);
+                fetchData();
+            }
+        }
+        if(users.length !== 0) {
+            if(searchValue !== '') {
+                fetchData_search()
+            }
+        }
+    }, [searchValue])
     const handleModalClose = () => {
         setIsModalOpen(false);
     };
@@ -148,11 +177,13 @@ const AdminUsers = () => {
                         {/* Search input */}
                         <input
                             type="search"
+                            value={searchValue}
+                            onChange={handleSearch}
                             placeholder="Search"
                             className="bg-colors-white py-3 px-4 rounded-xl w-full my-1 h-3/4 shadow-md focus:outline-none focus:border-none focus:shadow-none"
                             inputProps={{ 'aria-label': 'search' }}
                         />
-                        <button type='submit' className="text-xl">
+                        <button type='button' className="text-xl">
                             <FontAwesomeIcon icon={faMagnifyingGlass} className='text-colors-green-900 hover:text-colors-green-600 transition'/> {/* Use the icon here */}
                         </button>
                     </div>

@@ -59,6 +59,7 @@ const getAllOrders = async (req, res) => {
                     tenkhachhang: "$user-data.username",
                     createdAt: 1,
                     status: 1,
+                    phone: 1,
                     price: "$product-data.price",
                     product_id: "$product-data._id",
                 }
