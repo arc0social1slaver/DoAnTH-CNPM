@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Loading from "../pages/Loading";
 import Home from "../pages/Home";
-import LogOrReg from "../pages/LogOrReg";
-import Register from '../pages/Register';
 import DefaultLayout from "../layouts/DefaultLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import UserLayout from "../layouts/UserLayout";
@@ -37,8 +35,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={isLoading ? <Loading /> : <DefaultLayout />}>
             <Route index element={<Home />} />
-            <Route path="/login-or-register" element={<LogOrReg/>} />
-            <Route path="/register" element={<Register/>} />
           </Route>
         </Routes>
 

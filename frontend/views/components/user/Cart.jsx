@@ -6,7 +6,7 @@ const Cart = () => {
     // const [cartItems] = useState(2);
     const navigate = useNavigate();
     const cartItems = useSelector(state => state.cart.cartItems)
-    console.log(cartItems);
+    // console.log(cartItems);
     
     return (
         <div className='relative group'>

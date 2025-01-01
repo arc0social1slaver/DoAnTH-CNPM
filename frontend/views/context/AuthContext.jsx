@@ -26,7 +26,7 @@ export const AuthProvide = ({children}) => {
                 Swal.fire({
                     position: "top-end",
                     icon: "warning",
-                    title: "Email already used",
+                    title: "Email đăng ký đã được sử dụng",
                     showConfirmButton: true,
                     timer: 1500
                 });
@@ -35,12 +35,12 @@ export const AuthProvide = ({children}) => {
                 Swal.fire({
                     position: "top-end",
                     icon: "warning",
-                    title: "Invalid data",
+                    title: "Lỗi đăng ký tài khoản",
                     showConfirmButton: true,
                     timer: 1500
                 });
             }
-            navigate("/register");
+            navigate("/");
         })
 
         const user = response.data;
@@ -60,7 +60,7 @@ export const AuthProvide = ({children}) => {
                         Swal.fire({
                             position: "top-end",
                             icon: "warning",
-                            title: "User not found",
+                            title: "Không tìm thấy tài khoản",
                             showConfirmButton: true,
                             timer: 1500
                         });
@@ -69,7 +69,7 @@ export const AuthProvide = ({children}) => {
                         Swal.fire({
                             position: "top-end",
                             icon: "warning",
-                            title: "Invalid password",
+                            title: "Password không đúng",
                             showConfirmButton: true,
                             timer: 1500
                         });
@@ -77,23 +77,23 @@ export const AuthProvide = ({children}) => {
                     else if(error.response.status === 500) {
                         Swal.fire({
                             position: "top-end",
-                            icon: "warning",
-                            title: "Invalid email and password",
+                            icon: "error",
+                            title: "Email và mật khẩu không đúng",
                             showConfirmButton: true,
                             timer: 1500
                         });
                     }
                     navigate("/");
                 })
-        const user = response.data;
+        const user = response?.data;
         
-        if(user.user) {
+        if(user?.user) {
             sessionStorage.setItem('user', JSON.stringify(user.user));
             if(user.token) {
                 localStorage.setItem('token', user.token);
                 setTimeout(() => {
                     localStorage.removeItem('token')
-                    alert("The token has been expired")
+                    alert("Phiên làm việc của bạn đã kết thúc")
                     navigate("/")
                 }, 3600 * 1000)
                 navigate("/admin");
@@ -101,7 +101,7 @@ export const AuthProvide = ({children}) => {
             navigate("/user");
         }
         // console.log(currUser);
-        return user.user._id;
+        return user?.user?._id;
     }
     const logOutUser = async () => {
         sessionStorage.removeItem('user');

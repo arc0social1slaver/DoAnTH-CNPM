@@ -14,7 +14,7 @@ const cartSlice = createSlice ({
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
-                    title: "Item added successfully",
+                    title: "Thêm vào giỏ hàng thành công",
                     showConfirmButton: true,
                     timer: 1500
                   });
@@ -23,7 +23,7 @@ const cartSlice = createSlice ({
                 Swal.fire({
                     position: "top-end",
                     icon: "warning",
-                    title: "Item already added",
+                    title: "Sản phẩm đã tồn tại",
                     showConfirmButton: true,
                     timer: 1500
                   });

@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {useAuth} from "../../context/AuthContext";
 import Swal from "sweetalert2";
-const Menu = () => {
+
+const UserMenu = () => {
     const [user] = useState({
         avatar: 'https://i.pinimg.com/736x/5b/ad/66/5bad666e821e7f7ecbbb0a8479f022ca.jpg',
     });
@@ -20,7 +21,7 @@ const Menu = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "User logout successfully",
+          title: "Đăng xuất thành công",
           showConfirmButton: true,
           timer: 1500
         });
@@ -28,7 +29,7 @@ const Menu = () => {
         Swal.fire({
           position: "top-end",
           icon: "warning",
-          title: "User logout unsuccessfully",
+          title: "Lỗi đăng xuất",
           showConfirmButton: true,
           timer: 1500
         });
@@ -111,4 +112,4 @@ const Menu = () => {
     );
 };
 
-export default Menu;
+export default UserMenu;
