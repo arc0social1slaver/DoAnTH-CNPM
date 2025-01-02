@@ -8,6 +8,10 @@ import AdminLayout from "../layouts/AdminLayout";
 import UserLayout from "../layouts/UserLayout";
 
 import UserDashboard from "../user/Dashboard";
+import UserProfile from "../user/UserProfile";
+import OrderManagement from "../user/OrderManagement";
+import PurchaseHistory from "../user/PurchaseHistory";
+import MyStore from "../user/MyStore";
 import Fashion from "../user/Fashion";
 import Beauty from "../user/Beauty";
 import Documents from "../user/Documents";
@@ -48,6 +52,10 @@ const App = () => {
       <Routes>
         <Route path="/user" element={<UserLayout />}>
           <Route index element={<UserDashboard />} />
+          <Route path="profile" element={<UserProfile/>} />
+          <Route path="sale" element={<OrderManagement/>} />
+          <Route path="order" element={<PurchaseHistory/>} />
+          <Route path="product" element={<MyStore/>} />
           <Route path="fashion" element={<Fashion/>} /> 
           <Route path="beauty" element={<Beauty/>} /> 
           <Route path="documents" element={<Documents/>} /> 
