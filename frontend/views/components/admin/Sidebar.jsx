@@ -15,7 +15,7 @@ const SideBar = () => {
           logOutUser();
         navigate('/'); 
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "User logout successfully",
             showConfirmButton: true,
@@ -23,7 +23,7 @@ const SideBar = () => {
           });
         } catch (error) {
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "warning",
             title: "User logout unsuccessfully",
             showConfirmButton: true,

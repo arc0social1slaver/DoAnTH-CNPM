@@ -50,7 +50,7 @@ const UserMenu = () => {
         logOutUser();
       navigate('/'); 
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "Đăng xuất thành công",
           showConfirmButton: true,
@@ -58,7 +58,7 @@ const UserMenu = () => {
         });
       } catch (error) {
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "warning",
           title: "Lỗi đăng xuất",
           showConfirmButton: true,

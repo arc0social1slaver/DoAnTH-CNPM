@@ -89,7 +89,7 @@ const AdminUsers = () => {
                 .catch((err) => {
                     console.log(err);
                     Swal.fire({
-                                    position: "top-end",
+                                    position: "center",
                                     icon: "error",
                                     title: "Cannot get users",
                                     showConfirmButton: true,
@@ -140,7 +140,7 @@ const AdminUsers = () => {
         })
                     .then((response) => {
                         Swal.fire({
-                            position: "top-end",
+                            position: "center",
                             icon: "success",
                             title: "Xóa người dùng thành công",
                             showConfirmButton: true,
@@ -151,7 +151,7 @@ const AdminUsers = () => {
                         console.log(error);
                         if(error.response.status === 404) {
                             Swal.fire({
-                                position: "top-end",
+                                position: "center",
                                 icon: "warning",
                                 title: "Admin không thể xóa",
                                 showConfirmButton: true,
@@ -160,7 +160,7 @@ const AdminUsers = () => {
                         }
                         else {
                             Swal.fire({
-                                position: "top-end",
+                                position: "center",
                                 icon: "error",
                                 title: "Lỗi xóa người dùng",
                                 showConfirmButton: true,

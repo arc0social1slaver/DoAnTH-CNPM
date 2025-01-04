@@ -24,7 +24,7 @@ export const AuthProvide = ({children}) => {
         }).catch((error) => {
             if(error.response.status === 400) {
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "warning",
                     title: "Email đăng ký đã được sử dụng",
                     showConfirmButton: true,
@@ -33,7 +33,7 @@ export const AuthProvide = ({children}) => {
             }
             else if(error.response.status === 500) {
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "warning",
                     title: "Lỗi đăng ký tài khoản",
                     showConfirmButton: true,
@@ -58,7 +58,7 @@ export const AuthProvide = ({children}) => {
                 .catch((error) => {
                     if(error.response.status === 400) {
                         Swal.fire({
-                            position: "top-end",
+                            position: "center",
                             icon: "warning",
                             title: "Không tìm thấy tài khoản",
                             showConfirmButton: true,
@@ -67,7 +67,7 @@ export const AuthProvide = ({children}) => {
                     }
                     else if(error.response.status === 401) {
                         Swal.fire({
-                            position: "top-end",
+                            position: "center",
                             icon: "warning",
                             title: "Password không đúng",
                             showConfirmButton: true,
@@ -76,7 +76,7 @@ export const AuthProvide = ({children}) => {
                     }
                     else if(error.response.status === 500) {
                         Swal.fire({
-                            position: "top-end",
+                            position: "center",
                             icon: "error",
                             title: "Email và mật khẩu không đúng",
                             showConfirmButton: true,

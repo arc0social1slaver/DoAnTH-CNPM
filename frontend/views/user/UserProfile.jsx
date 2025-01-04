@@ -57,7 +57,7 @@ const UserProfile = () => {
         try {
             await axios.post(`${getBEURL()}/api/users/profile/edit/${user_id}`, formData)
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "Cập nhật hồ sơ thành công",
                 showConfirmButton: true,
@@ -67,7 +67,7 @@ const UserProfile = () => {
         } catch (error) {
             console.log(error);
              Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "error",
                 title: "Lỗi cập nhật hồ sơ",
                 showConfirmButton: true,

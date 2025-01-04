@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import OrderSidebar from '../components/user/OrderSidebar';
 import Swal from "sweetalert2";
 import { useFetchMyStoreQuery, useLazyFetchMyStoreByStatQuery, useUpdateOrderMutation } from '../redux/feature/orderAPI';
+import getBEURL from "../utils/backendURL";
 
 const OrderManagement = () => {
   if(!sessionStorage.getItem('user')) return null
@@ -73,7 +74,7 @@ const handleCancelButton = () => {
           // console.log(newProduct);
           if(Object.values(selectedOrder).includes('')) {
               Swal.fire({
-                  position: "top-end",
+                  position: "center",
                   icon: "warning",
                   title: "Trạng thái đơn hàng không được để trống",
                   showConfirmButton: true,
@@ -88,7 +89,7 @@ const handleCancelButton = () => {
               try {
                 await updOrder({id, ...newOrder}).unwrap();
                 Swal.fire({
-                  position: "top-end",
+                  position: "center",
                   icon: "success",
                   title: "Trạng thái đơn hàng cập nhập thành công",
                   showConfirmButton: true,
@@ -98,7 +99,7 @@ const handleCancelButton = () => {
                     console.log(error);
                     if(error.status === 404) {
                         Swal.fire({
-                            position: "top-end",
+                            position: "center",
                             icon: "warning",
                             title: "Đơn hàng không tìm thấy",
                             showConfirmButton: true,
@@ -107,7 +108,7 @@ const handleCancelButton = () => {
                     }
                     else {
                         Swal.fire({
-                            position: "top-end",
+                            position: "center",
                             icon: "error",
                             title: "Chỉnh sửa đơn hàng thất bại",
                             showConfirmButton: true,
@@ -159,26 +160,38 @@ const handleCancelButton = () => {
               </div>
             ) : (
               filteredOrders.map((order, index) => (
-                <div key={order._id} className="bg-white p-4 rounded-lg shadow">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="font-semibold">Đơn hàng #{index + 1}</h3>
-                      {
-                        order.products.map((product, index) => (
-                          <p key={index}>{product}</p>
-                        ))
-                      }
-                      <p className="text-gray-600">{new Date(order.createdAt).toUTCString()}</p>
-                    </div>
-                    <div>
-                      <p className="font-bold">{order.price.toLocaleString('vi-VN')} đ</p>
-                      <p className="">Trạng thái: {getNameStatus(order.status)}</p>
-                      <button className="mt-2 text-colors-blue-500 hover:text-blue-700" onClick={() => handleModifyClick(order)}>
-                        Chuyển trạng thái đơn hàng
-                      </button>
-                    </div>
-                  </div>
+                <div className="flex items-start space-x-4" key={index}>
+                {/* Product Image */}
+                <div className="flex-shrink-0">
+                    <img
+                        src={`${getBEURL()}/images/${order.images[0]}`}
+                        alt={order.products[0]}
+                        className="w-20 h-20 object-cover rounded-md"
+                    />
                 </div>
+
+                {/* Existing Order Info */}
+                <div className="flex-1">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h3 className="font-semibold">Đơn hàng #{index + 1}</h3>
+                            {
+                                order.products.map((product, index) => (
+                                    <p key={index} className="font-bold">{product}</p>
+                                ))
+                            }
+                            <p className="text-gray-600">{new Date(order.createdAt).toLocaleString('vi-VN')}</p>
+                        </div>
+                        <div>
+                            <p className="font-bold">{order.price.toLocaleString('vi-VN')} đ</p>
+                            <p className="">Trạng thái: {getNameStatus(order.status)}</p>
+                            <button className="mt-2 text-colors-blue-500 hover:text-blue-700" onClick={() => handleModifyClick(order)}>
+                                Chuyển trạng thái đơn hàng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
               ))
             )}
           </div>

@@ -29,7 +29,7 @@ const Register = ({ isOpen, closeModal }) => {
             regUser(username, email, password);
             navigate("/");
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "Đăng ký tài khoản thành công",
                 showConfirmButton: true,
@@ -37,7 +37,7 @@ const Register = ({ isOpen, closeModal }) => {
               });
         } catch (error) {
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "warning",
                 title: "Lỗi đăng ký tài khoản",
                 showConfirmButton: true,

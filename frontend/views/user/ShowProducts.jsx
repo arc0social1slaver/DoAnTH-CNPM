@@ -6,7 +6,7 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useFetchAllProdsQuery, useLazyFetchAllProdsByCatQuery, useLazyFetchAllProdsByNameQuery } from '../redux/feature/prodAPI';
 import { useFetchAllCatsQuery } from '../redux/feature/catAPI';
 import { useDispatch } from 'react-redux';
@@ -15,6 +15,7 @@ import getBEURL from '../utils/backendURL';
 
 const ShowProducts = () => {
     if(!sessionStorage.getItem('user')) return null;
+    const navigate = useNavigate();
     const {id} = useParams();
     const userID = JSON.parse(sessionStorage.getItem('user'))?._id;
     const dispatch = useDispatch();

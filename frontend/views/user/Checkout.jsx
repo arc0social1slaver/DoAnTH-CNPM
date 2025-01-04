@@ -21,7 +21,7 @@ const Checkout = () => {
         e.preventDefault()
         if (shippingAddress === '' || shippingDist === '' || shippingCity === '') {
             Swal.fire({
-                                    position: "top-end",
+                                    position: "center",
                                     icon: "warning",
                                     title: "Thông tin không được để trống",
                                     showConfirmButton: true,
@@ -43,7 +43,7 @@ const Checkout = () => {
             try {
                 await addOrder(newOrder).unwrap();
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "success",
                     title: "Đặt hàng thành công",
                     showConfirmButton: true,
@@ -54,7 +54,7 @@ const Checkout = () => {
             } catch (error) {
                 console.log(error);
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "success",
                     title: "Lỗi đặt hàng",
                     showConfirmButton: true,

@@ -48,7 +48,7 @@ const MyStore = () => {
         try {
             await delProd(id).unwrap();
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "Xóa sản phẩm thành công",
                 showConfirmButton: true,
@@ -58,7 +58,7 @@ const MyStore = () => {
             console.log(error);
             if(error.status === 404) {
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "warning",
                     title: "Sản phẩm không tìm thấy",
                     showConfirmButton: true,
@@ -67,7 +67,7 @@ const MyStore = () => {
             }
             else {
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "error",
                     title: "Chỉnh sửa sản phẩm thất bại",
                     showConfirmButton: true,
@@ -77,7 +77,7 @@ const MyStore = () => {
         }
         } else {
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "error",
                 title: "Lỗi sản phẩm",
                 showConfirmButton: true,
@@ -122,7 +122,7 @@ const MyStore = () => {
         // console.log(newProduct);
         if(Object.values(newProduct).includes('') || (!fieldFile && !isUpdate)) {
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "warning",
                 title: "Thông tin sản phẩm không được để trống",
                 showConfirmButton: true,
@@ -140,7 +140,7 @@ const MyStore = () => {
             try {
                 await addProd(newProd).unwrap();
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "success",
                     title: "Thêm sản phẩm thành công",
                     showConfirmButton: true,
@@ -150,7 +150,7 @@ const MyStore = () => {
                 console.log(error);
                 if(error.status === 400) {
                     Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "warning",
                         title: "Không tồn tại ảnh",
                         showConfirmButton: true,
@@ -159,7 +159,7 @@ const MyStore = () => {
                 }
                 else {
                     Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "error",
                         title: "Thêm sản phẩm thất bại",
                         showConfirmButton: true,
@@ -174,7 +174,7 @@ const MyStore = () => {
                 try {
                     await updProd({id, newProd}).unwrap();
                     Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "success",
                         title: "Chỉnh sửa sản phẩm thành công",
                         showConfirmButton: true,
@@ -184,7 +184,7 @@ const MyStore = () => {
                     console.log(error);
                     if(error.status === 404) {
                         Swal.fire({
-                            position: "top-end",
+                            position: "center",
                             icon: "warning",
                             title: "Sản phẩm không tìm thấy",
                             showConfirmButton: true,
@@ -193,7 +193,7 @@ const MyStore = () => {
                     }
                     else {
                         Swal.fire({
-                            position: "top-end",
+                            position: "center",
                             icon: "error",
                             title: "Chỉnh sửa sản phẩm thất bại",
                             showConfirmButton: true,
@@ -216,40 +216,40 @@ const MyStore = () => {
     };
 
     return (
-        <div className="relative min-h-screen p-6">
+        <div className="flex flex-col min-h-screen items-center mx-auto p-4">
         <h1 className="text-2xl font-bold mb-6 text-center text-green-700">Cửa hàng của tôi</h1>
 
         {/* Product List */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4 w-full md:max-w-5xl">
+
         {products.length === 0 ? (
             <div className="text-center py-10">
             <p className="text-gray-500">Chưa có sản phẩm nào được đăng bán</p>
             </div>
         ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="col-span-full flex items-center justify-between -mx-2 md:-mx-4 border-t-2 border-green-700 my-4">
             {products.map((product) => (
-                <div key={product._id} className="border rounded-lg p-4">
+                <div key={product._id} className="flex flex-col items-center w-48 md:w-48 space-x-4 mt-8 border border-colors-gray-200 p-4 h-auto">
                 <img 
                     src={product.image ? `${getBEURL()}/images/${product.image}` : '/placeholder.png'} 
                     alt={product.name} 
-                    className="w-full h-48 object-cover rounded-lg"
+                    className="w-full h-48 object-cover"
                 />
-                <h3 className="font-semibold mt-2">{product.name}</h3>
-                <p className="text-gray-600">{Number(product.price).toLocaleString('vi-VN')} đ</p>
-                <div className='w-full flex justify-between mt-3'>
-                    <div className='py-1 px-2 bg-green-900 hover:bg-colors-green-700 text-white-100 transition-all rounded-sm cursor-pointer flex gap-1 items-center justify-center' onClick={() => handleModifyClick(product)}>
+                <h3 className="text-base text-center line-clamp-2">{product.name}</h3>
+                <p className="text-base text-green-700 font-semibold text-center">{Number(product.price).toLocaleString('vi-VN')} đ</p>
+                    <div className='w-full py-1 px-2 bg-green-900 hover:bg-colors-green-700 text-white-100 transition-all rounded-sm cursor-pointer flex gap-1 items-center justify-center' onClick={() => handleModifyClick(product)}>
                         <ModeEditIcon className='hover:text-green-900 transition cursor-pointer'/>
                             <span>Chỉnh sửa</span>
                     </div>
-                    <div className='py-1 px-2 bg-colors-red-500 hover:bg-colors-red-800 text-white-100 transition-all cursor-pointer rounded-sm flex gap-1 items-center justify-center' onClick={() => handleDeleteClick(product)}>
+                    <div className='w-full mt-2 py-1 px-2 bg-colors-red-500 hover:bg-colors-red-800 text-white-100 transition-all cursor-pointer rounded-sm flex gap-1 items-center justify-center' onClick={() => handleDeleteClick(product)}>
                         <DeleteIcon className='text-white-100 hover:text-white-100' />
                         <span>Xóa</span>
                     </div>
                 </div>
-                </div>
             ))}
             </div>
         )}
-
+        </div>
         {/* Floating Add Button */}
         <button
             onClick={() => setShowForm(true)}

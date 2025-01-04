@@ -18,7 +18,7 @@ const Login = ({ isOpen, closeModal }) => {
             const userTemp = logInUser(email, password);
             if(userTemp) {
             Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "success",
                         title: "Đăng nhập thành công",
                         showConfirmButton: true,
@@ -27,7 +27,7 @@ const Login = ({ isOpen, closeModal }) => {
         }
         } catch (error) {
             Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "warning",
                         title: "Lỗi đăng nhập",
                         showConfirmButton: true,

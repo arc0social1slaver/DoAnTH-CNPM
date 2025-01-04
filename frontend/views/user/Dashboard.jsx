@@ -47,11 +47,11 @@ const UserDashboard = () => {
     <div className="flex flex-col min-h-screen items-center mx-auto p-4">
       <h1 className="text-2xl text-green-700 font-bold mt-8">GỢI Ý HÔM NAY</h1>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4 w-full md:max-w-5xl">
-      <div className="col-span-full flex items-center justify-between -mx-2 md:-mx-4 border-t-2 border-green-700 my-4">
+      <div className="col-span-full flex items-center justify-start gap-4 -mx-2 md:-mx-4 border-t-2 border-green-700 my-4">
         {products.map((product, index) => (
           <div 
             // to={`/product/${product._id}`} 
-            key={product._id}
+            key={index}
             className="flex flex-col items-center w-48 md:w-48 space-x-4 mt-8 border border-colors-gray-200 p-4 h-auto"
           >
               <img

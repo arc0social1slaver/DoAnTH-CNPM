@@ -36,9 +36,9 @@ const ChatApp = () => {
       .catch((error) => {
         console.log(error);
         Swal.fire({
-              position: "top-end",
+              position: "center",
               icon: "error",
-              title: "Cannot get user",
+              title: "Lỗi nhận người dùng",
               showConfirmButton: true,
               timer: 1500
         });
@@ -64,9 +64,9 @@ const ChatApp = () => {
     .catch((error) => {
       console.log(error);
       Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "error",
-            title: "Cannot get rooms",
+            title: "Lỗi không thể tạo phòng chat",
             showConfirmButton: true,
             timer: 1500
       });
@@ -127,22 +127,7 @@ const ChatApp = () => {
       console.log(roomID);
       
       socket.on("get-message", () => {
-        axios.get(`${getBEURL()}/api/messages/${roomID}`)
-        .then((val) => {
-          setMessages(val.data.all_mess)
-          // console.log(val);
-          
-        })
-        .catch((error) => {
-          console.log(error);
-          Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Cannot get messages",
-                showConfirmButton: true,
-                timer: 1500
-          });
-        })
+        getMessages(roomID);
         // console.log("Received here")
       })
       return () => {
@@ -154,6 +139,24 @@ const ChatApp = () => {
   useEffect(() => {
     scrollToBottom()
   });
+  const getMessages = (roomID) => {
+    axios.get(`${getBEURL()}/api/messages/${roomID}`)
+        .then((val) => {
+          setMessages(val.data.all_mess)
+          // console.log(val);
+          
+        })
+        .catch((error) => {
+          console.log(error);
+          Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Lỗi tin nhắn",
+                showConfirmButton: true,
+                timer: 1500
+          });
+        })
+  }
   // const messages = [
   //   { text: "Xin chào!", sentByMe: false },
   //   { text: "Chào bạn!", sentByMe: true },
@@ -175,6 +178,7 @@ const ChatApp = () => {
           selectedUser={selectedUser}
           onSelectUser={(user) => handleRoom(user)}
           messages={messages}
+          getMessages={getMessages}
         />
       )}
     </>

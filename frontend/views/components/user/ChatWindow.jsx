@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import getBEURL from "../../utils/backendURL";
 
-const ChatWindow = ({ messEnd, socket, roomID, onClose, conversations, selectedUser, onSelectUser, messages = [] }) => {
+const ChatWindow = ({ getMessages, messEnd, socket, roomID, onClose, conversations, selectedUser, onSelectUser, messages = [] }) => {
     
     const item = sessionStorage.getItem('user');
     
@@ -15,9 +15,9 @@ const ChatWindow = ({ messEnd, socket, roomID, onClose, conversations, selectedU
         e.preventDefault();
         if(newMess == '') {
              Swal.fire({
-                                position: "top-end",
+                                position: "center",
                                 icon: "warning",
-                                title: "Say something please",
+                                title: "Tin nhắn không được để trống",
                                 showConfirmButton: true,
                                 timer: 1500
             });
@@ -33,6 +33,7 @@ const ChatWindow = ({ messEnd, socket, roomID, onClose, conversations, selectedU
                   "senderID": curUser._id,
                   "content": newMess  
             })
+            getMessages(roomID);
         }
         setNewMess('')
     }
@@ -92,11 +93,11 @@ const ChatWindow = ({ messEnd, socket, roomID, onClose, conversations, selectedU
                         {messages.map((msg, index) => (
                             <div
                                 key={index}
-                                className={`mb-2 ${msg.senderID != curUser._id ? "text-right" : "text-left"}`}
+                                className={`mb-2 ${msg.senderID === curUser._id ? "text-right" : "text-left"}`}
                             >
                                 <span
                                     className={`inline-block px-3 py-2 rounded-lg ${
-                                    msg.senderID != curUser._id ? "bg-green-100" : "bg-gray-200"
+                                    msg.senderID === curUser._id ? "bg-green-100" : "bg-gray-200"
                                     }`}
                                 >
                                     {msg.content}

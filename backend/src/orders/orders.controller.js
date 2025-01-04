@@ -106,6 +106,7 @@ const getPurchaseHistory = async (req, res) => {
                     status: 1,
                     price: "$product-data.price",
                     product_name: "$product-data.name",
+                    product_image: "$product-data.image",
                 }
             },
             {
@@ -150,6 +151,7 @@ const getPurchaseHistoryByStatus = async (req, res) => {
                     status: 1,
                     price: "$product-data.price",
                     product_name: "$product-data.name",
+                    product_image: "$product-data.image",
                 }
             },
             {
@@ -204,6 +206,7 @@ const getMyOrders = async (req, res) => {
                     createdAt: 1,
                     status: 1,
                     products: "$product-data.name",
+                    images: "$product-data.image",
                     price: {
                         $sum: "$product-data.price",
                     }
@@ -266,6 +269,7 @@ const getMyOrdersByStatus = async (req, res) => {
                     createdAt: 1,
                     status: 1,
                     products: "$product-data.name",
+                    images: "$product-data.image",
                     price: {
                         $sum: "$product-data.price",
                     }

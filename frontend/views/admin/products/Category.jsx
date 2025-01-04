@@ -70,7 +70,7 @@ const Category = () => {
         try {
             await deleteCat(id).unwrap();
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "success",
                     title: "Xóa danh mục thành công",
                     showConfirmButton: true,
@@ -79,7 +79,7 @@ const Category = () => {
         } catch (err) {
             // console.log(err);
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "error",
                 title: "Lỗi xóa danh mục",
                 showConfirmButton: true,
@@ -117,7 +117,7 @@ const Category = () => {
     const handleFormConfirm = async () => {
         if(fieldCategory == '') {
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "warning",
                 title: "Danh mục sản phẩm không được để trống",
                 showConfirmButton: true,
@@ -135,7 +135,7 @@ const Category = () => {
                 try {
                     await updateCat({id, ...newCat}).unwrap();
                     Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "success",
                         title: "Chỉnh sửa danh mục thành công",
                         showConfirmButton: true,
@@ -145,7 +145,7 @@ const Category = () => {
                     // console.log(err);
                     if(err.status == 404) {
                         Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "warning",
                         title: "Danh mục không tồn tại",
                         showConfirmButton: true,
@@ -154,7 +154,7 @@ const Category = () => {
                     }
                     else {
                         Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "error",
                         title: "Lỗi chỉnh sửa danh mục",
                         showConfirmButton: true,
@@ -169,7 +169,7 @@ const Category = () => {
                 try {
                     await addCat(newCat).unwrap();
                     Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "success",
                         title: "Thêm danh mục thành công",
                         showConfirmButton: true,
@@ -179,7 +179,7 @@ const Category = () => {
                     // console.log(err);
                     if(err.status == 400) {
                         Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "warning",
                         title: "Danh mục đã tồn tại",
                         showConfirmButton: true,
@@ -188,7 +188,7 @@ const Category = () => {
                     }
                     else {
                         Swal.fire({
-                        position: "top-end",
+                        position: "center",
                         icon: "error",
                         title: "Lỗi thêm danh mục",
                         showConfirmButton: true,

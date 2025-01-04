@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import OrderSidebar from '../components/user/OrderSidebar';
 import { useFetchAllHistoryQuery, useLazyFetchHistoryByStatQuery } from '../redux/feature/orderAPI';
+import getBEURL from "../utils/backendURL";
 
 const PurchaseHistory = () => {
   if(!sessionStorage.getItem('user')) return null
@@ -101,21 +102,32 @@ const PurchaseHistory = () => {
             ) : (
               filteredPurchases.map((purchase, index) => (
                 <div key={index} className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="font-semibold">Đơn hàng #{index + 1}</h3>
-                      <p>{purchase.product}</p>
-                      <p className="text-gray-600">Số lượng: 1</p>
-                      <p className="text-gray-600">{new Date(purchase.createdAt).toUTCString()}</p>
+                  <div className="flex items-start space-x-4">
+                    {/* Product Image */}
+                    <div className="flex-shrink-0">
+                      <img
+                        src={`${getBEURL()}/images/${purchase.product_image}`}
+                        alt={purchase.product_name}
+                        className="w-20 h-20 object-cover rounded-md"
+                      />
                     </div>
-                    <div>
-                      <p className="font-bold">{purchase.price.toLocaleString('vi-VN')} đ</p>
-                      <p className="">Trạng thái: {getNameStatus(purchase.status)}</p>
-                      {/* <button 
-                        className="mt-2 text-blue-500 hover:text-blue-700 transition-colors"
-                      >
-                        Xem chi tiết
-                      </button> */}
+              
+                    {/* Product and Order Details */}
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="font-semibold">Đơn hàng #{index + 1}</h3>
+                          <h4 className="text-base font-semibold text-gray-800">
+                              {purchase.product_name}
+                          </h4>
+                          <p className="text-gray-600">Số lượng: 1</p>
+                          <p className="text-gray-600">{new Date(purchase.createdAt).toLocaleString('vi-VN')}</p>
+                        </div>
+                        <div>
+                          <p className="font-bold">{purchase.price.toLocaleString('vi-VN')} đ</p>
+                          <p className="">Trạng thái: {getNameStatus(purchase.status)}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

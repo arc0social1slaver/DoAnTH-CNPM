@@ -12,7 +12,7 @@ const cartSlice = createSlice ({
             if(!curItem) {
                 state.cartItems.push(action.payload)
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "success",
                     title: "Thêm vào giỏ hàng thành công",
                     showConfirmButton: true,
@@ -21,7 +21,7 @@ const cartSlice = createSlice ({
             }
             else {
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "warning",
                     title: "Sản phẩm đã tồn tại",
                     showConfirmButton: true,
