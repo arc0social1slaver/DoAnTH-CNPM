@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; 
-import { useFetchAllProdsQuery } from "../redux/feature/prodAPI";
+import { useFetchSugProductsQuery } from "../redux/feature/prodAPI";
 import Currency from "../components/user/Currency";
 import {useDispatch} from "react-redux";
 import { addToCart } from "../redux/feature/cartSlice";
+import getBEURL from "../utils/backendURL";
 
 const UserDashboard = () => {
+  if(!sessionStorage.getItem('user')) return null;
+  const id = JSON.parse(sessionStorage.getItem('user'))?._id;
   const navigate = useNavigate();
   
   const dispatch = useDispatch();
@@ -22,7 +25,8 @@ const UserDashboard = () => {
   //     })
   //     .catch((error) => console.error('Error fetching products:', error));
   // }, []);
-  const { data: { products = [] } = {} } = useFetchAllProdsQuery();
+  // const { data: { products = [] } = {} } = useFetchAllProdsQuery();
+  const {data: {products = []} = {}} = useFetchSugProductsQuery(id);
   // console.log(productMess.products);
 // import { Link } from "react-router-dom"; 
 // import Currency from "../components/user/Currency";
@@ -40,7 +44,7 @@ const UserDashboard = () => {
 //   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center mx-auto p-2">
+    <div className="flex flex-col min-h-screen items-center mx-auto p-4">
       <h1 className="text-2xl text-green-700 font-bold mt-8">GỢI Ý HÔM NAY</h1>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4 w-full md:max-w-5xl">
       <div className="col-span-full flex items-center justify-between -mx-2 md:-mx-4 border-t-2 border-green-700 my-4">
@@ -51,7 +55,7 @@ const UserDashboard = () => {
             className="flex flex-col items-center w-48 md:w-48 space-x-4 mt-8 border border-colors-gray-200 p-4 h-auto"
           >
               <img
-                src={product.image}
+                src={`${getBEURL()}/images/${product.image}`}
                 alt={product.name}
                 className="w-full h-48 object-cover"
               />

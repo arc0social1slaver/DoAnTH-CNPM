@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { useFetchAllCatsQuery } from '../../redux/feature/catAPI';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFetchSugCatsQuery } from '../../redux/feature/catAPI';
 
 const ProductCategory = () => {
+    const navigate = useNavigate();
     const [isHovered, setIsHovered] = useState(false);
-    const {data : {cats = []} = {}} = useFetchAllCatsQuery();    
+    // const {data : {cats = []} = {}} = useFetchAllCatsQuery();
+    const {data: {cats = []} = {}} = useFetchSugCatsQuery();    
     const timeoutRef = useRef(null);
     const handleMouseEnter = () => {
         if (timeoutRef.current) {
@@ -24,7 +26,7 @@ const ProductCategory = () => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <button className="font-bold text-green-700 hover:text-opacity-75">Danh mục sản phẩm</button>
+            <button className="font-bold text-green-700 hover:text-opacity-75" onClick={() => navigate("/user/product/cat/all")}>Danh mục sản phẩm</button>
             {isHovered && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-colors-white border border-green-700 rounded-md shadow-lg">
                     <ul>
@@ -43,7 +45,7 @@ const ProductCategory = () => {
                         {
                             cats.map((cat, index) => (
                                 <li key={cat._id} className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
-                                <Link to={`/${cat._id}`}>{cat.name}</Link>
+                                <Link to={`/user/product/cat/${cat._id}`}>{cat.name}</Link>
                             </li>
                             ))
                         }

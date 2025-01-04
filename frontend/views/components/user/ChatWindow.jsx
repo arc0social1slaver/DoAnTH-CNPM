@@ -78,7 +78,7 @@ const ChatWindow = ({ messEnd, socket, roomID, onClose, conversations, selectedU
                     }`}
                     onClick={() => onSelectUser(user)}
                 >
-                    <p className="text-sm">{user.username}</p>
+                    <p className="text-sm">{user.name !== '' ? user.name : user.username}</p>
                 </div>
                 ))}
             </div>

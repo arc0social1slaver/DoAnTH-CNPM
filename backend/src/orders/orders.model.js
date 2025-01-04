@@ -31,10 +31,6 @@ const ordersSchema = new mongoose.Schema({
         type: String,
         default: "Pending",
     },
-    phone: {
-        type: String,
-        required: true,
-    },
     createdAt: {
         type: Date,
         default: Date.now,

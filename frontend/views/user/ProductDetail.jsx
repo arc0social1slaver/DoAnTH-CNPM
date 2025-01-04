@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Currency from "../components/user/Currency";
 import { useFetchProdByIDQuery } from "../redux/feature/prodAPI";
+import getBEURL from "../utils/backendURL";
 
 
 
@@ -53,9 +54,9 @@ const ProductDetail = () => {
     //     });
         
     // }, [id, navigate]);
-    const {data : {product = []} = [], isLoading} = useFetchProdByIDQuery(id);
+    const {data : {product = []} = [], isFetching} = useFetchProdByIDQuery(id);
         // setProduct(product);
-    if (isLoading) {
+    if (isFetching) {
             return <p>Đang tải thông tin sản phẩm...</p>;
     }
     if (!product) {
@@ -69,7 +70,7 @@ const ProductDetail = () => {
                 <div className="w-1/2 px-12">
                     <div className="flex items-center justify-center w-full aspect-square overflow-hidden rounded-lg bg-gray-50">
                         <img
-                            src={product.image}
+                            src={`${getBEURL()}/images/${product.image}`}
                             alt={product.name}
                             className="h-full object-cover object-center"
                         />
@@ -107,7 +108,7 @@ const ProductDetail = () => {
 
                     <div className="mt-8 space-y-4">
                         {/* shipping */}
-                        <div className="grid grid-cols-3 gap-4 items-start">
+                        {/* <div className="grid grid-cols-3 gap-4 items-start">
                             <p className="text-md text-gray-500 row-span-2">Vận chuyển</p>
 
                             <p className="text-md text-gray-500">Từ</p>
@@ -115,12 +116,12 @@ const ProductDetail = () => {
 
                             <p className="text-md text-gray-500">Đến</p>
                             <p className="text-md text-colors-black">{product.shipping?.to}</p>
-                        </div>
+                        </div> */}
                         
                         {/* Shipping cost - stock */}
                         <div className="grid grid-cols-2 gap-4 mt-4">
-                            <p className="text-md text-gray-500">Phí vận chuyển</p>
-                            <p className="text-md text-colors-black">{product.shipping?.cost}</p>
+                            {/* <p className="text-md text-gray-500">Phí vận chuyển</p>
+                            <p className="text-md text-colors-black">{product.shipping?.cost}</p> */}
                             <p className="text-md text-gray-500">Số lượng</p>{" "}
                             <p className="text-colors-black">{product.stock}
                                 {" "}<span className="text-gray-500">sản phẩm có sẵn</span>
@@ -149,14 +150,14 @@ const ProductDetail = () => {
             {/* Seller */}
             <div className="flex items-center w-full mt-10 bg-colors-white border-y-8 border-gray-100 py-2 px-16">
                 <img
-                    src={product.user?.avatar}
+                    src={product.user_id?.avatar ? `${getBEURL()}/images/${product.user_id.avatar}` : 'https://i.pinimg.com/736x/5b/ad/66/5bad666e821e7f7ecbbb0a8479f022ca.jpg'}
                     alt="Seller Avatar"
                     className="w-16 h-16 rounded-full"
                 />
                 <div className="ml-4">
-                    {/* <p className="text-md font-medium">{product.user?.name}</p>
-                    <p className="text-sm text-gray-500">Online {product.user?.lastOnline}</p>
-                    <p className="text-md text-gray-500 mt-2">Đánh giá: {product.user?.rating}</p> */}
+                    <p className="text-md font-medium">{product.user_id.name === '' ? product.user_id.username : product.user_id.name}</p>
+                    <p className="text-sm text-gray-500">{product.user_id.isActive ? "Đang online" : `Online ${new Date( new Date().setDate( Date.now() - new Date(product.user_id.updatedAt).getTime() ) ).getHours()} giờ trước`}</p>
+                    {/* <p className="text-md text-gray-500 mt-2">Đánh giá: {product.user?.rating}</p> */}
                 </div>
 
                 {/* Seller Button */}
@@ -184,11 +185,11 @@ const ProductDetail = () => {
             {/* Description */}
             <div className="px-16 mt-8 bg-colors-white border-t-8 border-gray-100">
                 <h2 className="text-lg mt-8">MÔ TẢ SẢN PHẨM</h2>
-                {/* <textarea
+                <textarea
                     value={product.description}
                     readOnly
                     className="w-full mt-8 p-4"
-                ></textarea> */}
+                ></textarea>
             </div>
         </div>
     );

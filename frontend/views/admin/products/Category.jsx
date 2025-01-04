@@ -91,6 +91,8 @@ const Category = () => {
 
     const handleModalClose = () => {
         setIsModalOpen(false);
+        setSelectedCategory(null);
+        setFieldCategory('');
     };
 
     // Form Logic
@@ -108,6 +110,8 @@ const Category = () => {
 
     const handleFormClose = () => {
         setIsFormOpen(false); // Close the form
+        setSelectedCategory(null);
+        setFieldCategory('');
     };
 
     const handleFormConfirm = async () => {
@@ -196,6 +200,7 @@ const Category = () => {
         }
         setIsFormOpen(false); // Close the form after confirming
         setFieldCategory('');
+        setSelectedCategory(null);
     };
 
 
@@ -210,7 +215,7 @@ const Category = () => {
                         </div>
                         <span className="mr-2 hidden md:inline-block">Danh mục</span>
                         {/* Lấy từ database tất cả các category*/}
-                        <select
+                        {/* <select
                             id="dropdown"
                             value={selectedValue}
                             onChange={handleChange}
@@ -219,19 +224,19 @@ const Category = () => {
                             <option value="option1">Tất cả</option>
                             <option value="option2">Đang hoạt động</option>
                             <option value="option3">Không hoạt động</option>
-                        </select>
+                        </select> */}
                     </div>
                     <div className="flex items-center p-1 w-full md:w-1/3 gap-4">
                         {/* Search input */}
-                        <input
+                        {/* <input
                             type="search"
                             placeholder="Search"
                             className="bg-colors-white py-3 px-4 rounded-xl w-full my-1 h-3/4 shadow-md focus:outline-none focus:border-none focus:shadow-none"
                             inputProps={{ 'aria-label': 'search' }}
                         />
                         <button type='submit' className="text-xl">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-colors-green-900 hover:text-colors-green-600 transition'/> {/* Use the icon here */}
-                        </button>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className='text-colors-green-900 hover:text-colors-green-600 transition'/>
+                        </button> */}
                     </div>
                     <div className="w-full md:w-1/3 transition-all hover:text-green-900 cursor-pointer ml-4 flex items-center justify-center gap-2" onClick={handleAddCategoryClick}>
                         <AddCircleIcon />

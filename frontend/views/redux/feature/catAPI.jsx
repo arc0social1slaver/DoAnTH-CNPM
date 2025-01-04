@@ -24,6 +24,10 @@ const catAPI = createApi({
             query: () => "/",
             providesTags: ["cats"]
         }),
+        fetchSugCats: builder.query({
+            query: () => '/suggest',
+            providesTags: ["cats"],
+        }),
         addCat: builder.mutation({
             query: (newCat) => ({
                 url: '/create-category',
@@ -52,5 +56,10 @@ const catAPI = createApi({
         })
     })
 })
-export const {useFetchAllCatsQuery, useAddCatMutation, useUpdateCatMutation, useDeleteCatMutation} = catAPI;
+export const {useFetchAllCatsQuery,
+    useAddCatMutation,
+    useUpdateCatMutation,
+    useDeleteCatMutation,
+    useFetchSugCatsQuery,
+} = catAPI;
 export default catAPI;

@@ -37,7 +37,8 @@ const Products = () => {
     };
     const handleSearch = (event) => {
         setSearchVal(event.target.value);
-        if(event.target.value === '') {
+        let mainVal = event.target.value.trim();
+        if(mainVal === '') {
             fetchTheProducts("option1")
         }
     }
@@ -121,13 +122,11 @@ const Products = () => {
                 let indexOfLastCard = currentPage * cardsPerPage;
                 let indexOfFirstCard = indexOfLastCard - cardsPerPage;
                 currentProducts_fetch.current = filteredProducts.slice(indexOfFirstCard, indexOfLastCard)
-                console.log(currentProducts_fetch.current);
+                // console.log(currentProducts_fetch.current);
             }
-        if(products.length !== 0) {
-            if(searchValue !== '') {
+            if(searchValue.trim() !== '') {
                 fetchProdName();
             }
-        }
     }, [searchValue]);
 
     useEffect(() => {
@@ -146,7 +145,7 @@ const Products = () => {
             let indexOfLastCard = currentPage * cardsPerPage;
             let indexOfFirstCard = indexOfLastCard - cardsPerPage;
             currentProducts_fetch.current = filteredProducts.slice(indexOfFirstCard, indexOfLastCard)
-            console.log(currentProducts_fetch.current);
+            // console.log(currentProducts_fetch.current);
         }
         if(selectedValue !== "option1") {
             fetchDataTemp();
@@ -245,7 +244,7 @@ const Products = () => {
                             onChange={handleSearch}
                             placeholder="Search"
                             className="bg-colors-white py-3 px-4 rounded-xl w-full my-1 h-3/4 shadow-md focus:outline-none focus:border-none focus:shadow-none"
-                            inputProps={{ 'aria-label': 'search' }}
+                            // inputProps={{ 'aria-label': 'search' }}
                         />
                         <button type='button' className="text-xl">
                             <FontAwesomeIcon icon={faMagnifyingGlass} className='text-colors-green-900 hover:text-colors-green-600 transition'/> {/* Use the icon here */}

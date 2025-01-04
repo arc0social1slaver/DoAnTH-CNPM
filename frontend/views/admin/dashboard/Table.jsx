@@ -12,12 +12,12 @@ import { useFetchAllOrderQuery } from '../../redux/feature/orderAPI';
 
 const columns = [
   { id: '_id', label: 'Mã đơn hàng', minWidth: 100 },
-  { id: 'mssv', label: 'MSSV', minWidth: 100 },
+  // { id: 'mssv', label: 'MSSV', minWidth: 100 },
   { id: 'tenkhachhang', label: 'Tên khách hàng', minWidth: 240 },
   { id: 'createdAt', label: 'Ngày đặt hàng', minWidth: 170 },
   { id: 'status', label: 'Trạng thái đơn hàng', minWidth: 170 },
   { id: 'price', label: 'Tổng số tiền', minWidth: 170 },
-  { id: 'product_id', label: 'Mã sản phẩm', minWidth: 170 },
+  // { id: 'product_id', label: 'Mã sản phẩm', minWidth: 170 },
   { id: 'phone', label: 'Số điện thoại', minWidth: 170 },
 ];
 

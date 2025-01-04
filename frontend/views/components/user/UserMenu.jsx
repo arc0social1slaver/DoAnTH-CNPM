@@ -2,12 +2,43 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {useAuth} from "../../context/AuthContext";
+import axios from "axios";
 import Swal from "sweetalert2";
+import getBEURL from '../../utils/backendURL';
 
 const UserMenu = () => {
-    const [user] = useState({
+    if(!sessionStorage.getItem('user')) return null;
+    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState({
         avatar: 'https://i.pinimg.com/736x/5b/ad/66/5bad666e821e7f7ecbbb0a8479f022ca.jpg',
     });
+    useEffect(() => {
+      const fetchAvatar = async () => {
+        const user_id = JSON.parse(sessionStorage.getItem('user'))?._id;
+        try {
+          const response = await axios.get(`${getBEURL()}/api/users/profile/${user_id}`)
+          if(response.data.profile?.avatar) {
+            setUser({
+              avatar: `${getBEURL()}/images/${response.data.profile?.avatar}`
+            })
+            
+          }
+          else {
+            setUser({
+              avatar: 'https://i.pinimg.com/736x/5b/ad/66/5bad666e821e7f7ecbbb0a8479f022ca.jpg',
+            })
+          }
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+          setUser({
+            avatar: 'https://i.pinimg.com/736x/5b/ad/66/5bad666e821e7f7ecbbb0a8479f022ca.jpg',
+          })
+          setLoading(false);
+        }
+      }
+      fetchAvatar()
+    }, [])
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
@@ -52,6 +83,7 @@ const UserMenu = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+    if (loading) return <div>Loading</div>
     return (
         <div>
             <button 

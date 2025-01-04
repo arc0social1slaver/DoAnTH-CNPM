@@ -10,6 +10,11 @@ const productSchema = new mongoose.Schema({
         ref: 'categories',
         required: true,
     },
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true,
+    },
     price: {
         type: Number,
         required: true,
@@ -20,6 +25,10 @@ const productSchema = new mongoose.Schema({
     },
     stock: {
         type: Number,
+        required: true,
+    },
+    description: {
+        type: String,
         required: true,
     },
     createdAt: {

@@ -19,13 +19,13 @@ const CategoryForm = ({ isOpen, onClose, onConfirm, onCategory, category }) => {
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
         <div className="bg-colors-white p-6 rounded-lg w-3/5">
             <h2 className="text-2xl font-bold">Thông tin danh mục</h2>
-            <div className="mt-4 flex gap-2">
-                <p>Danh mục hiện có</p>
+            {/* <div className="mt-4 flex gap-2">
+                <p>Danh mục hiện có</p> */}
                 {/* Lấy từ database */}
-                <select name="category" id="category" className="border">
+                {/* <select name="category" id="category" className="border">
                     <option value="option 1">Tất cả</option>
-                </select>
-            </div>
+                </select> */}
+            {/* </div> */}
             <div className="mt-3">
                   <form method="post">
                     <input type="text" onChange={(e) => onCategory(e.target.value)} value={category} placeholder="Nhập danh mục" className="border w-full px-2 py-1"/>

@@ -1,12 +1,13 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import getBEURL from '../../utils/backendURL';
 
 const Card = ({ img, name, price, category, stock, onDelete, onModify }) => {
   return (
     <div className="bg-white-100 w-64 rounded-xl p-4 flex flex-col gap-4 mb-2">
         <div className='w-full flex justify-center'>
-            <img src={img} alt="product image" width={200} height={200}/>
+            <img src={`${getBEURL()}/images/${img}`} alt="product image" width={200} height={200}/>
         </div>
         <div className="flex w-full items-center flex-col gap-2">
             <p className="text-center pointer-events-none text-xl text-bold">{name}</p>

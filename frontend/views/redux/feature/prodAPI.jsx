@@ -26,6 +26,14 @@ const prodAPI = createApi({
             query: (id) => `/${id}`,
             providesTags: (result, err, id) => [{type: "products", id}]
         }),
+        fetchMyStoreProducts: builder.query({
+            query: (id) => `/store/${id}`,
+            providesTags: ["products"],
+        }),
+        fetchSugProducts: builder.query({
+            query: (id) => `/suggest/${id}`,
+            providesTags: ["products"],
+        }),
         fetchAllProdsByCat: builder.query({
             query: (id) => `/cat/${id}`,
             providesTags: ["products"],
@@ -38,18 +46,15 @@ const prodAPI = createApi({
             query: (newProd) => ({
                 url: '/create-product',
                 method: "POST",
-                body: newProd
+                body: newProd,           
             }),
             invalidatesTags: ["products"]
         }),
         updateProd: builder.mutation({
-            query: ({id, ...newProd}) => ({
+            query: ({id, newProd}) => ({
                 url: `/edit/${id}`,
                 method: "PUT",
                 body: newProd,
-                headers: {
-                    'Content-Type': 'application/json',
-                }
             }),
             invalidatesTags: ["products"]
         }),
@@ -62,5 +67,15 @@ const prodAPI = createApi({
         })
     })
 })
-export const {useFetchAllProdsQuery, useFetchProdByIDQuery, useFetchAllProdsByCatQuery, useAddProdMutation, useUpdateProdMutation, useDeleteProdMutation, useLazyFetchAllProdsByNameQuery, useLazyFetchAllProdsByCatQuery} = prodAPI;
+export const {useFetchAllProdsQuery,
+    useFetchProdByIDQuery,
+    useFetchAllProdsByCatQuery,
+    useAddProdMutation,
+    useUpdateProdMutation,
+    useDeleteProdMutation,
+    useLazyFetchAllProdsByNameQuery,
+    useLazyFetchAllProdsByCatQuery,
+    useFetchMyStoreProductsQuery,
+    useFetchSugProductsQuery,
+} = prodAPI;
 export default prodAPI;

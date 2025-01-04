@@ -23,6 +23,21 @@ const getAllCats = async (req, res) => {
         res.status(500).send({'message': 'Fail to fetch the category'})
     }
 }
+const getSugCats = async (req, res) => {
+    try {
+        const allCategory = await category.aggregate([
+            {
+                $sample: {
+                    size: 3,
+                }
+            }
+        ]);
+        res.status(200).send({'message': 'Fetch category successfully', cats: allCategory})
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({'message': 'Fail to fetch the category'})
+    }
+}
 const updateCat = async (req, res) => {
     try {
         const {id} = req.params
@@ -54,4 +69,5 @@ module.exports = {
     getAllCats,
     updateCat,
     deleteCat,
+    getSugCats,
 }

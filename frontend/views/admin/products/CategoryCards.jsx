@@ -10,7 +10,7 @@ const CategoryCard = ({ name, date, onDelete, onModify }) => {
         </div>
         <div className="flex w-full items-center">
             <p className="w-2/5 text-center pointer-events-none">{name}</p>
-            <p className="w-3/5 pointer-events-none"><span className='text-colors-gray-600 hidden md:block'>Created at:</span> {date}</p>
+            <p className="w-3/5 pointer-events-none"><span className='text-colors-gray-600 hidden md:block'>Ngày tạo: </span> {date}</p>
         </div>
         <div className='mr-3 text-colors-red-500 hover:text-colors-red-800 transition-all cursor-pointer' onClick={onDelete}>
             <DeleteIcon />

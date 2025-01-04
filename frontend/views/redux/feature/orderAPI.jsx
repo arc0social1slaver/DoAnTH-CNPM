@@ -30,8 +30,39 @@ const orderAPI = createApi({
         fetchAllOrder: builder.query({
             query: () => '/',
             providesTags: ["orders"],
+        }),
+        fetchAllHistory: builder.query({
+            query: (id) => `/purchase/${id}`,
+            providesTags: ["orders"],
+        }),
+        fetchHistoryByStat: builder.query({
+            query: ({id, stat}) => `/purchase/${id}/${stat}`,
+            providesTags: ["orders"],
+        }),
+        fetchMyStore: builder.query({
+            query: (id) => `/my-store/${id}`,
+            providesTags: ["orders"],
+        }),
+        fetchMyStoreByStat: builder.query({
+            query: ({id, stat}) => `/my-store/${id}/${stat}`,
+            providesTags: ["orders"],
+        }),
+        updateOrder: builder.mutation({
+            query: ({id, ...newOrder}) => ({
+                url: `/edit/${id}`,
+                method: "PUT",
+                body: newOrder,
+            }),
+            invalidatesTags: ["orders"],
         })
     })
 })
-export const {useCreateOrderMutation, useFetchAllOrderQuery} = orderAPI;
+export const {useCreateOrderMutation,
+    useFetchAllOrderQuery,
+    useFetchAllHistoryQuery,
+    useLazyFetchHistoryByStatQuery,
+    useFetchMyStoreQuery,
+    useLazyFetchMyStoreByStatQuery,
+    useUpdateOrderMutation,
+} = orderAPI;
 export default orderAPI;

@@ -7,13 +7,34 @@ const axios = require("axios");
 const PORT = process.env.PORT || 4000;
 const FE = process.env.FRONTEND;
 const BE = process.env.BACKEND;
+const roomVip = process.env.SECRET_ROOM;
 
 let onlineUsers = [];
+let adminVip = [];
+
 
 const io = new Server({cors: FE});
 
 io.on("connection", (socket) => {
   console.log("new connection", socket.id);
+  socket.on("activateAdmin", (token) => {
+    if(token) {
+      !adminVip.some((item) => item.token === token) && adminVip.push({
+        token,
+        socketId: socket.id
+      })
+      console.log('Admin room after addition: ',adminVip);
+
+
+      if(!socket.rooms.has(roomVip)) {
+        console.log(`Have not joined admin room ${roomVip}`);
+        socket.join(roomVip)
+      }
+      else {
+        console.log(`Have joined admin room ${roomVip}`);
+      }
+    }
+  })
   socket.on("activateUser", (user_id) => {
     axios({
       method: "put",
@@ -28,6 +49,7 @@ io.on("connection", (socket) => {
         console.log(onlineUsers);
       })
       .catch((error) => console.log(error))
+      io.to(roomVip).emit("adminUpdate");
   })
   socket.on("sendMessage", (message) => {
     // console.log(message);
@@ -67,7 +89,14 @@ io.on("connection", (socket) => {
       console.log(onlineUsers);
     })
     .catch((error) => console.log(error))
-  }
+    io.to(roomVip).emit("adminUpdate");
+    } else {
+      let token = adminVip.find(item => item.socketId === socket.id)
+      if(token) {
+        adminVip = adminVip.filter((user) => user.socketId !== socket.id)
+        console.log('Admin room after leaving: ',adminVip);
+      }
+    }
   })
 });
 

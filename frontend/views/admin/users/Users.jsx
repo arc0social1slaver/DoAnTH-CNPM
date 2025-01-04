@@ -11,8 +11,11 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import getBEURL from "../../utils/backendURL";
 import Swal from "sweetalert2";
+import {io} from "socket.io-client";
+import getSocketURL from "../../utils/socketURL";
 
 const AdminUsers = () => {
+    const [socket, setSocket] = useState(null);
     const [selectedValue, setSelectedValue] = useState("option1");
     const [searchValue, setSearchVal] = useState("");
     const [currentPage, setCurrentPage] = useState(1); // Track current page
@@ -54,10 +57,52 @@ const AdminUsers = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-
-        fetchData();
+        const activateAdmin = (mySocket) => {
+            const token = localStorage.getItem('token')
+            mySocket.emit("activateAdmin", token);
+        }
+        const deActiveAdmin = (mySocket) => {
+            mySocket.disconnect();
+        }
+        if(localStorage.getItem('token')) {
+            const newSocket = io(`${getSocketURL()}`);
+            setSocket(newSocket);
+            activateAdmin(newSocket);
+            fetchData();
+            return () => {
+                deActiveAdmin(newSocket)
+            }
+        }
     }, []);
+    useEffect(() => {
+        if(socket) {
+            socket.on("adminUpdate" , () => {
+                const admin_id = JSON.parse(sessionStorage.getItem('user'))._id;
+                axios.get(`${getBEURL()}/api/users/norm-user/${admin_id}`, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then((val) => {
+                    setUsers(val.data.users);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    Swal.fire({
+                                    position: "top-end",
+                                    icon: "error",
+                                    title: "Cannot get users",
+                                    showConfirmButton: true,
+                                    timer: 1500
+                    });
+                })
+            })
 
+            return () => {
+                socket.off("adminUpdate")
+            }
+        }
+    }, [socket]);
     // Filter options get from category name
     const filteredUsers =
     selectedValue === "option1"
@@ -181,7 +226,7 @@ const AdminUsers = () => {
                             onChange={handleSearch}
                             placeholder="Search"
                             className="bg-colors-white py-3 px-4 rounded-xl w-full my-1 h-3/4 shadow-md focus:outline-none focus:border-none focus:shadow-none"
-                            inputProps={{ 'aria-label': 'search' }}
+                            // inputProps={{ 'aria-label': 'search' }}
                         />
                         <button type='button' className="text-xl">
                             <FontAwesomeIcon icon={faMagnifyingGlass} className='text-colors-green-900 hover:text-colors-green-600 transition'/> {/* Use the icon here */}
@@ -194,7 +239,7 @@ const AdminUsers = () => {
                 <Card 
                     key={user._id}
                     isActive={user.isActive}
-                    avt={user?.avt}
+                    avt={user.avatar}
                     name={user.username}
                     email={user.email}
                     onDelete={() => handleDeleteClick(user)}

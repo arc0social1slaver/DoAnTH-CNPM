@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { clearCart, removeFromCart } from "../redux/feature/cartSlice";
 import { Link } from "react-router-dom";
 import Currency from "../components/user/Currency";
+import getBEURL from "../utils/backendURL";
 
 const ShowCart = () => {
   const dispatch = useDispatch()
@@ -42,7 +43,7 @@ const ShowCart = () => {
           >
             {/* Product Image */}
             <img
-              src={item?.image}
+              src={`${getBEURL()}/images/${item?.image}`}
               alt={item?.name}
               className="w-16 h-16 object-cover rounded"
             />
