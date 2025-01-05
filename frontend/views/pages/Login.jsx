@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ isOpen, closeModal }) => {
+const Login = ({ isOpen, closeModal, nextAction }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -12,10 +12,16 @@ const Login = ({ isOpen, closeModal }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Logging in with:', { email, password });
+        console.log('Next action:', nextAction);
+
         // Call API to login
         
-        navigate('/user');
         closeModal();
+        if (nextAction === 'buying') {
+            navigate('/user'); 
+        } else if (nextAction === 'selling') {
+            navigate('user/my-store');
+        }
     };
 
     return (
@@ -86,6 +92,7 @@ const Login = ({ isOpen, closeModal }) => {
 Login.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
+    nextAction: PropTypes.string.isRequired,
 };
 
 export default Login;

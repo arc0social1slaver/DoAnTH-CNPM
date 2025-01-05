@@ -74,7 +74,7 @@ const UserMenu = () => {
                   <Link to="/user/order" className="text-colors-gray-600">Lịch sử mua hàng</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-green-100">
-                  <Link to="/user/product" className="text-colors-gray-600">Cửa hàng của tôi</Link>
+                  <Link to="/user/my-store" className="text-colors-gray-600">Cửa hàng của tôi</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-green-100">
                   <Link to="/user/sale" className="text-colors-gray-600">Quản lý đơn hàng</Link>

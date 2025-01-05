@@ -18,16 +18,24 @@ const PurchaseHistory = () => {
       id: 2, 
       product: "Quần jean", 
       price: 500000, 
-      status: "shipping", 
+      status: "placed", 
       date: "2024-03-19", 
       quantity: 1 
     },
     { 
       id: 3, 
-      product: "Giày", 
-      price: 800000, 
-      status: "delivered", 
-      date: "2024-03-18", 
+      product: "Quần jean", 
+      price: 500000, 
+      status: "placed", 
+      date: "2024-03-19", 
+      quantity: 1 
+    },
+    { 
+      id: 4, 
+      product: "Quần jean", 
+      price: 500000, 
+      status: "placed", 
+      date: "2024-03-19", 
       quantity: 1 
     }
   ];
@@ -53,16 +61,16 @@ const PurchaseHistory = () => {
     <div className="flex flex-row min-h-screen">
       <OrderSidebar onStatusChange={handleStatusChange} />
       <main className="flex-1 border-l border-gray-200">
-        <div className="p-6">
-          <h2 className="text-2xl font-bold mb-6 text-green-700">{getStatusTitle()}</h2>
-          <div className="space-y-4">
+        <div className="py-4">
+          <div className="bg-green-100 p-4 text-2xl text-center font-bold mb-6 text-green-700">{getStatusTitle()}</div>
+          <div className="p-6 space-y-4">
             {filteredPurchases.length === 0 ? (
               <div className="text-center py-10">
-                <p className="text-gray-500">Không có đơn hàng nào</p>
+                <p className="text-gray-400">Chưa có đơn hàng nào</p>
               </div>
             ) : (
               filteredPurchases.map(purchase => (
-                <div key={purchase.id} className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+                <div key={purchase.id} className="bg-colors-white p-4 border rounded-lg shadow hover:shadow-md transition-shadow">
                   <div className="flex justify-between items-center">
                     <div>
                       <h3 className="font-semibold">Đơn hàng #{purchase.id}</h3>
@@ -72,11 +80,6 @@ const PurchaseHistory = () => {
                     </div>
                     <div>
                       <p className="font-bold">{purchase.price.toLocaleString('vi-VN')} đ</p>
-                      <button 
-                        className="mt-2 text-blue-500 hover:text-blue-700 transition-colors"
-                      >
-                        Xem chi tiết
-                      </button>
                     </div>
                   </div>
                 </div>

@@ -3,6 +3,14 @@ import AuthModal from './AuthModal';
 
 const Home = () => {
     const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+    const [nextAction, setNextAction] = useState('');
+
+    const openModalWithAction = (action) => {
+        setNextAction(action); 
+        setIsAuthModalOpen(true);
+    };
+    console.log('Next action:', nextAction);
+
 
     return (
         <div className="min-h-screen flex items-center bg-colors-white">
@@ -25,13 +33,13 @@ const Home = () => {
                         Trao đổi đồ cũ nhưng mới.
                     </p>
                     <button
-                        onClick={() => setIsAuthModalOpen(true)}
+                        onClick={() => openModalWithAction('buying')}
                         className="inline-block bg-green-100 py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300"
                     >
                         🛒 Mua sắm ngay!
                     </button>
                     <button 
-                        onClick={() => setIsAuthModalOpen(true)}
+                        onClick={() => openModalWithAction('selling')}
                         className="inline-block bg-green-100 py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300"
                     >
                         📤 Đăng bán ngay!
@@ -39,6 +47,7 @@ const Home = () => {
                     <AuthModal
                         isOpen={isAuthModalOpen}
                         closeModal={() => setIsAuthModalOpen(false)}
+                        nextAction={nextAction}
                     />
                 </div>
             </div>

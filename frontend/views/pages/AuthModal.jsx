@@ -5,7 +5,7 @@ import Login from './Login';
 import Register from './Register';
 
 
-const AuthModal = ({ isOpen, closeModal }) => {
+const AuthModal = ({ isOpen, closeModal, nextAction }) => {
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
@@ -49,7 +49,11 @@ const AuthModal = ({ isOpen, closeModal }) => {
                         Đăng nhập
                     </button>
                 </div>
-                <Login isOpen={isLoginModalOpen} closeModal={closeLoginModal} />
+                <Login 
+                    isOpen={isLoginModalOpen} 
+                    closeModal={closeLoginModal}
+                    nextAction={nextAction}
+                />
                 <div className="flex items-center justify-center gap-4 mb-4">
                     <div className="flex-grow border-t border-gray-400"></div>
                     <p className="text-gray-500 px-2">hoặc</p>
@@ -70,6 +74,7 @@ const AuthModal = ({ isOpen, closeModal }) => {
 AuthModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
+    nextAction: PropTypes.string.isRequired,
 };
 
 export default AuthModal;
