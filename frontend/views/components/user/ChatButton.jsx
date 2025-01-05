@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ChatButton = ({ onClick }) => (
     <button
         onClick={onClick}
-        className="fixed flex items-center bottom-4 right-4 bg-green-700 text-colors-white p-3 rounded-full hover:bg-opacity-75 focus:outline-none"
+        className="fixed flex items-center bottom-4 right-4 bg-green-700 text-colors-white p-3 rounded-full hover:bg-opacity-75 hover:scale-105 focus:outline-none"
     >
         <svg 
             xmlns="http://www.w3.org/2000/svg" 

@@ -15,6 +15,7 @@ import MyStore from "../user/MyStore";
 import ProductDetail from "../user/ProductDetail";
 import ShowCart from "../user/ShowCart";
 import Checkout from "../user/Checkout";
+import ViewShop from "../user/ViewShop";
 
 import AdminDashboard from "../admin/dashboard/Dashboard";
 import AdminUsers from "../admin/users/Users";
@@ -41,26 +42,27 @@ const App = () => {
 
       {/* For Admin */}
       <Routes>
-        <Route path="/admin" element={isLoading ? <Loading /> : <AdminRoute><AdminLayout /></AdminRoute>}>
-          <Route index element={isLoading ? <Loading /> : <AdminDashboard />} />
-          <Route path="dashboard" element={isLoading ? <Loading /> : <AdminDashboard />} /> 
-          <Route path="users" element={isLoading ? <Loading /> : <AdminUsers />} /> 
-          <Route path="products" element={isLoading ? <Loading /> : <AdminProducts />} /> 
+        <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="dashboard" element={<AdminDashboard />} /> 
+          <Route path="users" element={<AdminUsers />} /> 
+          <Route path="products" element={<AdminProducts />} /> 
         </Route>
       </Routes>
      
       {/* For User */}
       <Routes>
-        <Route path="/user" element={isLoading ? <Loading /> : <UserRoute><UserLayout /></UserRoute>}>
-          <Route index element={isLoading ? <Loading /> :<UserDashboard />} />
-          <Route path="cart" element={isLoading ? <Loading /> :<ShowCart/>} />
-          <Route path="profile" element={isLoading ? <Loading /> :<UserProfile/>} />
-          <Route path="sale" element={isLoading ? <Loading /> :<OrderManagement/>} />
-          <Route path="order" element={isLoading ? <Loading /> :<PurchaseHistory/>} />
-          <Route path="product" element={isLoading ? <Loading /> :<MyStore/>} />
-          <Route path="product/cat/:id" element={isLoading ? <Loading /> :<ShowProducts/>} />
-          <Route path="product/:id" element={isLoading ? <Loading /> :<ProductDetail />} />
-          <Route path="checkout" element={isLoading ? <Loading /> :<Checkout/>} />
+        <Route path="/user" element={<UserRoute><UserLayout /></UserRoute>}>
+          <Route index element={<UserDashboard />} />
+          <Route path="cart" element={<ShowCart/>} />
+          <Route path="profile" element={<UserProfile/>} />
+          <Route path="sale" element={<OrderManagement/>} />
+          <Route path="order" element={<PurchaseHistory/>} />
+          <Route path="product" element={<MyStore/>} />
+          <Route path="product/cat/:id" element={<ShowProducts/>} />
+          <Route path="product/:id" element={<ProductDetail />} />
+          <Route path="checkout" element={<Checkout/>} />
+          <Route path="shop/:userId" element={<ViewShop />} />
         </Route>
       </Routes>
     </BrowserRouter>

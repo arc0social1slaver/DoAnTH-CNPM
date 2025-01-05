@@ -12,6 +12,7 @@ import { useFetchAllCatsQuery } from '../redux/feature/catAPI';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/feature/cartSlice';
 import getBEURL from '../utils/backendURL';
+import Currency from '../components/user/Currency';
 
 const ShowProducts = () => {
     if(!sessionStorage.getItem('user')) return null;
@@ -138,7 +139,7 @@ const ShowProducts = () => {
     if(loading) return <div>Loading</div>
     return (
         <>
-            <div className="p-5 mx-5 mb-5 bg-green-100 rounded-md">
+            <div className="p-5 mx-5 mb-5 rounded-md">
                 <div className="m-3 flex items-center flex-col md:flex-row">
                     <div className="w-full md:w-1/3 flex items-center">
                         <div className="transition hover:text-green-900 cursor-pointer mr-2">
@@ -151,7 +152,7 @@ const ShowProducts = () => {
                             id="dropdown"
                             value={selectedValue}
                             onChange={handleChange}
-                            className="rounded-lg border py-2 px-4"
+                            className="rounded-lg border border-gray-300 py-2 px-4"
                         >
                             <option value="option1">Tất cả</option>
                             {
@@ -180,7 +181,7 @@ const ShowProducts = () => {
                 </div>
                 <div className="flex flex-wrap gap-8 justify-center">
                     {currentProducts.map((product) => ( product.user_id !== userID && 
-                        <div key={product._id} className="bg-white-100 w-64 rounded-xl p-4 flex flex-col gap-4 mb-2">
+                        <div key={product._id} className="bg-white-100 border shadow w-64 rounded-xl p-4 flex flex-col gap-4 mb-2">
                         <div className='w-full flex justify-center'>
                             <img src={`${getBEURL()}/images/${product.image}`} alt="product image" width={200} height={200}/>
                         </div>
@@ -188,14 +189,14 @@ const ShowProducts = () => {
                             <p className="text-center pointer-events-none text-xl text-bold">{product.name}</p>
                             <div className="flex justify-start">
                                 <p
-                                    className={`inline-block px-2 py-1 bg-green-700 text-colors-green-900 rounded-md text-sm pointer-events-none`}
+                                    className={`inline-block px-2 py-1 bg-green-100 text-colors-green-900 rounded-md text-sm pointer-events-none`}
                                 >
                                     {product.cat_id.name}
                                 </p>
                             </div>
                             <div className='w-full px-3 pointer-events-none flex justify-between'>
                                 <p className=''>Số lượng: <span>{product.stock}</span></p>
-                                <p>Giá: <span>{product.price.toLocaleString()}</span></p>
+                                <p>Giá: <Currency amount={product.price}/></p>
                             </div>
                             <button
               onClick={() => handleAddProd(product)}

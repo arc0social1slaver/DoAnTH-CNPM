@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import OrderSidebar from '../components/user/OrderSidebar';
 import { useFetchAllHistoryQuery, useLazyFetchHistoryByStatQuery } from '../redux/feature/orderAPI';
 import getBEURL from "../utils/backendURL";
+import Currency from '../components/user/Currency';
 
 const PurchaseHistory = () => {
   if(!sessionStorage.getItem('user')) return null
@@ -11,41 +12,10 @@ const PurchaseHistory = () => {
   const [getHist, {}] = useLazyFetchHistoryByStatQuery();
   const [purchases, setPurchases] = useState([]);
   const [loading, setLoading] = useState(true);
-  // Sample purchase history data
-  // const purchases = [
-  //   { 
-  //     id: 1, 
-  //     product: "Áo thun", 
-  //     price: 200000, 
-  //     status: "placed", 
-  //     date: "2024-03-20", 
-  //     quantity: 2 
-  //   },
-  //   { 
-  //     id: 2, 
-  //     product: "Quần jean", 
-  //     price: 500000, 
-  //     status: "shipping", 
-  //     date: "2024-03-19", 
-  //     quantity: 1 
-  //   },
-  //   { 
-  //     id: 3, 
-  //     product: "Giày", 
-  //     price: 800000, 
-  //     status: "delivered", 
-  //     date: "2024-03-18", 
-  //     quantity: 1 
-  //   }
-  // ];
 
   const handleStatusChange = (status) => {
     setSelectedStatus(status);
   };
-
-  // const filteredPurchases = purchases.filter(
-  //   purchase => purchase.status === selectedStatus
-  // );
   const filteredPurchases = purchases;
 
   const getStatusTitle = () => {
@@ -91,17 +61,17 @@ const PurchaseHistory = () => {
   return (
     <div className="flex flex-row min-h-screen">
       <OrderSidebar onStatusChange={handleStatusChange} title={"Lịch sử mua hàng"} />
-      <main className="flex-1 border-l border-gray-200">
-        <div className="p-6">
-          <h2 className="text-2xl font-bold mb-6 text-green-700">{getStatusTitle()}</h2>
-          <div className="space-y-4">
+      <main className="pl-64 flex-1 border-l border-gray-200">
+        <div className="py-4">
+          <h2 className="bg-green-100 p-4 text-2xl text-center font-bold mb-6 text-green-700">{getStatusTitle()}</h2>
+          <div className="p-6 space-y-4">
             {filteredPurchases.length === 0 ? (
               <div className="text-center py-10">
-                <p className="text-gray-500">Không có đơn hàng nào</p>
+                <p className="text-gray-400">Chưa có đơn hàng nào.</p>
               </div>
             ) : (
               filteredPurchases.map((purchase, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+                <div key={index} className="bg-colors-white p-4 border rounded-lg shadow hover:shadow-md transition-shadow">
                   <div className="flex items-start space-x-4">
                     {/* Product Image */}
                     <div className="flex-shrink-0">
@@ -116,15 +86,15 @@ const PurchaseHistory = () => {
                     <div className="flex-1">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h3 className="font-semibold">Đơn hàng #{index + 1}</h3>
-                          <h4 className="text-base font-semibold text-gray-800">
+                          <h3 className="font-normal">Đơn hàng #{index + 1}</h3>
+                          <h4 className="font-bold text-green-700 text-lg">
                               {purchase.product_name}
                           </h4>
                           <p className="text-gray-600">Số lượng: 1</p>
-                          <p className="text-gray-600">{new Date(purchase.createdAt).toLocaleString('vi-VN')}</p>
+                          <p className="text-gray-500">{new Date(purchase.createdAt).toLocaleString('vi-VN')}</p>
                         </div>
                         <div>
-                          <p className="font-bold">{purchase.price.toLocaleString('vi-VN')} đ</p>
+                          <p className="font-bold"><Currency amount={purchase.price}/></p>
                           <p className="">Trạng thái: {getNameStatus(purchase.status)}</p>
                         </div>
                       </div>

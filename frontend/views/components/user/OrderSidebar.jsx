@@ -16,9 +16,9 @@ const OrderSidebar = ({ onStatusChange, title }) => {
   };
 
   return (
-    <div className="w-64 min-h-screen bg-gray-100 p-4 border-r">
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-green-700">{title}</h2>
+    <div className="fixed w-64 min-h-screen bg-gray-50 p-4 border-r">
+      <div className="mb-6 border-b-2 border-green-700 pb-4">
+        <h2 className="text-xl font-bold text-green-700 text-center mt-4">{title}</h2>
       </div>
       <nav>
         {menuItems.map((item, index) => (
@@ -27,8 +27,8 @@ const OrderSidebar = ({ onStatusChange, title }) => {
             onClick={() => handleStatusClick(item.status)}
             className={`w-full text-left py-3 px-4 mb-2 rounded-lg transition-all duration-200
               ${selectedStatus === item.status 
-                ? 'bg-blue-500 text-white' 
-                : 'text-black hover:bg-gray-200'}`}
+                ? 'bg-green-700 text-colors-white' 
+                : 'text-colors-black hover:bg-gray-200'}`}
           >
             {item.title}
           </button>

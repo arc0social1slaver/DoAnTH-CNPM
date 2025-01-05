@@ -77,10 +77,12 @@ const UserProfile = () => {
     };
     if(loading) return <div>Loading</div>
     return (
-        <div className="container mx-auto p-4">
-        <h2 className="text-3xl font-bold mb-8 text-center text-green-700">Hồ sơ của tôi</h2>
-        
-        <div className="flex justify-between items-start bg-white shadow-md rounded-lg p-6 mb-6">
+        <div className="relative min-h-screen py-4">
+            <div className="bg-green-100 p-4 text-2xl font-bold text-left text-green-700">
+                <span className='ml-8'>ThriftMate</span> <span className='text-3xl font-light'>|</span>
+                <span className='font-medium ml-4'>Hồ sơ của tôi</span>
+            </div>
+        <div className="flex justify-between items-start bg-colors-white border shadow rounded-lg p-6 m-8">
             <div className="w-2/3">
             <div className="mb-4">
                 <label className="block font-semibold mb-1">Tên đăng nhập:</label>
@@ -89,7 +91,7 @@ const UserProfile = () => {
                 name="username"
                 value={user.username}
                 onChange={handleChange}
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-400 rounded p-2"
                 />
             </div>
             <div className="mb-4">
@@ -99,7 +101,7 @@ const UserProfile = () => {
                 name="name"
                 value={user.name}
                 onChange={handleChange}
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-400 rounded p-2"
                 />
             </div>
             <div className="mb-4">
@@ -109,7 +111,7 @@ const UserProfile = () => {
                 name="sex"
                 value={user.sex}
                 onChange={handleChange}
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-400 rounded p-2"
                 />
             </div>
             <div className="mb-4">
@@ -119,7 +121,7 @@ const UserProfile = () => {
                 name="dob"
                 value={user.dob}
                 onChange={handleChange}
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-400 rounded p-2"
                 />
             </div>
             <div className="mb-4">
@@ -129,7 +131,7 @@ const UserProfile = () => {
                 name="phone"
                 value={user.phone}
                 onChange={handleChange}
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-400 rounded p-2"
                 />
             </div>
             <div className="mb-4">
@@ -139,13 +141,13 @@ const UserProfile = () => {
                 name="email"
                 value={user.email}
                 onChange={handleChange}
-                className="w-full border rounded p-2"
+                className="w-full border border-gray-400 rounded p-2"
                 />
             </div>
             <div className="flex justify-center mt-6 mb-4">
                 <button
                 onClick={handleSave}
-                className="w-1/3 bg-green-100 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200 ease-in-out transform hover:scale-105"
+                className="w-1/3 bg-green-700 text-colors-white hover:bg-opacity-75 font-bold py-3 px-6 rounded-lg transition duration-200 ease-in-out transform hover:scale-105"
                 >
                 Lưu thông tin
                 </button>

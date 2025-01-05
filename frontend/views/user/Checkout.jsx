@@ -64,80 +64,83 @@ const Checkout = () => {
         }
     }
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-colors-white">
             {/* Header */}
-            <div className="w-full bg-colors-white text-green-700 py-4">
-                <h1 className="text-center text-xl font-bold">
-                    Thanh toán
-                </h1>
+            <div className="bg-green-100 p-4 mt-8 text-2xl font-bold text-left text-green-700">
+                <span className='ml-8'>ThriftMate</span> <span className='text-3xl font-light'>|</span>
+                <span className='font-medium ml-4'>Thanh toán</span>
             </div>
 
             {/* Nội dung chính */}
             <div className="container mx-auto mt-8 px-8">
-                 {/* Địa chỉ nhận hàng */}
-                 <div className="bg-white shadow-md rounded-lg p-6">
-                    <h2 className="text-lg font-semibold mb-2">
-                        Tổng giá trị đơn hàng
-                    </h2>
-                    <p className="text-gray-700"><Currency amount={calculateTotal} /></p>
-                </div>
-                <div className="bg-white shadow-md rounded-lg p-6">
-                    <h2 className="text-lg font-semibold mb-2">
-                        Số lượng đơn hàng
-                    </h2>
-                    <p className="text-gray-700">{cartItems.length}</p>
-                </div>
-                {/* Địa chỉ nhận hàng */}
-                <div className="bg-white justify-center shadow-md rounded-lg p-6">
-                    <form onSubmit={handleOrder}>
-                    <h2 className="text-lg font-semibold mb-2">
-                        Địa chỉ nhận hàng
-                    </h2>
-                    <div className="mb-6">
-                        <label htmlFor="addr" className="block">Địa chỉ / Số nhà</label>
-                        <input
-                            type="text"
-                            id="addr"
-                            className="w-full px-4 py-2 mt-2 border border-colors-gray-400 rounded-lg"
-                            value={shippingAddress}
-                            onChange={(e) => setShippingAddress(e.target.value)}
-                            placeholder="Nhập địa chỉ tại đây"
-                            required
-                        />
+                <form onSubmit={handleOrder}>
+                    <div className="bg-colors-white shadow border border-gray-200 rounded-lg p-6 mb-4">
+                        <h2 className="text-lg font-semibold mb-2">
+                            Tổng giá trị đơn hàng
+                        </h2>
+                        <p className="text-gray-700"><Currency amount={calculateTotal} /></p>
                     </div>
-                    <div className="mb-6">
-                        <label htmlFor="dist" className="block">Quận, Huyện, Thành phố</label>
-                        <input
-                            type="text"
-                            id="dist"
-                            className="w-full px-4 py-2 mt-2 border border-colors-gray-400 rounded-lg"
-                            value={shippingDist}
-                            onChange={(e) => setShippingDist(e.target.value)}
-                            placeholder="Nhập quận, huyện, thành phố tại đây"
-                            required
-                        />
+                    <div className="bg-colors-white shadow border border-gray-200 rounded-lg p-6 mb-4">
+                        <h2 className="text-lg font-semibold mb-2">
+                            Số lượng đơn hàng
+                        </h2>
+                        <p className="text-gray-700">{cartItems.length}</p>
                     </div>
-                    <div className="mb-6">
-                        <label htmlFor="city" className="block">Tỉnh</label>
-                        <input
-                            type="text"
-                            id="city"
-                            className="w-full px-4 py-2 mt-2 border border-colors-gray-400 rounded-lg"
-                            value={shippingCity}
-                            onChange={(e) => setShippingCity(e.target.value)}
-                            placeholder="Nhập tỉnh tại đây"
-                            required
-                        />
+                    {/* Địa chỉ nhận hàng */}
+                    <div className="bg-colors-white justify-center shadow border border-gray-200 rounded-lg p-6 mb-8">
+                        
+                            <h2 className="text-lg font-semibold mb-2">
+                                Địa chỉ nhận hàng
+                            </h2>
+                            <div className="mb-6">
+                                <label htmlFor="addr" className="block">Địa chỉ / Số nhà</label>
+                                <input
+                                    type="text"
+                                    id="addr"
+                                    className="w-full px-4 py-2 mt-2 border border-gray-400 rounded-lg"
+                                    value={shippingAddress}
+                                    onChange={(e) => setShippingAddress(e.target.value)}
+                                    placeholder="Nhập địa chỉ tại đây"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-6">
+                                <label htmlFor="dist" className="block">Quận, Huyện, Thành phố</label>
+                                <input
+                                    type="text"
+                                    id="dist"
+                                    className="w-full px-4 py-2 mt-2 border border-gray-400 rounded-lg"
+                                    value={shippingDist}
+                                    onChange={(e) => setShippingDist(e.target.value)}
+                                    placeholder="Nhập quận, huyện, thành phố tại đây"
+                                    required
+                                />
+                            </div>
+                            <div className="mb-6">
+                                <label htmlFor="city" className="block">Tỉnh</label>
+                                <input
+                                    type="text"
+                                    id="city"
+                                    className="w-full px-4 py-2 mt-2 border border-gray-400 rounded-lg"
+                                    value={shippingCity}
+                                    onChange={(e) => setShippingCity(e.target.value)}
+                                    placeholder="Nhập tỉnh tại đây"
+                                    required
+                                />
+                            </div>
+                        
+                        {/* <p className="text-gray-700">{shippingAddress}</p> */}
+                        
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full py-2 bg-green-100  rounded-lg hover:bg-green-700"
-                    >
-                        Đặt hàng
-                    </button>
-                    {/* <p className="text-gray-700">{shippingAddress}</p> */}
-                    </form>
-                </div>
+                    <div className="w-full flex justify-center">
+                        <button
+                            type="submit"
+                            className="flex items-center px-16 py-4 text-colors-white text-xl font-bold bg-green-700 rounded-lg hover:bg-opacity-75 hover:scale-105 mb-8"
+                        >
+                            Đặt hàng
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     );

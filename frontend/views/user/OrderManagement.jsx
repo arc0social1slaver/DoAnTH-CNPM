@@ -3,6 +3,7 @@ import OrderSidebar from '../components/user/OrderSidebar';
 import Swal from "sweetalert2";
 import { useFetchMyStoreQuery, useLazyFetchMyStoreByStatQuery, useUpdateOrderMutation } from '../redux/feature/orderAPI';
 import getBEURL from "../utils/backendURL";
+import Currency from '../components/user/Currency';
 
 const OrderManagement = () => {
   if(!sessionStorage.getItem('user')) return null
@@ -18,12 +19,6 @@ const OrderManagement = () => {
     id: '',
     status: '',
   });
-  // Sample order data
-  // const orders = [
-  //   { id: 1, product: "Áo thun", price: 200000, status: "placed", date: "2024-03-20" },
-  //   { id: 2, product: "Quần jean", price: 500000, status: "shipping", date: "2024-03-19" },
-  //   { id: 3, product: "Giày", price: 800000, status: "delivered", date: "2024-03-18" }
-  // ];
 
   const handleStatusChange = (status) => {
     setSelectedStatus(status);
@@ -55,9 +50,9 @@ const handleCancelButton = () => {
   };
   const getNameStatus = (val) => {
     switch (val) {
-      case 'Pending': return 'Đơn hàng đã đặt';
-      case 'Shipping': return 'Đơn hàng đang vận chuyển';
-      case 'Delivered': return 'Đơn hàng đã giao';
+      case 'Pending': return 'Đã đặt';
+      case 'Shipping': return 'Đang vận chuyển';
+      case 'Delivered': return 'Đã giao';
       default: return 'Tất cả đơn hàng';
     }
   };
@@ -150,17 +145,17 @@ const handleCancelButton = () => {
   return (
     <div className="flex flex-row min-h-screen">
       <OrderSidebar onStatusChange={handleStatusChange} title={"Quản lý đơn hàng"} />
-      <main className="flex-1 border-l border-gray-200">
-        <div className="p-6">
-          <h2 className="text-2xl font-bold mb-6 text-green-700">{getStatusTitle()}</h2>
-          <div className="space-y-4">
+      <main className="pl-64 flex-1 border-l border-gray-200">
+        <div className="py-4">
+          <h2 className="bg-green-100 p-4 text-2xl text-center font-bold mb-6 text-green-700">{getStatusTitle()}</h2>
+          <div className="p-6 space-y-4">
             {filteredOrders.length === 0 ? (
               <div className="text-center py-10">
-                <p className="text-gray-500">Không có đơn hàng nào</p>
+                <p className="text-gray-400">Chưa có đơn hàng nào.</p>
               </div>
             ) : (
               filteredOrders.map((order, index) => (
-                <div className="flex items-start space-x-4" key={index}>
+                <div className="bg-colors-white border p-4 rounded-lg shadow flex items-start space-x-4" key={index}>
                 {/* Product Image */}
                 <div className="flex-shrink-0">
                     <img
@@ -174,16 +169,16 @@ const handleCancelButton = () => {
                 <div className="flex-1">
                     <div className="flex justify-between items-center">
                         <div>
-                            <h3 className="font-semibold">Đơn hàng #{index + 1}</h3>
+                            <h3 className="font-normal">Đơn hàng #{index + 1}</h3>
                             {
                                 order.products.map((product, index) => (
-                                    <p key={index} className="font-bold">{product}</p>
+                                    <p key={index} className="font-bold text-green-700 text-lg">{product}</p>
                                 ))
                             }
-                            <p className="text-gray-600">{new Date(order.createdAt).toLocaleString('vi-VN')}</p>
+                            <p className="text-gray-500">{new Date(order.createdAt).toLocaleString('vi-VN')}</p>
                         </div>
                         <div>
-                            <p className="font-bold">{order.price.toLocaleString('vi-VN')} đ</p>
+                            <p className="font-bold"><Currency amount={order.price}/></p>
                             <p className="">Trạng thái: {getNameStatus(order.status)}</p>
                             <button className="mt-2 text-colors-blue-500 hover:text-blue-700" onClick={() => handleModifyClick(order)}>
                                 Chuyển trạng thái đơn hàng
@@ -199,24 +194,24 @@ const handleCancelButton = () => {
       </main>
 
       {showForm && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="bg-gray-50 rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative border border-gray-200 shadow-xl">
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-colors-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto relative border border-gray-200 shadow-xl">
                 <h2 className="text-2xl font-bold mb-6 text-center text-green-700">Chỉnh sửa trạng thái đơn hàng</h2>
                 
                 <form onSubmit={handleSubmit}  className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium mb-1">Trạng thái</label>
                     <select
-                    name="status"
-                    value={selectedOrder.status}
-                    onChange={handleChange}
-                    className="w-full border rounded-lg p-2"
-                    required
+                      name="status"
+                      value={selectedOrder.status}
+                      onChange={handleChange}
+                      className="w-full border border-gray-400 rounded-lg p-2"
+                      required
                     >
                     <option value="" disabled>Chọn trạng thái</option>
-                    <option value="Pending">Đơn hàng đã đặt</option>
-                    <option value="Shipping">Đơn hàng đang vận chuyển</option>
-                    <option value="Delivered">Đơn hàng đã giao</option>
+                    <option value="Pending">Đã đặt</option>
+                    <option value="Shipping">Đang vận chuyển</option>
+                    <option value="Delivered">Đã giao</option>
                     </select>
                 </div>
 
