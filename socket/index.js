@@ -53,13 +53,13 @@ io.on("connection", (socket) => {
   })
   socket.on("sendMessage", (message) => {
     // console.log(message);
-    axios({
-      method: "post",
-      url: `${BE}/api/messages`,
-      data: message
-    })
-    .catch((error) => console.log(error))
-    io.to(message.chatID).emit("get-message");
+    // axios({
+    //   method: "post",
+    //   url: `${BE}/api/messages`,
+    //   data: message
+    // })
+    // .catch((error) => console.log(error))
+    io.to(message).emit("get-message");
     // io.to(socket.id).emit("get-message")
   })
   socket.on("enter-room", (roomID) => {

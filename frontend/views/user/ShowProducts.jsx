@@ -38,6 +38,7 @@ const ShowProducts = () => {
         if(event.target.value === "option1") {
             setShowProds(products);
         }
+        setCurrentPage(1);
     };
     const handleSearch = (event) => {
         setSearchVal(event.target.value);
@@ -45,6 +46,7 @@ const ShowProducts = () => {
         if(cleanVal === '') {
             setShowProds(products);
         }
+        setCurrentPage(1);
     }
 
     useEffect(() => {

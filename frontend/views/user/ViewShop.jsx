@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import getBEURL from "../utils/backendURL";
 import { useFetchMyStoreProductsQuery } from '../redux/feature/prodAPI';
-import {io} from "socket.io-client";
-import getSocketURL from "../utils/socketURL";
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/feature/cartSlice';
 
 const ViewShop = () => {
     const { userId } = useParams();
+    const dispatch = useDispatch();
+    const handleAddProd = (product) => {
+        dispatch(addToCart(product))
+    }
     const { data: {products = []} = [], isLoading } = useFetchMyStoreProductsQuery(userId);
     const [shopOwner, setShopOwner] = useState(null);
     const [error, setError] = useState(null);
@@ -78,11 +82,23 @@ const ViewShop = () => {
                             alt={product.name}
                             className="w-full h-48 object-cover"
                         />
-                        <div className="p-4">
+                        <div className="p-4 flex flex-col items-center">
                             <h3 className="font-semibold text-lg mb-2">{product.name}</h3>
                             <p className="text-green-600 font-bold">
                                 {product.price?.toLocaleString('vi-VN')}đ
                             </p>
+                            <button
+                                onClick={() => handleAddProd(product)}
+                                className="w-full py-2 bg-green-700 text-white font-semibold text-sm rounded-md mt-auto hover:bg-green-800 transition-colors"
+                            >
+                                Thêm vào giỏ hàng
+                            </button>
+                            <Link
+                                to={`/user/product/${product._id}`} 
+                                className="text-green-700 font-semibold mt-2 hover:underline"
+                            >
+                                Chi tiết sản phẩm
+                            </Link>
                         </div>
                     </div>
                 ))}

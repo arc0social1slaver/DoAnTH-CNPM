@@ -20,13 +20,16 @@ const MyStore = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [fieldFile, setFile] = useState(null);
     const [showImagePopup, setShowImagePopup] = useState(false);
+    const [newImage, setNewImage] = useState({
+        name: '',
+        url: '',
+    })
     const [newProduct, setNewProduct] = useState({
         name: '',
         price: '',
         cat_id: '',
         description: '',
         stock: '',
-        imageUrl: ''
     });
 
     const handleChange = (e) => {
@@ -93,6 +96,10 @@ const MyStore = () => {
             description: '',
             stock: '',
         });
+        setNewImage({
+            name: '',
+            url: '',
+        })
         setFile(null);
         setIsModalOpen(false);
     }
@@ -101,10 +108,10 @@ const MyStore = () => {
         const file = e.target.files[0];
         if (file) {
             const imageUrl = URL.createObjectURL(file);
-            setNewProduct(prev => ({
+            setNewImage(prev => ({
                 ...prev,
-                image: file,
-                imageUrl: imageUrl
+                name: file.name,
+                url: imageUrl
             }));
         }
         setFile(file);
@@ -118,6 +125,10 @@ const MyStore = () => {
         description: '',
         stock: '',
         });
+        setNewImage({
+            name: '',
+            url: '',
+        })
         setFile(null);
         setIsUpdate(false);
         setIsModalOpen(false);
@@ -216,8 +227,11 @@ const MyStore = () => {
         cat_id: '',
         description: '',
         stock: '',
-        imageUrl: ''
         });
+        setNewImage({
+            name: '',
+            url: '',
+        })
         setFile(null);
         setIsUpdate(false)
     };
@@ -258,11 +272,11 @@ const MyStore = () => {
                                 />
                                 <h3 className="text-base text-center line-clamp-2">{product.name}</h3>
                                 <p className="text-base text-green-700 font-semibold text-center"><Currency amount={product.price}/></p>
-                                <div className='w-full py-1 px-2 rounded-lg bg-green-900 hover:bg-colors-green-700 text-white-100 transition-all rounded-sm cursor-pointer flex gap-1 items-center justify-center' onClick={() => handleModifyClick(product)}>
+                                <div className='w-full py-1 px-2 rounded-lg bg-green-900 hover:bg-colors-green-700 text-white-100 transition-all cursor-pointer flex gap-1 items-center justify-center' onClick={() => handleModifyClick(product)}>
                                     <ModeEditIcon className='hover:text-green-900 transition cursor-pointer'/>
                                         <span>Chỉnh sửa</span>
                                 </div>
-                                <div className='w-full mt-2 py-1 px-2 rounded-lg bg-colors-red-500 hover:bg-colors-red-800 text-white-100 transition-all cursor-pointer rounded-sm flex gap-1 items-center justify-center' onClick={() => handleDeleteClick(product)}>
+                                <div className='w-full mt-2 py-1 px-2 rounded-lg bg-colors-red-500 hover:bg-colors-red-800 text-white-100 transition-all cursor-pointer flex gap-1 items-center justify-center' onClick={() => handleDeleteClick(product)}>
                                     <DeleteIcon className='text-white-100 hover:text-white-100' />
                                     <span>Xóa</span>
                                 </div>
@@ -381,14 +395,14 @@ const MyStore = () => {
                     className="w-full"
                     // required
                     />
-                    {newProduct.imageUrl && (
+                    {newImage.url && (
                         <div className="mt-2">
                             <a 
                                 href="#"
                                 onClick={openImagePopup} 
                                 className="text-blue-700 hover:underline"
                             >
-                                {newProduct.image.name}
+                                {newImage.name}
                             </a>
                         </div>
                     )}
@@ -429,7 +443,7 @@ const MyStore = () => {
                             </svg>
                         </button>
                         <img
-                            src={newProduct.imageUrl}
+                            src={newImage.url}
                             alt="Product Preview"
                             className="w-80 h-80"
                         />

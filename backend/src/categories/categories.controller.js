@@ -16,7 +16,7 @@ const addCat = async (req, res) => {
 }
 const getAllCats = async (req, res) => {
     try {
-        const allCategory = await category.find().sort({createdAt: -1})
+        const allCategory = await category.find().sort({createdAt: 1})
         res.status(200).send({'message': 'Fetch category successfully', cats: allCategory})
     } catch (error) {
         console.error(error);

@@ -170,6 +170,9 @@ const removeNormUser = async (req, res) => {
         }
         else {
             const removeUser = await user.findByIdAndDelete(id);
+            if (removeUser?.avatar) {
+                await deleteAction(`./public/${removeUser.avatar}`);
+            }
             res.status(200).send({
                 message: "Delete user successfully",
                 user: removeUser,

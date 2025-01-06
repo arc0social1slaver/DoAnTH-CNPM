@@ -73,7 +73,7 @@ export default function DataTable() {
                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                       {columns.map((column) => {
                         
-                        const value = column.id === "createdAt" ? new Date(row[column.id]).toUTCString() : row[column.id];
+                        const value = column.id === "createdAt" ? new Date(row[column.id]).toLocaleString('vi-VN') : row[column.id];
                         
                         return (
                           <TableCell key={column.id} align={column.align}>

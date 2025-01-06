@@ -23,17 +23,19 @@ const ChatWindow = ({ getMessages, messEnd, socket, roomID, onClose, conversatio
             });
         }
         else {
-            // await axios.post(`${getBEURL()}/api/messages`, {
-            //   "chatID": roomID,
-            //   "senderID": curUser._id,
-            //   "content": newMess  
-            // })
-            socket.emit("sendMessage", {
-                  "chatID": roomID,
-                  "senderID": curUser._id,
-                  "content": newMess  
-            })
-            getMessages(roomID);
+            try {
+                const resp = await axios.post(`${getBEURL()}/api/messages`, {
+                    "chatID": roomID,
+                    "senderID": curUser._id,
+                    "content": newMess  
+                })
+                console.log(resp.data);
+                socket.emit("sendMessage", roomID)
+            } catch (error) {
+                console.log(error);
+            }
+            
+            // getMessages(roomID);
         }
         setNewMess('')
     }

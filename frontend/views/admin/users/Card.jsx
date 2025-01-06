@@ -6,7 +6,7 @@ const Card = ({ isActive, avt, name, email, onDelete }) => {
   return (
     <div className="bg-white-100 w-full rounded-xl p-4 flex items-center gap-4 mb-2">
         <div>
-            <img src={`${getBEURL()}/images/${avt}`} alt="avatar" width={60} height={60} className="rounded-full"/>
+            <img src={avt ? `${getBEURL()}/images/${avt}` : "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} alt="avatar" width={60} height={60} className="rounded-full"/>
         </div>
         <div className="flex w-full items-center">
             <p className="w-1/5 text-center pointer-events-none">{name}</p>

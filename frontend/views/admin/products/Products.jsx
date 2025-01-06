@@ -1,6 +1,6 @@
 import Card from "./Card";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import Form from "./Form";
 
@@ -16,7 +16,7 @@ import Swal from "sweetalert2";
 
 const Products = () => {
     const [selectedValue, setSelectedValue] = useState("option1");
-    const {data : {products = []} = [],} = useFetchAllProdsQuery();
+    const {data : {products = []} = [], isLoading, isFetching} = useFetchAllProdsQuery();
     const [getProdByName, {}] = useLazyFetchAllProdsByNameQuery();
     const [getProdByCat, {}] = useLazyFetchAllProdsByCatQuery();
     const {data: {cats = []} = []} = useFetchAllCatsQuery();
@@ -24,21 +24,23 @@ const Products = () => {
     const [currentPage, setCurrentPage] = useState(1); // Track current page
     const [cardsPerPage, setCardsPerPage] = useState(6); // Default to 6 cards per page
     const [searchValue , setSearchVal] = useState('');
-    const currentProducts_fetch = useRef([]);
-    const totalPages_fetch = useRef(0);
-    const fetchOrNot = useRef(false);
+    const [showProds, setShowProds] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
         if(event.target.value === "option1") {
-            fetchTheProducts(event.target.value);
+            setShowProds(products);
         }
+        setCurrentPage(1);
     };
     const handleSearch = (event) => {
         setSearchVal(event.target.value);
         let mainVal = event.target.value.trim();
         if(mainVal === '') {
-            fetchTheProducts("option1")
+            setShowProds(products);
         }
+        setCurrentPage(1);
     }
     
     // Dynamically adjust cards per page based on screen size
@@ -78,22 +80,7 @@ const Products = () => {
     //     { id: 10, img: "https://via.placeholder.com/150", name: "Product 10", category: "Electronic", price: 100.000, stock: 10 },
     //   ]);
     
-    const fetchTheProducts = (val) => {
-        let filteredProducts = []
-        fetchOrNot.current = true
-        if(val == "option1") {                
-            filteredProducts=  products
-        }
-        else {  
-           filteredProducts = products.filter((product) => product.cat_id._id == val);
-        }
-        totalPages_fetch.current = Math.ceil(filteredProducts.length / cardsPerPage);
-        let indexOfLastCard = currentPage * cardsPerPage;
-        let indexOfFirstCard = indexOfLastCard - cardsPerPage;
-        currentProducts_fetch.current = filteredProducts.slice(indexOfFirstCard, indexOfLastCard)
-    }
-    
-    const filteredProducts = products;
+    const filteredProducts = showProds
 
     // Logic for pagination
     const totalPages = Math.ceil(filteredProducts.length / cardsPerPage);
@@ -103,50 +90,43 @@ const Products = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
+    useEffect(() => {
+        setLoading(true);
+        if(!isLoading) {
+            setShowProds(products);
+            setLoading(false);
+        }
+    }, [isFetching, cats]);
     
     useEffect(() => {
-        const fetchProdName = async () => {
-            const name = searchValue;
-            let filteredProducts = [];
-            fetchOrNot.current = true
-                try {
-                    const response = await getProdByName(name).unwrap();
-                    filteredProducts = response.products;
-                } catch (error) {
-                    console.log(error);
-                    filteredProducts = products
-                }
-                totalPages_fetch.current = Math.ceil(filteredProducts.length / cardsPerPage);
-                let indexOfLastCard = currentPage * cardsPerPage;
-                let indexOfFirstCard = indexOfLastCard - cardsPerPage;
-                currentProducts_fetch.current = filteredProducts.slice(indexOfFirstCard, indexOfLastCard)
-                // console.log(currentProducts_fetch.current);
+        const fetchProdName = async (item) => {
+            try {
+                const response = await getProdByName(item).unwrap();
+                setShowProds(response.products);
+                // setLoading(false);
+            } catch (error) {
+                console.log(error);
             }
-            if(searchValue.trim() !== '') {
-                fetchProdName();
-            }
+        }
+        if(searchValue.trim() !== '') {
+            fetchProdName(searchValue.trim());
+        }
     }, [searchValue]);
 
     useEffect(() => {
         
-        const fetchDataTemp = async () => {
-            const id = selectedValue;
-            let filteredProducts = [];
-            fetchOrNot.current = true
+        const fetchDataTemp = async (cat_id) => {
             try {
-                const response = await getProdByCat(id).unwrap();
-                filteredProducts = response.product;
+                const response = await getProdByCat(cat_id).unwrap();
+                // console.log(response.product);
+                setShowProds(response.product);
+                // setLoading(false);
             } catch (error) {
-                filteredProducts = products
+                console.log(error);
             }
-            totalPages_fetch.current = Math.ceil(filteredProducts.length / cardsPerPage);
-            let indexOfLastCard = currentPage * cardsPerPage;
-            let indexOfFirstCard = indexOfLastCard - cardsPerPage;
-            currentProducts_fetch.current = filteredProducts.slice(indexOfFirstCard, indexOfLastCard)
-            // console.log(currentProducts_fetch.current);
         }
         if(selectedValue !== "option1") {
-            fetchDataTemp();
+            fetchDataTemp(selectedValue);
         }
     }, [selectedValue])
     const handleDeleteClick = (product) => {
@@ -178,10 +158,12 @@ const Products = () => {
         }
         // setProducts(products.filter((product) => product.id !== selectedProduct.id));
         setIsModalOpen(false);
+        setSelectedProduct(null);
     };
 
     const handleModalClose = () => {
         setIsModalOpen(false);
+        setSelectedProduct(null);
     };
 
     // Form Logic
@@ -207,6 +189,7 @@ const Products = () => {
         }
         setIsFormOpen(false); // Close the form after confirming
     };
+    if(loading) return <div>Loading</div>
     return (
         <>
             <div className="p-5 mx-5 mb-5 bg-green-100 rounded-md">
@@ -252,20 +235,7 @@ const Products = () => {
                     </div> */}
                 </div>
                 <div className="flex flex-wrap justify-start">
-                    {fetchOrNot.current == false ? currentProducts.map((product) => (
-                        <div key={product._id} className="2xl:w-1/7">
-                            <Card 
-                                img={product.image}
-                                name={product.name}
-                                price={product.price}
-                                category={product.cat_id.name}
-                                stock={product.stock}
-                                onDelete={() => handleDeleteClick(product)}
-                                onModify={() => handleModifyClick(product)}
-                                className="w-full mx-2"
-                            />
-                        </div>
-                    )) : currentProducts_fetch.current.map((product) => (
+                    {currentProducts.map((product) => (
                         <div key={product._id} className="2xl:w-1/7">
                             <Card 
                                 img={product.image}
@@ -303,28 +273,22 @@ const Products = () => {
                         onChange={(e) => setCurrentPage(Number(e.target.value))}
                         className="px-2 py-1 border rounded-md focus:outline-none bg-colors-inherit border-none"
                     >
-                        {Array.from({ length: fetchOrNot.current == false ? totalPages : totalPages_fetch.current }, (_, index) => (
+                        {Array.from({ length: totalPages }, (_, index) => (
                         <option key={index + 1} value={index + 1}>
                             Page {index + 1}
                         </option>
                         ))}
                     </select>
                     <button
-                        onClick={() => {
-                            if (fetchOrNot.current == false) {
-                            setCurrentPage(currentPage < totalPages ? currentPage + 1 : totalPages)
-                            } else {
-                            setCurrentPage(currentPage < totalPages_fetch.current ? currentPage + 1 : totalPages_fetch.current)
-                            }
-                        }}
-                        disabled={fetchOrNot.current == false ? currentPage === totalPages : currentPage == totalPages_fetch.current}
+                        onClick={() => setCurrentPage(currentPage < totalPages ? currentPage + 1 : totalPages)}
+                        disabled={currentPage === totalPages}
                         className="px-4 py-2 transition hover:text-colors-green-600 cursor-pointer text-white rounded-r-md"
                     >
                         <NavigateNextIcon />
                     </button>
                     <button
-                        onClick={() => fetchOrNot.current == false ? setCurrentPage(totalPages) : setCurrentPage(totalPages_fetch.current)}
-                        disabled={fetchOrNot.current == false ? currentPage === totalPages : currentPage == totalPages_fetch.current}
+                        onClick={() => setCurrentPage(totalPages)}
+                        disabled={currentPage === totalPages}
                         className="px-4 py-2 transition hover:text-colors-green-600 cursor-pointer text-white rounded-r-md"
                     >
                         <KeyboardDoubleArrowRightIcon />

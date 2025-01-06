@@ -50,7 +50,7 @@ const UserProfile = () => {
     const handleSave = async () => {
         // Save user information logic here
         const user_id = JSON.parse(sessionStorage.getItem('user'))._id;
-        console.log("User information saved:", user);
+        // console.log("User information saved:", user);
         const formData = new FormData()
         formData.append('file', fieldFile)
         formData.append('user', JSON.stringify(user))

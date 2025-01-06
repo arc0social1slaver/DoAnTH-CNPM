@@ -21,7 +21,7 @@ const addProducts = async (req, res) => {
 }
 const getAllProds = async (req, res) => {
     try {
-        const allProduct = await product.find().populate('cat_id',['name', 'createdAt']).sort({createdAt: -1})
+        const allProduct = await product.find().populate('cat_id',['name', 'createdAt']).sort({createdAt: 1})
         res.status(200).send({'message': 'Fetch product successfully', products: allProduct})
     } catch (error) {
         console.error(error);
@@ -42,7 +42,7 @@ const getSugProds = async (req, res) => {
             },
             {
                 $sample: {
-                    size: 4,
+                    size: 5,
                 }
             },
             {
@@ -161,7 +161,7 @@ const searchProdByName = async (req, res) => {
     try {
             const allProductSort = await product.find({
                 name: new RegExp('.*' + name + '.*')
-            }).populate('cat_id',['name', 'createdAt']).sort({createdAt: -1})
+            }).populate('cat_id',['name', 'createdAt']).sort({createdAt: 1})
             res.status(200).send({'message': 'Fetch product successfully', products: allProductSort})
     } catch (error) {
         console.log(error)

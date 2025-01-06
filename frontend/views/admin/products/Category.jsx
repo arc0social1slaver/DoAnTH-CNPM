@@ -248,7 +248,7 @@ const Category = () => {
                         <div key={category._id} className="">
                             <CategoryCard 
                                 name={category.name}
-                                date={new Date(category.createdAt).toUTCString()}
+                                date={new Date(category.createdAt).toLocaleString('vi-VN')}
                                 onDelete={() => handleDeleteClick(category)}
                                 onModify={() => handleModifyClick(category)}
                                 className="w-full"

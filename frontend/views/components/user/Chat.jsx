@@ -127,7 +127,23 @@ const ChatApp = () => {
       console.log(roomID);
       
       socket.on("get-message", () => {
-        getMessages(roomID);
+        getMessages(roomID)
+        // axios.get(`${getBEURL()}/api/messages/${roomID}`)
+        // .then((val) => {
+        //   setMessages(val.data.all_mess)
+        //   // console.log(val);
+          
+        // })
+        // .catch((error) => {
+        //   console.log(error);
+        //   Swal.fire({
+        //         position: "center",
+        //         icon: "error",
+        //         title: "Lỗi tin nhắn",
+        //         showConfirmButton: true,
+        //         timer: 1500
+        //   });
+        // })
         // console.log("Received here")
       })
       return () => {
@@ -139,23 +155,36 @@ const ChatApp = () => {
   useEffect(() => {
     scrollToBottom()
   });
-  const getMessages = (roomID) => {
-    axios.get(`${getBEURL()}/api/messages/${roomID}`)
-        .then((val) => {
-          setMessages(val.data.all_mess)
-          // console.log(val);
-          
-        })
-        .catch((error) => {
-          console.log(error);
-          Swal.fire({
+  const getMessages = async (roomID) => {
+    try {
+      const resp = await axios.get(`${getBEURL()}/api/messages/${roomID}`)
+      setMessages(resp.data.all_mess)
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
                 position: "center",
                 icon: "error",
                 title: "Lỗi tin nhắn",
                 showConfirmButton: true,
                 timer: 1500
-          });
-        })
+      });
+    }
+    // axios.get(`${getBEURL()}/api/messages/${roomID}`)
+    //     .then((val) => {
+    //       setMessages(val.data.all_mess)
+    //       // console.log(val);
+          
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       Swal.fire({
+    //             position: "center",
+    //             icon: "error",
+    //             title: "Lỗi tin nhắn",
+    //             showConfirmButton: true,
+    //             timer: 1500
+    //       });
+    //     })
   }
   // const messages = [
   //   { text: "Xin chào!", sentByMe: false },
@@ -178,7 +207,7 @@ const ChatApp = () => {
           selectedUser={selectedUser}
           onSelectUser={(user) => handleRoom(user)}
           messages={messages}
-          getMessages={getMessages}
+          // getMessages={getMessages}
         />
       )}
     </>
