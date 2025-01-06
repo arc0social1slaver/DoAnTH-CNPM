@@ -17,7 +17,7 @@ const SideBar = () => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "User logout successfully",
+            title: "Đăng xuất thành công",
             showConfirmButton: true,
             timer: 1500
           });
@@ -25,7 +25,7 @@ const SideBar = () => {
           Swal.fire({
             position: "center",
             icon: "warning",
-            title: "User logout unsuccessfully",
+            title: "Đăng xuất không thành công",
             showConfirmButton: true,
             timer: 1500
           });
@@ -70,7 +70,7 @@ const SideBar = () => {
 
         <div className="h-1/6 w-full flex items-center justify-center gap-3 text-xl cursor-pointer hover:text-green-900">
           <button onClick={handleLogout} className="py-5 transition-all ease-in-out delay-75 bottom-5 flex gap-3 items-center">
-            <span className="hidden md:block">Log out</span>
+            <span className="hidden md:block">Đăng xuất</span>
             <ExitToAppOutlinedIcon className="text-4xl" />
           </button>
         </div>

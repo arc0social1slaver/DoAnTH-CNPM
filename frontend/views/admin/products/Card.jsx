@@ -1,13 +1,12 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import getBEURL from '../../utils/backendURL';
 
 const Card = ({ img, name, price, category, stock, onDelete, onModify }) => {
   return (
-    <div className="bg-white-100 w-64 rounded-xl p-4 flex flex-col gap-4 mb-2">
+    <div className="bg-white-100 w-64 rounded-xl p-4 flex flex-col gap-4 mb-2 mx-2">
         <div className='w-full flex justify-center'>
-            <img src={`${getBEURL()}/images/${img}`} alt="product image" width={200} height={200}/>
+            <img src={`${getBEURL()}/images/${img}`} alt="product image" className='h-48 w-36'/>
         </div>
         <div className="flex w-full items-center flex-col gap-2">
             <p className="text-center pointer-events-none text-xl text-bold">{name}</p>
@@ -22,11 +21,7 @@ const Card = ({ img, name, price, category, stock, onDelete, onModify }) => {
                 <p className=''>Số lượng: <span>{stock}</span></p>
                 <p>Giá: <span>{price.toLocaleString()}</span></p>
             </div>
-            <div className='w-full flex justify-between mt-3'>
-                {/* <div className='py-1 px-2 bg-green-900 hover:bg-colors-green-700 text-white-100 transition-all rounded-sm cursor-pointer flex gap-1 items-center justify-center' onClick={onModify}>
-                    <ModeEditIcon className='hover:text-green-900 transition cursor-pointer'/>
-                    <span>Chỉnh sửa</span>
-                </div> */}
+            <div className='w-full flex justify-center mt-3'>
                 <div className='py-1 px-2 bg-colors-red-500 hover:bg-colors-red-800 text-white-100 transition-all cursor-pointer rounded-sm flex gap-1 items-center justify-center' onClick={onDelete}>
                     <DeleteIcon className='text-white-100 hover:text-white-100' />
                     <span>Xóa</span>

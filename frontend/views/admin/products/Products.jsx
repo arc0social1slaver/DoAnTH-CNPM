@@ -1,5 +1,4 @@
 import Card from "./Card";
-import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, useEffect, useRef } from "react";
 import Modal from "./Modal";
@@ -10,7 +9,6 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { useDeleteProdMutation, useFetchAllProdsQuery, useLazyFetchAllProdsByCatQuery, useLazyFetchAllProdsByNameQuery } from "../../redux/feature/prodAPI";
 import { useFetchAllCatsQuery } from "../../redux/feature/catAPI";
@@ -232,8 +230,6 @@ const Products = () => {
                                     <option key={category._id} value={category._id}>{category.name}</option>
                                 ))
                             }
-                            {/* <option value="option2">Đang hoạt động</option>
-                            <option value="option3">Không hoạt động</option> */}
                         </select>
                     </div>
                     <div className="flex items-center p-1 w-full md:w-1/3 gap-4">
@@ -255,9 +251,9 @@ const Products = () => {
                         <span>Thêm sản phẩm</span>
                     </div> */}
                 </div>
-                <div className="flex flex-wrap gap-8 justify-center">
+                <div className="flex flex-wrap justify-start">
                     {fetchOrNot.current == false ? currentProducts.map((product) => (
-                        <div key={product._id} className="2xl:w-1/5">
+                        <div key={product._id} className="2xl:w-1/7">
                             <Card 
                                 img={product.image}
                                 name={product.name}
@@ -266,11 +262,11 @@ const Products = () => {
                                 stock={product.stock}
                                 onDelete={() => handleDeleteClick(product)}
                                 onModify={() => handleModifyClick(product)}
-                                className="w-full"
+                                className="w-full mx-2"
                             />
                         </div>
                     )) : currentProducts_fetch.current.map((product) => (
-                        <div key={product._id} className="2xl:w-1/5">
+                        <div key={product._id} className="2xl:w-1/7">
                             <Card 
                                 img={product.image}
                                 name={product.name}
@@ -279,7 +275,7 @@ const Products = () => {
                                 stock={product.stock}
                                 onDelete={() => handleDeleteClick(product)}
                                 onModify={() => handleModifyClick(product)}
-                                className="w-full"
+                                className="w-full mx-2"
                             />
                         </div>
                     ))}
