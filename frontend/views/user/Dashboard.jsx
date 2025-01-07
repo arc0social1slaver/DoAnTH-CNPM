@@ -1,63 +1,86 @@
-import { Link } from "react-router-dom"; 
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; 
+import { useFetchSugProductsQuery } from "../redux/feature/prodAPI";
+import Currency from "../components/user/Currency";
+import {useDispatch} from "react-redux";
+import { addToCart } from "../redux/feature/cartSlice";
+import getBEURL from "../utils/backendURL";
 
 const UserDashboard = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Áo Thun Nâu Local Brand",
-      price: "100,000 VND",
-      image: "https://i.pinimg.com/736x/95/d2/71/95d271edf1d4d46380991c18a444860f.jpg",
-    },
-    {
-      id: 2,
-      name: "Giáo Trình Triết Học Mác-Lênin",
-      price: "30,000 VND",
-      image: "https://i.pinimg.com/736x/88/8f/d2/888fd2ca8ecf53336b2797daf03d62f3.jpg",
-    },
-    {
-      id: 3,
-      name: "MacBook Air",
-      price: "8,000,000 VND",
-      image: "https://i.pinimg.com/736x/38/65/94/386594135756b1c8572b20991e9dd963.jpg",
-    },
-    {
-      id: 4,
-      name: "Đầm Cúp Ngực Hồng Nơ Trắng New 99% Còn Nguyên Tag",
-      price: "200,000 VND",
-      image: "https://i.pinimg.com/736x/cc/b7/3a/ccb73a8a9197ce873993afd8b9d88b71.jpg",
-    },
-    {
-      id: 5,
-      name: "MacBook Air",
-      price: "8,000,000 VND",
-      image: "https://i.pinimg.com/736x/38/65/94/386594135756b1c8572b20991e9dd963.jpg",
-    },
-    {
-      id: 6,
-      name: "MacBook Air",
-      price: "8,000,000 VND",
-      image: "https://i.pinimg.com/736x/38/65/94/386594135756b1c8572b20991e9dd963.jpg",
-    },
-  ];
+  if(!sessionStorage.getItem('user')) return null;
+  const id = JSON.parse(sessionStorage.getItem('user'))?._id;
+  const navigate = useNavigate();
+  
+  const dispatch = useDispatch();
+  const handleAddProd = (product) => {
+   dispatch(addToCart(product))
+}
+  // const [products, setProducts] = useState([]);
+  // useEffect(() => {
+  //   fetch("http://localhost:3000/api/products")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //     setProducts(data.products);
+  //     // console.log('Products data:', data);
+  //     })
+  //     .catch((error) => console.error('Error fetching products:', error));
+  // }, []);
+  // const { data: { products = [] } = {} } = useFetchAllProdsQuery();
+  const {data: {products = []} = {}} = useFetchSugProductsQuery(id);
+  // console.log(productMess.products);
+// import { Link } from "react-router-dom"; 
+// import Currency from "../components/user/Currency";
+
+// const UserDashboard = () => {
+//   const [products, setProducts] = useState([]);
+//   useEffect(() => {
+//     fetch("http://localhost:3000/products")
+//       .then((response) => response.json())
+//       .then((data) => {
+//       setProducts(data);
+//       console.log('Products data:', data);
+//       })
+//       .catch((error) => console.error('Error fetching products:', error));
+//   }, []);
 
   return (
-    <div className="container mx-auto p-2">
+    <div className="flex flex-col min-h-screen items-center mx-auto p-4">
       <h1 className="text-2xl text-green-700 font-bold mt-8">GỢI Ý HÔM NAY</h1>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-2">
-        {products.map((product) => (
-          <div key={product.id} className="w-48 space-x-4 mt-8">
-          <Link to={`/product/${product.id}`}>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-48 h-48 object-cover rounded-md"
-            />
-            <h2 className="text-base mt-2 line-clamp-2">{product.name}</h2>
-            <p className="text-base text-green-700 font-semibold mt-4">{product.price}</p>
-            </Link>
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4 w-full md:max-w-5xl">
+      <div className="col-span-full flex items-center justify-start gap-4 -mx-2 md:-mx-4 border-t-2 border-green-700 my-4">
+        {products.map((product, index) => (
+          <div 
+            // to={`/product/${product._id}`} 
+            key={index}
+            className="flex flex-col items-center w-48 md:w-48 space-x-4 mt-8 border border-colors-gray-200 p-4 h-auto"
+          >
+              <img
+                src={`${getBEURL()}/images/${product.image}`}
+                alt={product.name}
+                className="w-full h-48 object-cover"
+              />
+               <h2 className="text-base text-center line-clamp-2">{product.name}</h2>
+              <p className="text-base text-green-700 font-semibold text-center"><Currency amount={product.price}/></p>
+              <button
+              onClick={() => handleAddProd(product)}
+              // onClick={() => navigate(`/user/product/${product._id}`)}
+              className="w-full py-2 bg-green-700 text-white font-semibold text-sm rounded-md mt-auto hover:bg-green-800 transition-colors"
+               >
+                Thêm vào giỏ hàng
+            </button>
+            <Link 
+          to={`/user/product/${product._id}`} 
+          className="text-green-700 font-semibold mt-2 hover:underline"
+        >
+          Chi tiết sản phẩm
+        </Link>
+          {/* </div>  */}
+              {/* <h2 className="text-base my-2 mx-2 line-clamp-2">{product.name}</h2> */}
+              {/* <p className="text-base text-green-700 font-semibold mx-2 my-2"><Currency amount={product.price} /></p> */}
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

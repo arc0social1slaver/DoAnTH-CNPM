@@ -1,24 +1,21 @@
-import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import ChatApp from '../components/user/Chat';
+import Navbar from '../components/user/Navbar';
 import { Outlet } from "react-router-dom";
+import { AuthProvide } from '../context/AuthContext';
 
-export default function RootLayout({ children }) {
+const UserLayout = () => {
     return (
-        <html lang="en">
+        <AuthProvide>
             <Navbar />
-            <body className="min-h-screen flex flex-col">
-                <main className="flex-grow">{children}</main>
-                
+            <div>
                 <Outlet />
-                
-            </body>
+                <ChatApp />
+            </div>
             <Footer />
-        </html>
+        </AuthProvide>
     );
 }
 
-RootLayout.propTypes = {
-    children: PropTypes.node.isRequired,
-};
+export default UserLayout;
 

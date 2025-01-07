@@ -7,6 +7,23 @@ export default {
     "./views/**/*.{html,js,jsx,ts,tsx}", // Make sure it covers all your relevant files
   ],
   theme: {
+    screens: {
+      'xs': '480px',
+      'sm': '640px',
+      // => @media (min-width: 640px) { ... }
+
+      'md': '768px',
+      // => @media (min-width: 768px) { ... }
+
+      'lg': '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      'xl': '1280px',
+      // => @media (min-width: 1280px) { ... }
+
+      '2xl': '1536px',
+      // => @media (min-width: 1536px) { ... }
+    },
     colors: {
       colors,
       sky: colors.sky,  // Replace lightBlue with sky
@@ -21,6 +38,7 @@ export default {
       green: {
         100: '#ECFADC',
         700: '#9FD4A3',
+        900: '#69bc6f',
       },
       white: {
         100: '#FFFFFF',
@@ -28,6 +46,14 @@ export default {
       black: {
         900: '#000000',
       },
+      "primary": "#FAFAFA",
+    "btn": "#80D8DA",
+    "accent": "#FFCF56",
+    "neutral-dark": "#2E2E2E",
+    "neutral-light": "#F8F9FA",
+    "success": "#28A745",
+    "warning": "#FFC107",
+    "error": "#DC3545",
     },
     extend: {},
   },

@@ -1,96 +1,92 @@
-# Project Đồ án CNPM
+# ThriftMate - Second-hand Clothing E-commerce
 
-## Intro
+## About
 
-```bash
-git clone https://github.com/arc0social1slaver/DoAnTH-CNPM.git
-cd DoAnTH-CNPM
-# Both front and end
-npm install
-```
+ThriftMate is an e-commerce platform specialized in second-hand clothing, allowing users to buy and sell pre-loved fashion items.
 
-## Anh em muốn commit thì nên commit trên một nhánh khác, chỉ nên commit trên main khi đã xong
+## Tech Stack
 
-### Trường hợp chưa tạo nhánh
+- **Frontend**: React.js, TailwindCSS
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Authentication**: JWT
 
-Syntanx tạo branch
+## Features
 
-```bash
-git switch -C feature/abc
-# or
-git checkout -b feature/abc
-```
+- User authentication & authorization
+- Product listing and search
+- Shopping cart functionality
+- Order management
+- User profiles
+- Admin dashboard
 
-Khi tạo branch, nên để prefix là feature (làm vậy cho chuyên nghiệp)
-Tạo xong nhớ push
+## Installation
 
-```bash
-git push --set-upstream origin feature/abc
-```
+### Prerequisites
 
-### Trường hợp đã có branch rùi
+- Node.js (v14+)
+- MongoDB
+- Git
 
-Chỉ cần
+### Setup Steps
 
-```bash
-git switch feature/abc
-# or
-git checkout feature/abc
-```
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/arc0social1slaver/DoAnTH-CNPM.git
+    cd DoAnTH-CNPM
+    ```
 
-## Push lên repo
+2. **Install backend dependencies**
+    ```bash
+    cd backend
+    npm install
+    ```
 
-```bash
-git add .
-git commit -m "abcdef"
-git push origin feature/abc
-```
+3. **Install frontend dependencies**
+    ```bash
+    cd frontend
+    npm install
+    ```
 
-## Mún update project
+4. **Install socket server dependencies**
+    ```bash
+    cd socket
+    npm install
+    ```
 
-Trước khi làm gì nên pull về máy trước để tránh conflict nha
+5. **Create environment variables**
 
-```bash
-git pull
-```
+    - In the `backend` directory, create a `.env` file:
+        ```
+        MONGODB_URI=your_mongodb_uri
+        JWT_SECRET=your_jwt_secret
+        PORT=5000
+        ```
 
-## Start project
+    - In the `frontend` directory, create a `.env` file:
+        ```
+        REACT_APP_API_URL=http://localhost:5000
+        ```
 
-Anh em nào chưa tải mongodb thì comment những gì liên quan đến nó rồi mới chạy cái ở dưới
+    - In the `socket` directory, create a `.env` file:
+        ```
+        SOCKET_PORT=5001
+        ```
 
-```bash
-npm start
-```
+6. **Run the backend server**
+    ```bash
+    cd backend
+    npm run dev
+    ```
 
-### Front end
+7. **Run the frontend server**
+    ```bash
+    cd frontend
+    npm run dev
+    ```
 
-Nhóm front end làm việc trong thư mục views. File .ejs không khác gì file .html nên anh em cứ code như bình thường nha.
-Thư mục assets để chứa các file css và javascript.
-Khi làm việc với file html, anh em nên có một layout bao gồm header và footer.
-Nếu không có gì thay đổi thì chắc mình sẽ có 2 layout:
-
-1. Layout cho users
-2. Layout cho admin
-
-#### Run Front End
-
-```
-npm run dev
-```
-
-Mục đích của layout là để tránh lặp đi lặp lại thui và giúp anh em tập trung vô phần content hơn.
-
-### Back end
-
-Anh em bên backend nên tải mongo trước nha. Chắc back end sẽ làm chủ yếu hai thứ:
-
-1. CRUD: thêm, sửa, xóa
-2. Chat giữa buyer và user (nếu rảnh thì làm)
-
-Có gì thay đổi thì ấy sau. Giờ nhiu đó thui.
-
-#### Run Back End
-
-```
-npm start
-```
+8. **Run the socket server**
+    ```bash
+    cd socket
+    npm run dev
+    ```

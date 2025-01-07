@@ -1,0 +1,59 @@
+import { useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFetchSugCatsQuery } from '../../redux/feature/catAPI';
+
+const ProductCategory = () => {
+    const navigate = useNavigate();
+    const [isHovered, setIsHovered] = useState(false);
+    // const {data : {cats = []} = {}} = useFetchAllCatsQuery();
+    const {data: {cats = []} = {}} = useFetchSugCatsQuery();    
+    const timeoutRef = useRef(null);
+    const handleMouseEnter = () => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current); 
+        }
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        timeoutRef.current = setTimeout(() => {
+            setIsHovered(false);
+        }, 200);
+    };
+    return (
+        <div 
+            className='relative'
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+        >
+            <button className="font-bold text-green-700 hover:text-opacity-75" onClick={() => navigate("/user/product/cat/all")}>Danh mục sản phẩm</button>
+            {isHovered && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-colors-white border border-green-700 rounded-md shadow-lg">
+                    <ul>
+                        {/* <li className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
+                            <Link to="/fashion">Thời trang</Link>
+                        </li>
+                        <li className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
+                            <Link to="/beauty">Sắc đẹp</Link>
+                        </li>
+                        <li className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
+                            <Link to="/documents">Tài liệu</Link>
+                        </li>
+                        <li className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
+                            <Link to="/electronics">Thiết bị điện tử</Link>
+                        </li> */}
+                        {
+                            cats.map((cat, index) => (
+                                <li key={cat._id} className="p-2 text-colors-gray-600 hover:font-bold hover:text-green-700 cursor-pointer">
+                                <Link to={`/user/product/cat/${cat._id}`}>{cat.name}</Link>
+                            </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default ProductCategory;
